@@ -24,12 +24,12 @@
 
 - **Andrew Pham** - Project Leader <br>
   - text
-  - Page Link
+  - [Andrew's Page](https://github.com/AndrewDPham)
 
 
 - **Angus Yick** - Developer/Planner <br>
   - text
-  - Page Link
+  - [Angus' Page](https://github.com/angusyick)
 
 
 - **Eric Jin** - Dedicated Developer <br>
@@ -39,7 +39,7 @@
 
 - **Ikjoon "Junny" Park** - Dedicated Developer<br>
   - text
-  - Page Link
+  - [Junny's Page](https://github.com/ikjoonp)
 
 
 - **Joe Ikedo** - Developer/Planner<br>
