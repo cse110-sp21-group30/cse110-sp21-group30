@@ -54,7 +54,7 @@
 
 - **Sonika Ram** - Developer/Designer <br>
   - text
-  - page link
+  - [Sonika's Page](https://sramcode.github.io/CSE110Lab1/)
 
 
 - **Thet Zaw** - Project Leader <br>
