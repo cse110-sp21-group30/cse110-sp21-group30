@@ -23,41 +23,41 @@
 <div style="text-align:left"><img src="https://i.imgur.com/xgP1rq9.png" width="270"/></div>
 
 - **Andrew Pham** - Project Leader <br>
-  - text
+  - Second year Computer Science major at UCSD. Likes programming in Java, sleeping/chilling, and is a music buff. 
   - [Andrew's Page](https://github.com/AndrewDPham)
 
 
 - **Angus Yick** - Developer/Planner <br>
-  - text
+  - Second year Computer Engineering major at UCSD. Active member of the *Triton AI* club and heavily invested in Dr. Bean's rich lore. 
   - [Angus' Page](https://github.com/angusyick)
 
 
 - **Eric Jin** - Dedicated Developer <br>
-  - text
+  - Second year Computer Science major at UCSD. Gamer, runner, and football fan. Also throws dope Jackbox parties. 
   - [Eric's Page](https://ericljin.github.io/)
 
 
 - **Ikjoon "Junny" Park** - Dedicated Developer<br>
-  - text
+  - Second year Computer Science major at UCSD. Fan of all things haute couture and vogue, and a pizza connoisseur to boot.
   - [Junny's Page](https://github.com/ikjoonp)
 
 
 - **Joe Ikedo** - Developer/Planner<br>
-  - Co-planner/developer, and avid fan of Dr. Bean.  <br>
+  - Second year Computer Science major at UCSD. Likes playing *Monster Hunter* and watching classic anime. Also enjoys learning modeling in Blender.    <br>
   - [Joe's Page](https://joeikedo.github.io/Joe-Ikedo-Page/)
 
 
 - **Nataly Buhr** - Note-taker/Designer <br>
-  - text
+  - Second year Computer Science major at UCSD. Fan of *Jujutsu Kaisen* and *Genshing Impact* and a dog lover as well. 
   - [Nataly's Page](https://nbuhr9.github.io/)
 
 
 - **Sonika Ram** - Developer/Designer <br>
-  - text
+  - Second year Computer Science major at UCSD. Enjoys watching *Criminal Minds*, spending time outdoors and programming in Java. 
   - [Sonika's Page](https://sramcode.github.io/CSE110Lab1/)
 
 
 - **Thet Zaw** - Project Leader <br>
-  - text
+  - Second year Computer Engineering major at UCSD. Runner, photographer, and fan of building mechanical keyboards. 
   - [Thet's Page](https://thetz.github.io/)
 
