@@ -29,7 +29,7 @@
 
 - **Angus Yick** - Developer/Planner <br>
   - Second year Computer Engineering major at UCSD. Active member of the *Triton AI* club and heavily invested in Dr. Bean's rich lore. 
-  - [Angus' Page](https://github.com/angusyick)
+  - [Angus' Page](https://angusyick.github.io/CSE110GitRepo/)
 
 
 - **Eric Jin** - Dedicated Developer <br>
