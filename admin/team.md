@@ -24,7 +24,7 @@
 
 - **Andrew Pham** - Project Leader <br>
   - Second year Computer Science major at UCSD. Likes programming in Java, sleeping/chilling, and is a music buff. 
-  - [Andrew's Page](https://github.com/AndrewDPham)
+  - [Andrew's Page](https://andrewdpham.github.io/)
 
 
 - **Angus Yick** - Developer/Planner <br>
