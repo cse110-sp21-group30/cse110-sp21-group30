@@ -39,7 +39,7 @@
 
 - **Ikjoon "Junny" Park** - Dedicated Developer<br>
   - Second year Computer Science major at UCSD. Fan of all things haute couture and vogue, and a pizza connoisseur to boot.
-  - [Junny's Page](https://github.com/ikjoonp)
+  - [Junny's Page](https://ikjoonp.github.io/)
 
 
 - **Joe Ikedo** - Developer/Planner<br>
