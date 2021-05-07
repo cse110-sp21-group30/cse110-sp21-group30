@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		Testing
+	</title>
+</head>
+<body>
+
+	<!-- <img scr="" id="picture_input" width=100% > -->
+    <div id="tabs">
+        <ul class="nav nav-tabs" id="prodTabs">
+            <li class="active"><a href="#tab_basic">Basic</a></li>
+            <li><a href="#tab_images" data-url="?action=images">Images</a></li>
+            <li><a href="#tab_videos" data-url="?action=videos">Videos</a></li>
+        </ul>
+        <div class="tab-content">
+            <div id="tab_basic" class="tab-pane active"></div>
+            <div id="tab_images" class="tab-pane active"></div>
+            <div id="tab_videos" class="tab-pane active"></div>
+        </div>
+    </div>
+	<script>
+        $('#tabs').on('click','.tablink,#prodTabs a',function (e) {
+    e.preventDefault();
+    var url = $(this).attr("data-url");
+
+    if (typeof url !== "undefined") {
+        var pane = $(this), href = this.hash;
+
+        // ajax load from data-url
+        $(href).load(url,function(result){      
+            pane.tab('show');
+        });
+    } else {
+        $(this).tab('show');
+    }
+});
+		// fetch('https://api.github.com/emojis')
+		// .then (response =>{
+        //     console.log(response);
+		// 	return response.json();
+		// } ) .then(json => {
+        //     console.log(json);
+		// 	//document.getElementByID('picture_input').src=URL.createObjectURL(blob);
+		// });
+        </script>
+</body>
+</html>

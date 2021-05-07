@@ -1,0 +1,19 @@
+* {
+    color: #3d3d3d;
+    font-family: 'Arial', sans-serif;
+    background-color: #EFECCA;
+  }
+  
+.container {
+    align-items: center;
+    display: grid;
+    justify-items: center;
+    margin: 100px 0 0 0;
+    width: 100%;
+  }
+
+#logbutton{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+}

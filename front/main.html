@@ -1,0 +1,59 @@
+<!--
+      To Do:
+        We need to add a search bar, to add logo, 3 bar icon (for log out, "hello ___", etc.)
+      need to make sure the top bar stays in place when scrolling, add the
+      create button
+      -This month 
+	     - add a placeholder for the name of current month
+		 - add a placeholder for the notes section
+      -past
+	     - title ("Past")
+		 - add a placeholder for the entries
+      -future
+	     - title ("Future")
+      -custom
+	     - title ("Custom")
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>
+		Login
+	</title>
+	<link rel="stylesheet" href="main.css">
+    <script>
+
+    function myFunction() {
+      document.getElementById("whatup").innerHTML = `
+      <style>
+        p {
+          font-family: Comic Sans;
+        }
+      </style>
+      <p>Whatupppp</p>`;
+
+      let Img = document.createElement('img');   
+      Img.src = "rainbow.jpeg";
+      document.getElementById("putimghere").appendChild(Img);
+    }
+
+    </script>   
+</head>
+<body>
+<div class="topnav">
+  <a href="login.html" id="monthly" class="entry">Monthly</a>
+  <a href="#past" id="past">Past</a>
+  <a href="#future" id="future">Future</a>
+  <a href="#custom" id="custom">Custom</a>
+  <a onclick="myFunction()" id="hi">Hello</a>
+  <p id="whatup"></p>
+
+  
+</div>
+<div id="putimghere">lkasjdfl;kajsdf</div>
+</body>
+</html>
