@@ -1,0 +1,130 @@
+<!-- feedl free to go on github branch and copy code ok -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+		<title>Bullet Journal</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+        <!-- header will be sticky (fixed) -->
+        <header>
+            <!-- team logo in far left -->
+            <span><img class="grid_item1" id="logo" src="./images/logo.png" alt="Picture of Cool Bean (team logo)"></span>
+
+            <!-- placeholder for where dates overview would go -->
+            <span class="grid_item2">Dates Overview Placeholder</span>
+
+            <section class="grid_item3">
+                <!-- search-by-date with submit button -->
+                <span class="search"> 
+                    <input type="date" id="date-search" name="date-search">
+                    <input type="submit" id="search-button1" value="Search by Date">
+                </span>
+
+                <!-- search-by-label with submit button -->
+                <span class="search"> 
+                    <select id="select">
+                        <option value="">--Label--</option>
+                        <option value="work">Work</option>
+                        <option value="school">School</option>
+                        <option value="fitness">Fitness</option>
+                        <option value="personal">Personal</option>
+                        <input type="submit" id ="search-button1" value="Search by Label">
+                    </select>
+                </span>
+                <!-- Archive button (image)-->
+                <span><img id="archive" src="./images/folder.png" alt="Archive button"></span>
+
+                <!-- FAQ button (image) -->
+                <span><img id="FAQ" src="./images/question-mark.png" alt="FAQ button"></span>
+            </section>
+
+        </header>
+       
+        <!-- the default is a 3-column view -->
+        <section id="column_view">
+            <div class="content">
+                <div class="box">
+                    <h1>High Priority</h1>
+                        <ul class="task-list" id="to-do">
+                            <li class="task">
+                                <p>lasjdlfkjsldf</p>
+                            </li>
+                            <li class="task">
+                                <p>lasjdlkjsf</p>
+                            </li>
+                            <li class="task">
+                                <p>hellloo</p>
+                            </li>
+                        </ul>
+                </div>
+                <div class="box">
+                    <h1>Incomplete</h1>
+                        <ul class="task-list" id="to-do">
+                            <li class="task">
+                                <p>lasjdlfkjsldf</p>
+                            </li>
+                            <li class="task">
+                                <p>lasjdlkjsf</p>
+                            </li>
+                            <li class="task">
+                                <p>hellloo</p>
+                            </li>
+                        </ul>
+                </div>
+                <div class="box">
+                    <h1>Completed</h1>
+                        <ul class="task-list" id="to-do">
+                            <li class="task">
+                                <p>lasjdlfkjsldf</p>
+                            </li>
+                            <li class="task">
+                                <p>lasjdlkjsf</p>
+                            </li>
+                            <li class="task">
+                                <p>hellloo</p>
+                                </li>
+                        </ul>
+                </div>
+            </div>
+        </section id="column_view">
+
+        <!-- the user can toggle in and out of the Archive (NOT FINISHED)-->
+
+        <!-- the user can create new bullet points with the editor -->
+        <section id="editor">
+            <!--button to allow the user to add high priority -->
+            <button id="hp" type="button" onclick="alert('Hello world!')">High Priority</button>
+                
+            <!-- user can enter specific bullet point contents -->
+            <div class="editor_text">
+                <p id="text" contenteditable=true>Start typing your entry here! Basic keyboard shortcuts work (ctrl+b for bold, ctrl+i for italics, ctrl+u for underline).</p>
+            </div>
+            
+            <!-- user can assign a date -->
+            <div>
+                <input type="date" id="entry-date" name="entry-date">
+            </div>
+
+            <!-- user can assign a label-->
+            <div class="labels"> 
+                <select id="select">
+                    <option value="">--Label--</option>
+                    <option value="work">Work</option>
+                    <option value="school">School</option>
+                    <option value="fitness">Fitness</option>
+                    <option value="personal">Personal</option>
+                </select>
+            </div>
+        </section>
+
+
+    </body>
+
+
+    </html>
