@@ -99,12 +99,17 @@
         <!-- the user can create new bullet points with the editor -->
         <section id="editor">
             <!--button to allow the user to add high priority -->
-            <button id="hp" type="button" onclick="alert('Hello world!')">High Priority</button>
+            <section class="grid2_item1">
+                <input type="checkbox" id="hp" name="check_priority" value="priority">
+                <label for="check_priority">Is this a high priority?</label>
+            </section>
                 
             <!-- user can enter specific bullet point contents -->
-            <div class="editor_text">
-                <p id="text" contenteditable=true>Start typing your entry here! Basic keyboard shortcuts work (ctrl+b for bold, ctrl+i for italics, ctrl+u for underline).</p>
-            </div>
+            <section class="grid2_item2">
+                <div class="editor_text">
+                    <p  id="text" contenteditable=true>Start typing your entry here! Basic keyboard shortcuts work (ctrl+b for bold, ctrl+i for italics, ctrl+u for underline).</p>
+                </div>
+            </section>
             
             <!-- user can assign a date -->
             <div>
