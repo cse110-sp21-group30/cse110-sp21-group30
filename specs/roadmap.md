@@ -1,8 +1,10 @@
-As of 4/25/2021, our goals are:
+Our previous roadmap goals had to be pushed back as we decided to make make significant changes to our project design after consulting a TA and the professor.
 
-- Week 7: Have a Minimum Viable Product ready (should be able to create a post on the front-end and store in the back-end, view posts in the monthly tab, and handle GET/POST requests).
-- Week 8: Our own version of Markdown and tabs/labels should be implemented
-- Week 9: Migration should be implemented
+As of 5/16/2021, our new goals for the project are:
+
+- Beginning of Week 8: Have a skeleton prepared
+    - This means a non-interactive implementation of the wireframe
+- Beginning of Week 9: Have a Minimum Viable Product ready
+    - This means an interactive application (dynamic creation, editing, migration, and deletion of bullet points)
 - Week 10: Finishing touches
-
-(This is subject to change as we gain a better understanding of the workload.)
+    - This means search-by-date and search-by-label functions should be implemented, along with any additional decorative improvements (if time allows)
