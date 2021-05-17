@@ -7,13 +7,13 @@ var completed_array = [];
 function populate_global_arrays() {
     if (localStorage.getItem("HP") === null) {
         localStorage.setItem("HP", JSON.stringify([]));
-    } 
+    }
     if (localStorage.getItem("LP") === null) {
         localStorage.setItem("LP", JSON.stringify([]));
-    } 
+    }
     if (localStorage.getItem("C") === null) {
         localStorage.setItem("C", JSON.stringify([]));
-    } 
+    }
 
     high_priority_array = JSON.parse(localStorage.getItem("HP"));
     low_priority_array = JSON.parse(localStorage.getItem("LP"));
@@ -34,7 +34,7 @@ function create_bullet_db(bullet){
 function high_low_migration(task_field, index) {
     let origin_list = JSON.parse(localStorage.getItem(task_field));
     let temp_bullet = origin_list[index];
-    
+
     if (task_field == 'HP') {
         delete_bullet_db(task_field, index);
         temp_bullet.task_field = 'LP';
@@ -72,19 +72,40 @@ function create_bullet(e) {
     /* TODO: will have to change how we handle labels later; will probably have to loop
     across all label checkboxes and add the ones that have been selected to labels */
     let bullet = JSON.stringify({
-        "task_field": task_field, 
-        "labels": labels, 
+        "task_field": task_field,
+        "labels": labels,
         "deadline": deadline,
         "content": content,
         "CompTimeStamp": null
     });
-    
+
     create_bullet_db(bullet); // CUD
     populate_global_arrays(); // READ
     updateView();
 }
 
+function dispDate()
+{
+    //renders the week, starting from yesterday. Formatted like (Tue 15)
+    let arr = []; //currently just a placeholder, could change
+    let today = new Date();
+    const options = { weekday: 'long'};
+
+    for(let i = -1; i < 6; i++)
+    {
+        let day = new Date(today);
+        day.setDate(day.getDate() + i); //i is an "offset" from today
+        let dayOfWeek = new Intl.DateTimeFormat('en-US', options).format(day); //turns 0-6 into Sunday - Saturday
+        let disp = {
+            dayOfWeek: dayOfWeek.substring(0,3), //Sun-Sat
+            date: day.getDate()
+        }
+        arr.push(disp);
+    }
+    console.log(arr);
+}
+
 //TODO
 function updateView() {
-    
+
 }
