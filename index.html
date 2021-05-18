@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+	    <title>Bullet Journal</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="/images/logo.png">
+        <link rel="stylesheet" href="style.css">
+        <script src="/script.js" type="module"></script>
+    </head>
+
+    <body>
+        <!-- Header will be sticky (fixed) -->
+        <header>
+            <!-- Team logo in far left -->
+            <img class="grid_item1" id="logo" src="/images/logo.png" alt="Picture of Cool Bean (team logo)">
+
+            <!-- Dates overview -->
+            <span class="grid_item2">
+                <!-- Where the dates (mm/dd) will show -->
+                <div id="dates_grid_item21"></div>
+                <div id="dates_grid_item22"></div>
+                <div id="dates_grid_item23"></div>
+                <div id="dates_grid_item24"></div>
+                <div id="dates_grid_item25"></div>
+                <div id="dates_grid_item26"></div>
+                <div id="dates_grid_item27"></div>
+
+                <!-- Where the days (Mon, Tue, Wed...) will show-->
+                <div id="dates_grid_item11"></div>
+                <div id="dates_grid_item12"></div>
+                <div id="dates_grid_item13"></div>
+                <div id="dates_grid_item14"></div>
+                <div id="dates_grid_item15"></div>
+                <div id="dates_grid_item16"></div>
+                <div id="dates_grid_item17"></div>
+            </span>
+
+            <section class="grid_item3">
+                <!-- Search-by-date with submit button -->
+                <span class="search"> 
+                    <input type="date" id="date_search" name="date_search">
+                    <input type="submit" id="search_button1" value="Search by Date">
+                </span>
+
+                <!-- Search-by-label with submit button -->
+                <span class="search"> 
+                    <select id="select1">
+                        <option value="">--Label--</option>
+                        <option value="work">Work</option>
+                        <option value="school">School</option>
+                        <option value="fitness">Fitness</option>
+                        <option value="personal">Personal</option>
+                    </select>
+		    <input type="submit" id ="search_button2" value="Search by Label">
+                </span>
+            </section>
+		
+            <section class="grid_item4">
+                <!-- Archive button-->
+                <span><img id="archive" src="/images/folder.png" alt="Archive button"></span>
+
+                <!-- FAQ button -->
+                <span><img id="FAQ" src="/images/question-mark.png" alt="FAQ button"></span>
+            </section>
+        </header>
+       
+        <!-- The default is a 3-column view (placeholders removed) -->
+        <section id="column_view">
+            <div class="content">
+                <div class="box">
+                    <h1>High Priority</h1>
+                </div>
+                <div class="box">
+                    <h1>Low Priority</h1>
+                </div>
+                <div class="box">
+                    <h1>Complete</h1>
+                </div>
+            </div>
+        </section>
+
+        <!-- The user can toggle in and out of the Archive (NOT FINISHED)-->
+
+        <!-- The user can create new bullet points with the editor -->
+        <section id="editor">
+            <!-- Button to allow the user to add high priority bullet -->
+            <section class="grid2_item1">
+                <span><input type="checkbox" id="check_priority" name="check_priority" value="priority"></span>
+                <label for="check_priority">Check this box if this is a high priority item.</label>
+            </section>
+                
+            <!-- User can enter specific bullet point contents -->
+            <section class="grid2_item2">
+                <div id="editor_text" contenteditable=true>Start typing your entry here! Basic keyboard shortcuts work (ctrl + b for bold, ctrl + i for italics, ctrl + u for underline).</div>
+            </section>
+            
+            <section class="grid2_item3">
+                <!-- user can assign a date -->
+                <div>
+                    <div>Assign a date:</div>
+                    <input type="date" id="entry_date" name="entry_date">
+                </div>
+
+                <!-- user can assign a label-->
+                <div>Assign a label:</div>
+                <div class="labels"> 
+                    <select id="select2">
+                        <option value="">--Label--</option>
+                        <option value="work">Work</option>
+                        <option value="school">School</option>
+                        <option value="fitness">Fitness</option>
+                        <option value="personal">Personal</option>
+                    </select>
+                </div>
+            </section>
+        </section>
+    </body>
+
+</html>
