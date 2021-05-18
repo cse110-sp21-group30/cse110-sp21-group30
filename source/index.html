@@ -27,16 +27,17 @@
 
                 <!-- Search-by-label with submit button -->
                 <span class="search"> 
-                    <select id="select">
+                    <select id="select1">
                         <option value="">--Label--</option>
                         <option value="work">Work</option>
                         <option value="school">School</option>
                         <option value="fitness">Fitness</option>
                         <option value="personal">Personal</option>
-                        <input type="submit" id ="search_button1" value="Search by Label">
                     </select>
+		    <input type="submit" id ="search_button2" value="Search by Label">
                 </span>
             </section>
+		
             <section class="grid_item4">
                 <!-- Archive button-->
                 <span><img id="archive" src="/images/folder.png" alt="Archive button"></span>
@@ -46,50 +47,17 @@
             </section>
         </header>
        
-        <!-- The default is a 3-column view (filled with placeholders for now)-->
+        <!-- The default is a 3-column view (placeholders removed) -->
         <section id="column_view">
             <div class="content">
                 <div class="box">
                     <h1>High Priority</h1>
-                    <ul class="task_list" id="to_do">
-                        <li class="task">
-                            <p>X needs to be done soon</p>
-                        </li>
-                        <li class="task">
-                            <p>Y needs to be done soon</p>
-                        </li>
-                        <li class="task">
-                            <p>Z needs to be done soon</p>
-                        </li>
-                    </ul>
                 </div>
                 <div class="box">
                     <h1>Low Priority</h1>
-                    <ul class="task_list" id="to_do">
-                        <li class="task">
-                            <p>A can wait to be completed</p>
-                        </li>
-                        <li class="task">
-                            <p>B can wait to be completed</p>
-                        </li>
-                        <li class="task">
-                            <p>C can wait to be completed</p>
-                        </li>
-                    </ul>
                 </div>
                 <div class="box">
                     <h1>Complete</h1>
-                    <ul class="task_list" id="to_do">
-                        <li class="task">
-                            <p>I has been completed recently</p>
-                        </li>
-                        <li class="task">
-                            <p>II has been completed recently</p>
-                        </li>
-                        <li class="task">
-                            <p>III has been completed recently</p>
-                        </li>
-                    </ul>
                 </div>
             </div>
         </section>
@@ -100,7 +68,7 @@
         <section id="editor">
             <!-- Button to allow the user to add high priority bullet -->
             <section class="grid2_item1">
-                <span><input type="checkbox" id="hp" name="check_priority" value="priority"></span>
+                <span><input type="checkbox" id="check_priority" name="check_priority" value="priority"></span>
                 <label for="check_priority">Check this box if this is a high priority item.</label>
             </section>
                 
@@ -119,7 +87,7 @@
                 <!-- user can assign a label-->
                 <div>Assign a label:</div>
                 <div class="labels"> 
-                    <select id="select">
+                    <select id="select2">
                         <option value="">--Label--</option>
                         <option value="work">Work</option>
                         <option value="school">School</option>
