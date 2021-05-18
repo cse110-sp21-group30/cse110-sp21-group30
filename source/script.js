@@ -49,7 +49,7 @@ function high_low_migration(task_field, index) {
 }
 
 function complete_migration(task_field, index) {
-    if (task_field != 'HP' || task_field != 'LP'){
+    if (task_field != 'HP' && task_field != 'LP'){
         console.log('Wrong task_field: Cannot be completed');
     } else{
         let origin_list = JSON.parse(localStorage.getItem(task_field));
