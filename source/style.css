@@ -21,9 +21,15 @@ header {
 }
 
 .grid_item2 {
+    padding-left: 10px;
+    max-height: 50px;
     grid-column-start: 2;
     grid-column-end: 2;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: fit-content(4em) fit-content(4em) fit-content(4em) fit-content(4em) fit-content(4em) fit-content(4em) fit-content(4em);
+    grid-template-rows: 50% 50%;
+    grid-gap: 0px;
+    margin-top: 1%;
 }
 
 .grid_item3 {
@@ -53,6 +59,148 @@ header {
     height: 4.5%;
     margin: 0px 0px 0px 0px;
 }
+
+/* Dates Overview CSS Starts Here */
+#dates_grid_item21 {
+    padding-left: 3px;
+    padding-right: 3px;
+    grid-column-start: 1;
+    grid-column-end: 1;
+    grid-row-start: 1;
+    grid-row-end: 1;
+    text-align: center;
+}
+
+#dates_grid_item22 {
+    padding-left: 3px;
+    padding-right: 3px;
+    grid-column-start: 2;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 1;
+    text-align: center;
+}
+
+#dates_grid_item23 {
+    padding-left: 3px;
+    padding-right: 3px;
+    grid-column-start: 3;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 1;
+    text-align: center;
+}
+
+#dates_grid_item24 {
+    padding-left: 3px;
+    padding-right: 3px;
+    grid-column-start: 4;
+    grid-column-end: 4;
+    grid-row-start: 1;
+    grid-row-end: 1;
+    text-align: center;
+}
+
+#dates_grid_item25 {
+    padding-left: 3px;
+    padding-right: 3px;
+    grid-column-start: 5;
+    grid-column-end: 5;
+    grid-row-start: 1;
+    grid-row-end: 1;
+    text-align: center;
+}
+
+#dates_grid_item26 {
+    padding-left: 3px;
+    padding-right: 3px;
+    grid-column-start: 6;
+    grid-column-end: 6;
+    grid-row-start: 1;
+    grid-row-end: 1;
+    text-align: center;
+}
+
+#dates_grid_item27 {
+    padding-left: 3px;
+    padding-right: 3px;
+    grid-column-start: 7;
+    grid-column-end: 7;
+    grid-row-start: 1;
+    grid-row-end: 1;
+    text-align: center;
+}
+
+#dates_grid_item11 {
+    padding-left: 3px;
+    padding-right: 3px;
+    grid-column-start: 1;
+    grid-column-end: 1;
+    grid-row-start: 2;
+    grid-row-end: 2;
+    text-align: center;
+}
+
+#dates_grid_item12 {
+    padding-left: 3px;
+    padding-right: 3px;
+    grid-column-start: 2;
+    grid-column-end: 2;
+    grid-row-start: 2;
+    grid-row-end: 2;
+    text-align: center;
+}
+
+#dates_grid_item13 {
+    padding-left: 3px;
+    padding-right: 3px;
+    grid-column-start: 3;
+    grid-column-end: 3;
+    grid-row-start: 2;
+    grid-row-end: 2;
+    text-align: center;
+}
+
+#dates_grid_item14 {
+    padding-left: 3px;
+    padding-right: 3px;
+    grid-column-start: 4;
+    grid-column-end: 4;
+    grid-row-start: 2;
+    grid-row-end: 2;
+    text-align: center;
+}
+
+#dates_grid_item15 {
+    padding-left: 3px;
+    padding-right: 3px;
+    grid-column-start: 5;
+    grid-column-end: 5;
+    grid-row-start: 2;
+    grid-row-end: 2;
+    text-align: center;
+}
+
+#dates_grid_item16 {
+    padding-left: 3px;
+    padding-right: 3px;
+    grid-column-start: 6;
+    grid-column-end: 6;
+    grid-row-start: 2;
+    grid-row-end: 2;
+    text-align: center;
+}
+
+#dates_grid_item17 {
+    padding-left: 3px;
+    padding-right: 3px;
+    grid-column-start: 7;
+    grid-column-end: 7;
+    grid-row-start: 2;
+    grid-row-end: 2;
+    text-align: center;
+}
+/* Dates Overview CSS Ends Here */
 /* Header CSS Ends Here */
 
 /* Body CSS Begins Here */

@@ -3,10 +3,11 @@
 
     <head>
         <meta charset="utf-8">
-	<title>Bullet Journal</title>
+	    <title>Bullet Journal</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" href="/images/logo.png">
         <link rel="stylesheet" href="style.css">
+        <script src="/script.js" type="module"></script>
     </head>
 
     <body>
@@ -15,8 +16,26 @@
             <!-- Team logo in far left -->
             <img class="grid_item1" id="logo" src="/images/logo.png" alt="Picture of Cool Bean (team logo)">
 
-            <!-- Placeholder for where dates overview would go -->
-            <span class="grid_item2">Dates Overview Placeholder</span>
+            <!-- Dates overview -->
+            <div class="grid_item2">
+                <!-- Where the dates (mm/dd) will show -->
+                <div id="dates_grid_item21"></div>
+                <div id="dates_grid_item22"></div>
+                <div id="dates_grid_item23"></div>
+                <div id="dates_grid_item24"></div>
+                <div id="dates_grid_item25"></div>
+                <div id="dates_grid_item26"></div>
+                <div id="dates_grid_item27"></div>
+
+                <!-- Where the days (Mon, Tue, Wed...) will show-->
+                <div id="dates_grid_item11"></div>
+                <div id="dates_grid_item12"></div>
+                <div id="dates_grid_item13"></div>
+                <div id="dates_grid_item14"></div>
+                <div id="dates_grid_item15"></div>
+                <div id="dates_grid_item16"></div>
+                <div id="dates_grid_item17"></div>
+            </div>
 
             <section class="grid_item3">
                 <!-- Search-by-date with submit button -->

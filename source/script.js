@@ -84,26 +84,38 @@ function create_bullet(e) {
     updateView();
 }
 
-function dispDate()
+function display_date()
 {
-    //renders the week, starting from yesterday. Formatted like (Tue 15)
-    let arr = []; //currently just a placeholder, could change
+    let arr = [];
     let today = new Date();
-    const options = { weekday: 'long'};
+    const options = { weekday: 'long' };
+    let gridDate;
+    let gridDay;
 
+    // Populate arr with date-day pairs
     for(let i = -1; i < 6; i++)
     {
         let day = new Date(today);
-        day.setDate(day.getDate() + i); //i is an "offset" from today
-        let dayOfWeek = new Intl.DateTimeFormat('en-US', options).format(day); //turns 0-6 into Sunday - Saturday
+        day.setDate(day.getDate() + i); // i is an offset from today
+        let dayOfWeek = new Intl.DateTimeFormat('en-US', options).format(day); // Turns 0-6 into Sunday - Saturday
         let disp = {
-            dayOfWeek: dayOfWeek.substring(0,3), //Sun-Sat
+            dayOfWeek: dayOfWeek.substring(0,3), // Sun - Sat
             date: day.getDate()
         }
         arr.push(disp);
     }
-    console.log(arr);
+
+    // Move arr contents into display on page
+    for (let j = 1; j < 8; j++) {
+        gridDate = document.getElementById('dates_grid_item2' + j);
+        gridDay = document.getElementById('dates_grid_item1' + j);
+        gridDate.innerHTML = arr[j - 1].date;
+        gridDay.innerHTML = arr[j - 1].dayOfWeek;
+    }
 }
+
+// When the user first opens the page, load up the dates
+window.onload = display_date;
 
 //TODO
 function updateView() {
