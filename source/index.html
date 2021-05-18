@@ -3,7 +3,7 @@
 
     <head>
         <meta charset="utf-8">
-	    <title>Bullet Journal</title>
+        <title>Bullet Journal</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" href="/images/logo.png">
         <link rel="stylesheet" href="style.css">
@@ -53,10 +53,10 @@
                         <option value="fitness">Fitness</option>
                         <option value="personal">Personal</option>
                     </select>
-		    <input type="submit" id ="search_button2" value="Search by Label">
+                    <input type="submit" id ="search_button2" value="Search by Label">
                 </span>
             </section>
-		
+            
             <section class="grid_item4">
                 <!-- Archive button-->
                 <span><img id="archive" src="/images/folder.png" alt="Archive button"></span>
@@ -65,19 +65,17 @@
                 <span><img id="FAQ" src="/images/question-mark.png" alt="FAQ button"></span>
             </section>
         </header>
-       
-        <!-- The default is a 3-column view (placeholders removed) -->
+
+        <!-- The default is a 3-column view -->
         <section id="column_view">
-            <div class="content">
-                <div class="box">
-                    <h1>High Priority</h1>
-                </div>
-                <div class="box">
-                    <h1>Low Priority</h1>
-                </div>
-                <div class="box">
-                    <h1>Complete</h1>
-                </div>
+            <div class="box">
+                <h1 id="high_priority_header">High Priority</h1>
+            </div>
+            <div class="box">
+                <h1 id="low_priority_header">Low Priority</h1>
+            </div>
+            <div class="box">
+                <h1 id="complete_header">Complete</h1>
             </div>
         </section>
 
@@ -88,12 +86,12 @@
             <!-- Button to allow the user to add high priority bullet -->
             <section class="grid2_item1">
                 <span><input type="checkbox" id="check_priority" name="check_priority" value="priority"></span>
-                <label for="check_priority">Check this box if this is a high priority item.</label>
+                <label for="check_priority">Click here if this is a high priority item.</label>
             </section>
                 
             <!-- User can enter specific bullet point contents -->
             <section class="grid2_item2">
-                <div id="editor_text" contenteditable=true>Start typing your entry here! Basic keyboard shortcuts work (ctrl + b for bold, ctrl + i for italics, ctrl + u for underline).</div>
+                <div id="editor_text" contenteditable=true>Type up a new entry here! Basic keyboard shortcuts work (ctrl + b for bold, ctrl + i for italics, ctrl + u for underline). Hit enter while the cursor is inside this box to create your new bullet point!</div>
             </section>
             
             <section class="grid2_item3">

@@ -2,18 +2,21 @@
 header {
     position: fixed;
     display: grid;
-    grid-template-columns: 8% auto 36% 10%;
+    grid-template-columns: fit-content(50px) auto fit-content(470px) 110px;
     grid-template-rows: auto;
     grid-gap: 0px;
     height: 8%;
+    min-height: 50px;
     width: 100%;
-    padding: 5px 5px;
-    background-color:aliceblue;
+    padding: 5px 5px 5px 5px;
+    background-color:rgb(181, 220, 255);
     color:black;
     top: 0;
+    z-index: 999;
 }
 
 .grid_item1 { 
+    max-height: 50px;
     grid-column-start: 1;
     grid-column-end: 1;
     justify-content: center;
@@ -33,30 +36,37 @@ header {
 }
 
 .grid_item3 {
+    padding-right: 3px;
+    padding-left: 4px;
+    max-height: 50px;
     grid-column-start: 3;
     grid-column-end: 3;
     justify-content: right;
     margin-top: 2.6%;
 }
 
-.grid_item4{
+.grid_item4 {
+    padding-right: 2px;
+    padding-left: 2px;
+    max-height: 50px;
     grid-column-start: 4;
     grid-column-end: 4;
     justify-content: right;
+    margin-top: 2%;
 }
 
 #logo {
-    height: 5%;
+    height: 100%;
     margin: 0px 0px 0px 0px;
 }
 
 #FAQ {
-    height: 4.5%;
+    height: 80%;
     margin: 0px 0px 0px 0px;
 }
 
 #archive {
-    height: 4.5%;
+    height: 80%;
     margin: 0px 0px 0px 0px;
 }
 
@@ -204,49 +214,32 @@ header {
 /* Header CSS Ends Here */
 
 /* Body CSS Begins Here */
-.content{
-    position:center;
+body {
+    margin: 0px 0px 0px 0px;
+}
+
+#column_view {
+    display: flex;
+    margin-top: 80px;
     justify-content: center;
-    text-align: center;
+    height: 32em;
+    max-height: 70%;
+    margin-bottom: 120px;
 }
 
 .box {
     display: inline-block;
-    width: 28%;
-    height: 27em;
-    margin-top: 3.8em;
-    margin-right: auto;
-    margin-left: auto;
-    margin-top: 10% + 5px;
-    border-radius: 5px;
-    border-style: solid;
-    border-color: darkblue;
-    box-shadow: 0px 0px 6px 1px rgba(0,0,0,0.15);
-    background-color: #FAFAFA;
-}
-
-ul {
-    margin: 0;
-    padding: 0;
-}
-
-li {
-    list-style-type: none;
-}
-
-.task{
-    display: flex;
-    justify-content: left;
-    background-color: #9e8fb2;
-    background-image: linear-gradient(315deg, #9e8fb2 0%, #a7acd9 74%);
-    margin: 0.4rem;
-    height: 4rem;
-    border: black 0.10rem solid;
-    border-radius: 0.2rem;
+    width: 30%;
+    height: 98%;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 0px;
 }
 
 h1 {
     padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    margin-top: 0px;
     position: relative;
     text-align: center;
     font-size: 22px;
@@ -254,38 +247,54 @@ h1 {
     color: black;
 }
 
+#high_priority_header {
+    background-color:lightpink;
+}
+
+#low_priority_header {
+    background-color:lightgoldenrodyellow;
+}
+
+#complete_header {
+    background-color:lightgreen;
+}
+
 /* Editor CSS Begins Here*/
 #editor {
     position: fixed;
+    bottom: 10px;
     display: grid;
     padding: 2px 2px 2px 2px;
-    grid-template-columns: 10% auto 15%;
+    grid-template-columns: 100px auto fit-contents(160px);
     grid-template-rows: auto;
     grid-gap: 0px;
     width: 98%;
     height: 15%;
-    border-radius: 2px;
+    min-height: 95px;
+    border-radius: 1px;
     border-style: solid;
     margin-top: 5px;
-    border-color: rgb(117, 143, 167);
-    background-color:aliceblue;
+    margin-left: .65%;
+    border-color: rgb(109, 182, 247);
+    background-color:rgb(181, 220, 255);
     color:black;
 }
 
 #editor_text{
     border-radius: 1px;
     border-style: solid;
+    border-color: rgb(138, 199, 252);
     height: 85%;
     max-height: 13vh;
     width: 95%;
-    max-width: 150vh;
     margin: 5px 0px 5px 0px;
-    overflow-y: scroll;
-    overflow-x: scroll;
+    background-color: rgb(204, 231, 255);
+    overflow: auto;
 }
 
 .grid2_item1 { 
     padding: 5px 5px 5px 5px;
+    max-width: 110px;
     grid-column-start: 1;
     grid-column-end: 1;
 }
