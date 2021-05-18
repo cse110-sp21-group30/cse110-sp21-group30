@@ -28,10 +28,10 @@ Thet Zaw
 
 Screenshot of skeleton:
 
-![image](/images/skeleton.png)
+![image](./images/skeleton.png)
 
 Screenshots of improved skeleton (not finalized before the review, but was brought up during meeting):
 
-![image](/images/improved-skeleton.png)
+![image](./images/improved-skeleton.png)
 
-![image](/images/improved-skeleton2.png)
+![image](./images/improved-skeleton2.png)
