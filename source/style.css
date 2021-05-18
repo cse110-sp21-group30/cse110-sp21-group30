@@ -1,0 +1,156 @@
+/* Header CSS Starts Here */
+header {
+    position: fixed;
+    display: grid;
+    grid-template-columns: 8% auto 36% 10%;
+    grid-template-rows: auto;
+    grid-gap: 0px;
+    height: 8%;
+    width: 100%;
+    padding: 5px 5px;
+    background-color:aliceblue;
+    color:black;
+    top: 0;
+}
+
+.grid_item1 { 
+    grid-column-start: 1;
+    grid-column-end: 1;
+    justify-content: center;
+    align-content: top;
+}
+
+.grid_item2 {
+    grid-column-start: 2;
+    grid-column-end: 2;
+    justify-content: center;
+}
+
+.grid_item3 {
+    grid-column-start: 3;
+    grid-column-end: 3;
+    justify-content: right;
+    margin-top: 2.6%;
+}
+
+.grid_item4{
+    grid-column-start: 4;
+    grid-column-end: 4;
+    justify-content: right;
+}
+
+#logo {
+    height: 5%;
+    margin: 0px 0px 0px 0px;
+}
+
+#FAQ {
+    height: 4.5%;
+    margin: 0px 0px 0px 0px;
+}
+
+#archive {
+    height: 4.5%;
+    margin: 0px 0px 0px 0px;
+}
+/* Header CSS Ends Here */
+
+/* Body CSS Begins Here */
+.content{
+    position:center;
+    justify-content: center;
+    text-align: center;
+}
+
+.box {
+    display: inline-block;
+    width: 28%;
+    height: 27em;
+    margin-top: 3.8em;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 10% + 5px;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: darkblue;
+    box-shadow: 0px 0px 6px 1px rgba(0,0,0,0.15);
+    background-color: #FAFAFA;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    list-style-type: none;
+}
+
+.task{
+    display: flex;
+    justify-content: left;
+    background-color: #9e8fb2;
+    background-image: linear-gradient(315deg, #9e8fb2 0%, #a7acd9 74%);
+    margin: 0.4rem;
+    height: 4rem;
+    border: black 0.10rem solid;
+    border-radius: 0.2rem;
+}
+
+h1 {
+    padding-top: 0.5em;
+    position: relative;
+    text-align: center;
+    font-size: 22px;
+    font-family: 'Source Sans Pro', sans-serif;
+    color: black;
+}
+
+/* Editor CSS Begins Here*/
+#editor {
+    position: fixed;
+    display: grid;
+    padding: 2px 2px 2px 2px;
+    grid-template-columns: 10% auto 15%;
+    grid-template-rows: auto;
+    grid-gap: 0px;
+    width: 98%;
+    height: 15%;
+    border-radius: 2px;
+    border-style: solid;
+    margin-top: 5px;
+    border-color: rgb(117, 143, 167);
+    background-color:aliceblue;
+    color:black;
+}
+
+#editor_text{
+    border-radius: 1px;
+    border-style: solid;
+    height: 85%;
+    max-height: 13vh;
+    width: 95%;
+    max-width: 150vh;
+    margin: 5px 0px 5px 0px;
+    overflow-y: scroll;
+    overflow-x: scroll;
+}
+
+.grid2_item1 { 
+    padding: 5px 5px 5px 5px;
+    grid-column-start: 1;
+    grid-column-end: 1;
+}
+
+.grid2_item2 { 
+    grid-column-start: 2;
+    grid-column-end: 2;
+}
+
+.grid2_item3 { 
+    grid-column-start: 3;
+    grid-column-end: 3;
+    padding: 5px 5px 5px 5px;
+}
+/* Editor CSS Ends Here */
+/* Body CSS Ends Here */
