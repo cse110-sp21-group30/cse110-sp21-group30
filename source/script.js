@@ -2,6 +2,14 @@ var high_priority_array = [];
 var low_priority_array = [];
 var completed_array = [];
 
+document.addEventListener('DOMContentLoaded', function(){
+    localStorage.clear(); //for testing, comment out to preserve local storage
+    populate_global_arrays(); //load arrays when page loads
+    display_date(); // load up the dates
+    updateView("HP");
+    updateView("LP");
+    updateView("C");
+});
 
 function populate_global_arrays() {
     if (localStorage.getItem("HP") === null) {
@@ -21,12 +29,6 @@ function populate_global_arrays() {
     completed_array = JSON.parse(localStorage.getItem("C"))[0];
 }
 
-function delete_bullet_db(task_field, index){
-    let origin_list = JSON.parse(localStorage.getItem(task_field)).splice(index, 1);
-    localStorage.setItem(task_field, origin_list);
-    //call update_view(task_field) here??
-}
-
 /* localstorage obj
 {
     HP: {
@@ -41,12 +43,19 @@ function delete_bullet_db(task_field, index){
 }
 */
 
+function delete_bullet_db(task_field, index){
+    let origin_list = JSON.parse(localStorage.getItem(task_field)).splice(index, 1);
+    localStorage.setItem(task_field, origin_list);
+    //call update_view(task_field) here??
+}
+
 function create_bullet_db(bullet){
     let origin_list = JSON.parse(localStorage.getItem(bullet.task_field));  // {0: [{bullet1},{bullet2} ...]}
-    origin_list[0].push(bullet);
+    origin_list[0].push(bullet); //unshift() if we want to prepend??
     localStorage.setItem(bullet.task_field, JSON.stringify(origin_list));
 }
 
+//move a bullet from HP to LP, or LP to HP
 function high_low_migration(task_field, index) {
     let origin_list = JSON.parse(localStorage.getItem(task_field));
     let temp_bullet = origin_list[index];
@@ -64,6 +73,7 @@ function high_low_migration(task_field, index) {
     }
 }
 
+//mark a bullet as complete, move it from HP or LP to C.
 function complete_migration(task_field, index) {
     if (task_field != 'HP' && task_field != 'LP'){
         console.log('Wrong task_field: Cannot be completed');
@@ -88,15 +98,6 @@ textBox.addEventListener("keydown", function (e) {
     }
 });
 */
-
-document.addEventListener('DOMContentLoaded', function(){
-    localStorage.clear(); //for testing, comment out to preserve local storage
-    populate_global_arrays(); //load arrays when page loads
-    display_date(); // load up the dates
-    updateView("HP");
-    updateView("LP");
-    updateView("C");
-});
 
 let submitPost = document.getElementById('get_text');
 submitPost.addEventListener('click', function(e){
