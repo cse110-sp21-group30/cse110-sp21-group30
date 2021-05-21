@@ -1,7 +1,6 @@
 var high_priority_array = [];
 var low_priority_array = [];
 var completed_array = [];
-// var id = 0;
 
 
 function populate_global_arrays() {
@@ -27,22 +26,23 @@ function delete_bullet_db(task_field, index){
     localStorage.setItem(task_field, origin_list);
     //call update_view(task_field) here??
 }
+
 /* localstorage obj
 {
     HP: {
         0: [post1, post2, post3]
-    }
+    },
     LP: {
-        0: []
-    }
+        0: [post4, post5]
+    },
     C: {
-        0: []
+        0: [post6, post7]
     }
 }
 */
 
 function create_bullet_db(bullet){
-    let origin_list = JSON.parse(localStorage.getItem(bullet.task_field));  //{0: [one,two,three]} 
+    let origin_list = JSON.parse(localStorage.getItem(bullet.task_field));  // {0: [{bullet1},{bullet2} ...]}
     origin_list[0].push(bullet);
     localStorage.setItem(bullet.task_field, JSON.stringify(origin_list));
 }
@@ -78,9 +78,10 @@ function complete_migration(task_field, index) {
         localStorage.setItem('C', completed_list);
     }
 }
+
 /* press enter to submit the text post rather than pressing the button
 let textBox = document.getElementById('editor_text');
- 
+
 textBox.addEventListener("keydown", function (e) {
     if (e.code === "Enter") {  //checks whether the pressed key is "Enter"
         console.log('yes');
@@ -89,33 +90,17 @@ textBox.addEventListener("keydown", function (e) {
 */
 
 document.addEventListener('DOMContentLoaded', function(){
-    //localStorage.clear(); //for testing, comment out to preserve local storage
+    localStorage.clear(); //for testing, comment out to preserve local storage
     populate_global_arrays(); //load arrays when page loads
     display_date(); // load up the dates
     updateView("HP");
     updateView("LP");
     updateView("C");
-    /*
-    fetch("test.json")
-    .then(response => response.json())
-    .then(entries => {
-        entries.forEach((entry) => {
-            console.log(entry);
-            let new_bullet;
-            new_bullet = document.createElement("bullet-point");
-            new_bullet.entry = entry;
-
-            let section = document.getElementById('box_hp');
-            section.appendChild(new_bullet);
-        })
-    })
-    */
 });
 
 let submitPost = document.getElementById('get_text');
 submitPost.addEventListener('click', function(e){
     create_bullet(e);
-
 });
 
 function create_bullet(e) {
@@ -129,11 +114,11 @@ function create_bullet(e) {
 
     if (task_field == true) {
         task_field = 'HP';
-    } 
+    }
     else{
         task_field = 'LP';
     }
-    
+
     let bullet = {
         "task_field": task_field,
         "labels": labels,
@@ -178,36 +163,61 @@ function display_date()
 }
 
 
-function updateView(task_field) //("HP")
-{ 
- //clear the children of the header before appending
- /*
- let new_bullet = document.createElement("bullet-point");
- new_bullet.entry = entry;
- let section = document.getElementById('box_hp').appendChild(new_bullet);
- */
+/*
+    Renders the task array onto its respective place in the DOM.
+    task_field is a string that is either "HP", "LP", or "C"
+*/
+function updateView(task_field)
+{
+    if(task_field === "HP")
+    {
+        let box_hp = document.getElementById('box_hp');
+        let bullet_points = box_hp.querySelectorAll("div > bullet-point");
+        for(let b of bullet_points)
+        {
+            b.parentNode.removeChild(b); //clear bullet-points before rendering
+        }
 
- if(task_field === "HP") {
-     let hp_header = document.getElementById("high_priority_header");
-    for(let bullet of high_priority_array) {
-       let hp = document.createElement('div');
-       hp.textContent = bullet.content;
-       hp_header.appendChild(hp);
+        for(let bullet of high_priority_array)
+        {
+            let new_bullet = document.createElement("bullet-point");
+            new_bullet.entry = bullet;
+            let section = box_hp.appendChild(new_bullet);
+        }
     }
- } else if(task_field === "LP") {
-    let lp_header = document.getElementById("low_priority_header");
-   for(let bullet of low_priority_array) {
-      let lp = document.createElement('div');
-      lp.textContent = bullet.content;
-      lp_header.appendChild(lp);
-   }
-} else if(task_field === "C") {
-    let c_header = document.getElementById("complete_header");
-   for(let bullet of completed_array) {
-      let cp = document.createElement('div');
-      cp.textContent = bullet.content;
-      c_header.appendChild(cp);
-   }
-}
- 
+    else if(task_field === "LP")
+    {
+        let box_lp = document.getElementById('box_lp');
+        let bullet_points = box_lp.querySelectorAll("div > bullet-point");
+        for(let b of bullet_points)
+        {
+            b.parentNode.removeChild(b); //clear bullet-points before rendering
+        }
+        for(let bullet of low_priority_array)
+        {
+            let new_bullet = document.createElement("bullet-point");
+            new_bullet.entry = bullet;
+            let section = box_lp.appendChild(new_bullet);
+        }
+    }
+    else if(task_field === "C")
+    {
+        let box_c = document.getElementById("box_c");
+        let bullet_points = box_c.querySelectorAll("div > bullet-point");
+        for(let b of bullet_points)
+        {
+            b.parentNode.removeChild(b); //clear bullet-points before rendering
+        }
+        for(let bullet of completed_array)
+        {
+            let new_bullet = document.createElement("bullet-point");
+            new_bullet.entry = bullet;
+            let section = box_c.appendChild(new_bullet);
+        }
+    }
+    else //error
+    {
+        let errMsg = `Attempting to render ${task_field}, this is not "HP", "LP", or "C"`;
+        throw errMsg;
+    }
 }

@@ -7,9 +7,14 @@ class BulletPoint extends HTMLElement {
 
         // Templated HTML content
         const template = document.createElement('template');
-        
+
+        //style is currently a temp fix, just so we can see where one entry ends and the next one begins
         template.innerHTML=`
         <style>
+            .entry {
+                border: 2px solid black;
+                border-radius: 5px;
+            }
         </style>
         <article class="entry">
             <p contenteditable="true"></p>
@@ -17,10 +22,10 @@ class BulletPoint extends HTMLElement {
             <span class="entry_label"></span>
         </article>
         `;
-        
+
         // Create a shadow root for the component
         this.attachShadow({ mode: 'open' });
-        
+
         // Attach cloned content of template to shadow DOM
         this.shadowRoot.appendChild(template.content.cloneNode(true));
     }
@@ -32,7 +37,6 @@ class BulletPoint extends HTMLElement {
     // Outside functions can refer to set() when a bullet is first created or loaded into
     // the DOM from localStorage
     set entry(entry) {
-        console.log('In entry.js set function');
         let article = this.shadowRoot.querySelector('article');
 
         // Set contents
