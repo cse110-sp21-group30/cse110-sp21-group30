@@ -265,7 +265,7 @@ h1 {
     bottom: 10px;
     display: grid;
     padding: 2px 2px 2px 2px;
-    grid-template-columns: 100px auto fit-contents(160px);
+    grid-template-columns: 100px auto 160px;
     grid-template-rows: auto;
     grid-gap: 0px;
     width: 98%;
@@ -286,15 +286,17 @@ h1 {
     border-color: rgb(138, 199, 252);
     height: 85%;
     max-height: 13vh;
-    width: 95%;
-    margin: 5px 0px 5px 0px;
+    width: 100%;
+    max-width: 100%;
+    margin: 5px 5px 5px 0px;
     background-color: rgb(204, 231, 255);
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: auto;
 }
 
 .grid2_item1 { 
     padding: 5px 5px 5px 5px;
-    max-width: 110px;
+    width: 100px;
     grid-column-start: 1;
     grid-column-end: 1;
 }
@@ -302,6 +304,8 @@ h1 {
 .grid2_item2 { 
     grid-column-start: 2;
     grid-column-end: 2;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 .grid2_item3 { 

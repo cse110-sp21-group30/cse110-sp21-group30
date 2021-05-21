@@ -5,16 +5,17 @@
         <meta charset="utf-8">
         <title>Bullet Journal</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="icon" href="/images/logo.png">
+        <link rel="icon" href="./images/logo.png">
         <link rel="stylesheet" href="style.css">
-        <script src="/script.js" type="module"></script>
+        <script src="./bullet-point.js" type="module"></script>
+        <script src="./script.js" type="module"></script>
     </head>
 
     <body>
         <!-- Header will be sticky (fixed) -->
         <header>
             <!-- Team logo in far left -->
-            <img class="grid_item1" id="logo" src="/images/logo.png" alt="Picture of Cool Bean (team logo)">
+            <img class="grid_item1" id="logo" src="./images/logo.png" alt="Picture of Cool Bean (team logo)">
 
             <!-- Dates overview -->
             <div class="grid_item2">
@@ -59,22 +60,22 @@
             
             <section class="grid_item4">
                 <!-- Archive button-->
-                <span><img id="archive" src="/images/folder.png" alt="Archive button"></span>
+                <span><img id="archive" src="./images/folder.png" alt="Archive button"></span>
 
                 <!-- FAQ button -->
-                <span><img id="FAQ" src="/images/question-mark.png" alt="FAQ button"></span>
+                <span><img id="FAQ" src="./images/question-mark.png" alt="FAQ button"></span>
             </section>
         </header>
 
-        <!-- The default is a 3-column view -->
+       <!-- The default is a 3-column view -->
         <section id="column_view">
-            <div class="box">
+            <div class="box" id="box_hp">
                 <h1 id="high_priority_header">High Priority</h1>
             </div>
-            <div class="box">
+            <div class="box" id="box_lp">
                 <h1 id="low_priority_header">Low Priority</h1>
             </div>
-            <div class="box">
+            <div class="box" id="box_c">
                 <h1 id="complete_header">Complete</h1>
             </div>
         </section>
@@ -92,6 +93,7 @@
             <!-- User can enter specific bullet point contents -->
             <section class="grid2_item2">
                 <div id="editor_text" contenteditable=true>Type up a new entry here! Basic keyboard shortcuts work (ctrl + b for bold, ctrl + i for italics, ctrl + u for underline). Hit enter while the cursor is inside this box to create your new bullet point!</div>
+                <button id="get_text">Submit</button>
             </section>
             
             <section class="grid2_item3">
@@ -114,6 +116,14 @@
                 </div>
             </section>
         </section>
+
+        <template>
+            <article class="entry">
+                <p contenteditable="true"></p>
+                <span class="date"></span>
+                <span class="entry_label"></span>
+            </article>
+        </template>
     </body>
 
 </html>
