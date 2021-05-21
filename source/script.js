@@ -203,7 +203,7 @@ function updateView(task_field) //("HP")
    }
 } else if(task_field === "C") {
     let c_header = document.getElementById("complete_header");
-   for(let bullet of complete_array) {
+   for(let bullet of completed_array) {
       let cp = document.createElement('div');
       cp.textContent = bullet.content;
       c_header.appendChild(cp);
