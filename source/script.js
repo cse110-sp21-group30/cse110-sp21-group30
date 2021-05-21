@@ -89,6 +89,9 @@ function high_low_migration(task_field, index) {
     }
 }
 
+export { complete_migration };
+
+
 //mark a bullet as complete, move it from HP or LP to C.
 function complete_migration(task_field, index) {
     if (task_field != 'HP' && task_field != 'LP'){
@@ -133,7 +136,7 @@ function create_bullet(e) {
     if (task_field == true) {
         task_field = 'HP';
     }
-    else{
+    else {
         task_field = 'LP';
     }
 

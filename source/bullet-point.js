@@ -1,5 +1,6 @@
 // Bullet point/entry custom component
 
+//import { complete_migration } from './script.js';
 
 class BulletPoint extends HTMLElement {
     constructor() {
@@ -52,6 +53,7 @@ class BulletPoint extends HTMLElement {
         let buttons = article.querySelectorAll('button');
         buttons[0].addEventListener('click', function(){
             console.log('clicked complete on post ID ', entry);
+            //complete_migration() here 
         });
         buttons[1].addEventListener('click', function(){
             console.log('clicked change priority on post ID');
