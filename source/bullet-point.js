@@ -48,6 +48,14 @@ class BulletPoint extends HTMLElement {
         spans[0].append(entry.deadline);
         spans[1].append(entry.labels);
         spans[2].append(entry.bullet_id);
+
+        let buttons = article.querySelectorAll('button');
+        buttons[0].addEventListener('click', function(){
+            console.log('clicked complete on post ID ', entry);
+        });
+        buttons[1].addEventListener('click', function(){
+            console.log('clicked change priority on post ID');
+        });
     }
 }
 
