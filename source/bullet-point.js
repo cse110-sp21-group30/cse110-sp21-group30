@@ -20,6 +20,9 @@ class BulletPoint extends HTMLElement {
             <p contenteditable="true"></p>
             <span class="date"></span>
             <span class="entry_label"></span>
+            <span class="bullet_id"></span>
+            <button>Mark Complete</button>
+            <button>Change Priority</button>
         </article>
         `;
 
@@ -41,8 +44,10 @@ class BulletPoint extends HTMLElement {
 
         // Set contents
         article.querySelector('p').append(entry.content);
-        article.querySelectorAll('span')[0].append(entry.deadline);
-        article.querySelectorAll('span')[1].append(entry.labels);
+        let spans = article.querySelectorAll('span');
+        spans[0].append(entry.deadline);
+        spans[1].append(entry.labels);
+        spans[2].append(entry.bullet_id);
     }
 }
 

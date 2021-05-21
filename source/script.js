@@ -3,7 +3,7 @@ var low_priority_array = [];
 var completed_array = [];
 
 document.addEventListener('DOMContentLoaded', function(){
-    localStorage.clear(); //for testing, comment out to preserve local storage
+    //localStorage.clear(); //for testing, comment out to preserve local storage
     populate_global_arrays(); //load arrays when page loads
     display_date(); // load up the dates
     updateView("HP");
@@ -39,9 +39,25 @@ function populate_global_arrays() {
     },
     C: {
         0: [post6, post7]
-    }
+    },
+    ID: num
 }
 */
+
+//call this whenever a new bullet point is created
+//returns an integer, which will be the unique bullet id
+//ID's are reset to 1 whenever local storage is cleared
+function get_bullet_id()
+{
+    if (localStorage.getItem("ID") === null) {
+        localStorage.setItem("ID", 1);
+        console.log('id set to 1');
+    }
+    let id = localStorage.getItem('ID');
+    id++;
+    localStorage.setItem('ID', id);
+    return id;
+}
 
 function delete_bullet_db(task_field, index){
     let origin_list = JSON.parse(localStorage.getItem(task_field)).splice(index, 1);
@@ -110,6 +126,7 @@ function create_bullet(e) {
     let labels = document.getElementById('select2').value;
     let deadline = document.getElementById('entry_date').value;
     let content = document.getElementById('editor_text').textContent;
+    let bullet_id = get_bullet_id();
     /* TODO: will have to change how we handle labels later; will probably have to loop
     across all label checkboxes and add the ones that have been selected to labels */
 
@@ -125,6 +142,7 @@ function create_bullet(e) {
         "labels": labels,
         "deadline": deadline,
         "content": content,
+        "bullet_id": bullet_id,
         "CompTimeStamp": null
     };
 
