@@ -59,10 +59,14 @@ function get_bullet_id()
     return id;
 }
 
-function delete_bullet_db(task_field, index){
-    let origin_list = JSON.parse(localStorage.getItem(task_field)).splice(index, 1);
-    localStorage.setItem(task_field, origin_list);
-    //call update_view(task_field) here??
+function delete_bullet_db(task_field, id){    
+    let origin_list = JSON.parse(localStorage.getItem(task_field)); //js object
+    for(let i = 0; i < origin_list[0].length; i++) { //search through and remove bullet
+        if(origin_list[0][i].bullet_id == id){
+            origin_list[0].splice(i, 1);
+        }
+    }
+    localStorage.setItem(task_field, JSON.stringify(origin_list));
 }
 
 function create_bullet_db(bullet){
@@ -72,39 +76,91 @@ function create_bullet_db(bullet){
 }
 
 //move a bullet from HP to LP, or LP to HP
-function high_low_migration(task_field, index) {
-    let origin_list = JSON.parse(localStorage.getItem(task_field));
-    let temp_bullet = origin_list[index];
-
-    if (task_field == 'HP') {
-        delete_bullet_db(task_field, index);
-        temp_bullet.task_field = 'LP';
-        create_bullet_db(temp_bullet);
-    } else if (task_field == 'LP') {
-        delete_bullet_db(task_field, index);
-        temp_bullet.task_field = 'HP';
-        create_bullet_db(temp_bullet);
-    } else {
-        console.log('Wrong task_field: Cannot be completed');
+function high_low_migration(task_field, id) {
+    if (task_field != 'HP' && task_field != 'LP'){
+        throw 'Wrong task_field: Cannot be completed';
+    } else{
+        if(task_field == 'HP') {
+            let origin_list = JSON.parse(localStorage.getItem(task_field));
+            let other_list = JSON.parse(localStorage.getItem('LP'));
+            let temp_bullet;
+            for(let bullet of origin_list[0]){ 
+                if(bullet.bullet_id == id) {
+                    temp_bullet = bullet;
+                    delete_bullet_db(temp_bullet.task_field, temp_bullet.bullet_id);
+                    temp_bullet.task_field = 'LP';
+                    other_list[0].unshift(temp_bullet); 
+                    localStorage.setItem('LP', JSON.stringify(other_list));
+                    populate_global_arrays();
+                    updateView(task_field);
+                    updateView("LP");
+                    return;
+                }
+            }
+            throw "Cannot find bullet id in task_field";
+        } else { //LP
+            let origin_list = JSON.parse(localStorage.getItem(task_field));
+            let other_list = JSON.parse(localStorage.getItem('HP'));
+            let temp_bullet;
+            for(let bullet of origin_list[0]){ 
+                if(bullet.bullet_id == id) {
+                    temp_bullet = bullet;
+                    delete_bullet_db(temp_bullet.task_field, temp_bullet.bullet_id);
+                    temp_bullet.task_field = 'HP';
+                    other_list[0].unshift(temp_bullet); 
+                    localStorage.setItem('HP', JSON.stringify(other_list));
+                    populate_global_arrays();
+                    updateView(task_field);
+                    updateView("HP");
+                    return;
+                }
+            }
+            throw "Cannot find bullet id in task_field";
+        }
+        
     }
+
+    // let origin_list = JSON.parse(localStorage.getItem(task_field));
+    // let temp_bullet = origin_list[index];
+
+    // if (task_field == 'HP') {
+    //     delete_bullet_db(task_field, index);
+    //     temp_bullet.task_field = 'LP';
+    //     create_bullet_db(temp_bullet);
+    // } else if (task_field == 'LP') {
+    //     delete_bullet_db(task_field, index);
+    //     temp_bullet.task_field = 'HP';
+    //     create_bullet_db(temp_bullet);
+    // } else {
+    //     console.log('Wrong task_field: Cannot be completed');
+    // }
 }
 
-export { complete_migration };
+export { complete_migration, high_low_migration };
 
 
 //mark a bullet as complete, move it from HP or LP to C.
-function complete_migration(task_field, index) {
+function complete_migration(task_field, id) {
     if (task_field != 'HP' && task_field != 'LP'){
-        console.log('Wrong task_field: Cannot be completed');
+        throw 'Wrong task_field: Cannot be completed';
     } else{
         let origin_list = JSON.parse(localStorage.getItem(task_field));
         let completed_list = JSON.parse(localStorage.getItem('C'));
-        let temp_bullet = temp_list[index];
-
-        delete_bullet_db(task_field, index);
-        temp_bullet.task_field = 'C';
-        completed_list.prepend(temp_bullet);
-        localStorage.setItem('C', completed_list);
+        let temp_bullet;
+        for(let bullet of origin_list[0]){ 
+            if(bullet.bullet_id == id) {
+                temp_bullet = bullet;
+                delete_bullet_db(temp_bullet.task_field, temp_bullet.bullet_id);
+                temp_bullet.task_field = 'C';
+                completed_list[0].unshift(temp_bullet); //insert removed bullet to 'C'
+                localStorage.setItem('C', JSON.stringify(completed_list));
+                populate_global_arrays();
+                updateView(task_field);
+                updateView("C");
+                return;
+            }
+        }
+        throw "Cannot find bullet id in task_field";
     }
 }
 
