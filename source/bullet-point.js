@@ -1,6 +1,6 @@
 // Bullet point/entry custom component
 
-import { complete_migration, high_low_migration, updateView, populate_global_arrays, delete_bullet_db } from './script.js';
+import { complete_migration, high_low_migration, updateView, populate_global_arrays, delete_bullet_db, revert_complete_migration } from './script.js';
 
 class BulletPoint extends HTMLElement {
     constructor() {
@@ -72,9 +72,9 @@ class BulletPoint extends HTMLElement {
             high_low_migration(entry.task_field, entry.bullet_id);
         });
 
-        //revert from complete to HP or LP
+        //revert from complete to LP (Reverts to LP even if bullet was in HP previously)
         buttons[2].addEventListener('click', function() {
-            console.log("reverting");
+            revert_complete_migration(entry.task_field, entry.bullet_id);
         });
 
         //delete
