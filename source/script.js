@@ -59,7 +59,7 @@ function get_bullet_id()
     return id;
 }
 
-function delete_bullet_db(task_field, id){    
+function delete_bullet_db(task_field, id){
     let origin_list = JSON.parse(localStorage.getItem(task_field)); //js object
     for(let i = 0; i < origin_list[0].length; i++) { //search through and remove bullet
         if(origin_list[0][i].bullet_id == id){
@@ -84,12 +84,12 @@ function high_low_migration(task_field, id) {
             let origin_list = JSON.parse(localStorage.getItem(task_field));
             let other_list = JSON.parse(localStorage.getItem('LP'));
             let temp_bullet;
-            for(let bullet of origin_list[0]){ 
+            for(let bullet of origin_list[0]){
                 if(bullet.bullet_id == id) {
                     temp_bullet = bullet;
                     delete_bullet_db(temp_bullet.task_field, temp_bullet.bullet_id);
                     temp_bullet.task_field = 'LP';
-                    other_list[0].unshift(temp_bullet); 
+                    other_list[0].unshift(temp_bullet);
                     localStorage.setItem('LP', JSON.stringify(other_list));
                     populate_global_arrays();
                     updateView(task_field);
@@ -102,12 +102,12 @@ function high_low_migration(task_field, id) {
             let origin_list = JSON.parse(localStorage.getItem(task_field));
             let other_list = JSON.parse(localStorage.getItem('HP'));
             let temp_bullet;
-            for(let bullet of origin_list[0]){ 
+            for(let bullet of origin_list[0]){
                 if(bullet.bullet_id == id) {
                     temp_bullet = bullet;
                     delete_bullet_db(temp_bullet.task_field, temp_bullet.bullet_id);
                     temp_bullet.task_field = 'HP';
-                    other_list[0].unshift(temp_bullet); 
+                    other_list[0].unshift(temp_bullet);
                     localStorage.setItem('HP', JSON.stringify(other_list));
                     populate_global_arrays();
                     updateView(task_field);
@@ -117,29 +117,11 @@ function high_low_migration(task_field, id) {
             }
             throw "Cannot find bullet id in task_field";
         }
-        
     }
-
-    // let origin_list = JSON.parse(localStorage.getItem(task_field));
-    // let temp_bullet = origin_list[index];
-
-    // if (task_field == 'HP') {
-    //     delete_bullet_db(task_field, index);
-    //     temp_bullet.task_field = 'LP';
-    //     create_bullet_db(temp_bullet);
-    // } else if (task_field == 'LP') {
-    //     delete_bullet_db(task_field, index);
-    //     temp_bullet.task_field = 'HP';
-    //     create_bullet_db(temp_bullet);
-    // } else {
-    //     console.log('Wrong task_field: Cannot be completed');
-    // }
 }
 
-export { complete_migration, high_low_migration };
+export { complete_migration, high_low_migration, updateView, populate_global_arrays, delete_bullet_db };
 
-
-//mark a bullet as complete, move it from HP or LP to C.
 function complete_migration(task_field, id) {
     if (task_field != 'HP' && task_field != 'LP'){
         throw 'Wrong task_field: Cannot be completed';
@@ -147,7 +129,7 @@ function complete_migration(task_field, id) {
         let origin_list = JSON.parse(localStorage.getItem(task_field));
         let completed_list = JSON.parse(localStorage.getItem('C'));
         let temp_bullet;
-        for(let bullet of origin_list[0]){ 
+        for(let bullet of origin_list[0]){
             if(bullet.bullet_id == id) {
                 temp_bullet = bullet;
                 delete_bullet_db(temp_bullet.task_field, temp_bullet.bullet_id);
@@ -163,7 +145,6 @@ function complete_migration(task_field, id) {
         throw "Cannot find bullet id in task_field";
     }
 }
-
 /* press enter to submit the text post rather than pressing the button
 let textBox = document.getElementById('editor_text');
 
@@ -186,6 +167,8 @@ function create_bullet(e) {
     let deadline = document.getElementById('entry_date').value;
     let content = document.getElementById('editor_text').textContent;
     let bullet_id = get_bullet_id();
+    document.getElementById('editor_text').textContent = ""; //clear text box, temp fix?
+
     /* TODO: will have to change how we handle labels later; will probably have to loop
     across all label checkboxes and add the ones that have been selected to labels */
 

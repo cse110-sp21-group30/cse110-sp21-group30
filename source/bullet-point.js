@@ -1,6 +1,6 @@
 // Bullet point/entry custom component
 
-import { complete_migration, high_low_migration } from './script.js';
+import { complete_migration, high_low_migration, updateView, populate_global_arrays, delete_bullet_db } from './script.js';
 
 class BulletPoint extends HTMLElement {
     constructor() {
@@ -22,8 +22,10 @@ class BulletPoint extends HTMLElement {
             <span class="date"></span>
             <span class="entry_label"></span>
             <span class="bullet_id"></span>
-            <button>Mark Complete</button>
-            <button>Change Priority</button>
+            <button class="not-complete">Mark Complete</button>
+            <button class="not-complete">Change Priority</button>
+            <button class="complete">Revert Complete</button>
+            <button class="general">Delete</button>
         </article>
         `;
 
@@ -52,12 +54,34 @@ class BulletPoint extends HTMLElement {
 
         let buttons = article.querySelectorAll('button');
 
+        //show or hide the respective buttons
+        if(entry.task_field == "C"){
+            buttons[0].style.display = "none";
+            buttons[1].style.display = "none";
+        } else {
+            buttons[2].style.display = "none";
+        }
+
+        //mark as complete
         buttons[0].addEventListener('click', function() {
             complete_migration(entry.task_field, entry.bullet_id);
         });
 
+        //change priority
         buttons[1].addEventListener('click', function() {
-            high_low_migration(entry.task_field, entry.bullet_id)
+            high_low_migration(entry.task_field, entry.bullet_id);
+        });
+
+        //revert from complete to HP or LP
+        buttons[2].addEventListener('click', function() {
+            console.log("reverting");
+        });
+
+        //delete
+        buttons[3].addEventListener('click', function() {
+            delete_bullet_db(entry.task_field, entry.bullet_id);
+            populate_global_arrays();
+            updateView(entry.task_field);
         });
 
     }
