@@ -1,6 +1,6 @@
 // Bullet point/entry custom component
 
-import { complete_migration, high_low_migration, updateView, populate_global_arrays, delete_bullet_db, revert_complete_migration } from './script.js';
+import { complete_migration, high_low_migration, delete_bullet_db, revert_complete_migration } from './script.js';
 
 class BulletPoint extends HTMLElement {
     constructor() {
@@ -80,8 +80,6 @@ class BulletPoint extends HTMLElement {
         //delete
         buttons[3].addEventListener('click', function() {
             delete_bullet_db(entry.task_field, entry.bullet_id);
-            populate_global_arrays();
-            updateView(entry.task_field);
         });
 
     }

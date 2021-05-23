@@ -50,8 +50,8 @@ function populate_global_arrays() {
 function get_bullet_id()
 {
     if (localStorage.getItem("ID") === null) {
-        localStorage.setItem("ID", 1);
-        console.log('id set to 1');
+        localStorage.setItem("ID", 0);
+        console.log('id set to 0');
     }
     let id = localStorage.getItem('ID');
     id++;
@@ -67,12 +67,16 @@ function delete_bullet_db(task_field, id){
         }
     }
     localStorage.setItem(task_field, JSON.stringify(origin_list));
+    populate_global_arrays();
+    updateView(task_field);
 }
 
 function create_bullet_db(bullet){
     let origin_list = JSON.parse(localStorage.getItem(bullet.task_field));  // {0: [{bullet1},{bullet2} ...]}
-    origin_list[0].push(bullet); //unshift() if we want to prepend??
+    origin_list[0].push(bullet);
     localStorage.setItem(bullet.task_field, JSON.stringify(origin_list));
+    populate_global_arrays(); // READ
+    updateView(bullet.task_field);
 }
 
 //move a bullet from HP to LP, or LP to HP
@@ -120,8 +124,9 @@ function high_low_migration(task_field, id) {
     }
 }
 
-export { complete_migration, high_low_migration, updateView, populate_global_arrays, delete_bullet_db, revert_complete_migration };
+export { complete_migration, high_low_migration, delete_bullet_db, revert_complete_migration };
 
+//moves from LP or HP to complete
 function complete_migration(task_field, id) {
     if (task_field != 'HP' && task_field != 'LP'){
         throw 'Wrong task_field: Cannot be completed';
@@ -146,6 +151,7 @@ function complete_migration(task_field, id) {
     }
 }
 
+//moves from complete to LP
 function revert_complete_migration(task_field, id){
     if(task_field != 'C'){
         throw 'Wrong task_field: Should be \'C\'! ';
@@ -216,8 +222,6 @@ function create_bullet(e) {
     };
 
     create_bullet_db(bullet); // CUD
-    populate_global_arrays(); // READ
-    updateView(task_field);
 }
 
 function display_date()
