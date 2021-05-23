@@ -120,7 +120,7 @@ function high_low_migration(task_field, id) {
     }
 }
 
-export { complete_migration, high_low_migration, updateView, populate_global_arrays, delete_bullet_db };
+export { complete_migration, high_low_migration, updateView, populate_global_arrays, delete_bullet_db, revert_complete_migration };
 
 function complete_migration(task_field, id) {
     if (task_field != 'HP' && task_field != 'LP'){
@@ -145,6 +145,33 @@ function complete_migration(task_field, id) {
         throw "Cannot find bullet id in task_field";
     }
 }
+
+function revert_complete_migration(task_field, id){
+    if(task_field != 'C'){
+        throw 'Wrong task_field: Should be \'C\'! ';
+    }
+    else{
+        let completed_list = JSON.parse(localStorage.getItem('C'));
+        let low_priority_list = JSON.parse(localStorage.getItem('LP'));
+        let temp_bullet;
+        for(let bullet of completed_list[0]){
+            if(bullet.bullet_id == id){
+                temp_bullet = bullet;
+                delete_bullet_db(temp_bullet.task_field, temp_bullet.bullet_id);
+                temp_bullet.task_field = 'LP';
+                low_priority_list[0].unshift(temp_bullet); //By default moved to LP column, even if bullet was previously in HP column
+                localStorage.setItem('LP', JSON.stringify(low_priority_list));
+                populate_global_arrays();
+                updateView(task_field);
+                updateView("LP");
+                return;
+            }
+        }
+        throw "Cannot find bullet id in task_field";
+    }
+}
+
+
 /* press enter to submit the text post rather than pressing the button
 let textBox = document.getElementById('editor_text');
 
