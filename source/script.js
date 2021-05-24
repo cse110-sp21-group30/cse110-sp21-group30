@@ -88,7 +88,7 @@ function high_low_migration(task_field, id) {
             let origin_list = JSON.parse(localStorage.getItem(task_field));
             let other_list = JSON.parse(localStorage.getItem('LP'));
             let temp_bullet;
-            for(let bullet of origin_list[0]){
+            for(let bullet of origin_list[0]){ 
                 if(bullet.bullet_id == id) {
                     temp_bullet = bullet;
                     delete_bullet_db(temp_bullet.task_field, temp_bullet.bullet_id);
@@ -316,17 +316,71 @@ function update_view(task_field)
 
 // Enter key to create bullet
 document.addEventListener("keyup", function(event) {
-    let text_box_content = document.getElementById('editor_text').textContent;
     // Number 13 is the "Enter" key on the keyboard
     if (event.keyCode === 13) {
-      // Cancel the default action, if needed
-      event.preventDefault();
-      if(text_box_content != "") { //Prevent creation of empty bullets
-        create_bullet(event);
+      if(selected_element == null){
+          return;
       }
-      else{
-        let editor_box_text = document.getElementById('editor_text');
-        editor_box_text.innerText = "";//If bullet is empty, clear the newline that enter key makes
+      else if(selected_element.id == 'editor_text'){ //If new bullet being created
+        enter_new_bullet(event);
       }
+      else if(selected_element.tagName == 'BULLET-POINT'){
+          let current_bullet_id = selected_element.shadowRoot.querySelector('span.bullet_id');
+          let current_bullet_content = selected_element.shadowRoot.querySelector('p');
+          let new_content = current_bullet_content.innerText; 
+          new_content = new_content.replace(/^\s+|\s+$/g, ''); //Remove the newline created in the bullet content when enter key is pressed          
+          let bullet_task_field = selected_element.shadowRoot.querySelector('span.bullet_task_field').innerText;
+          edit_exisitng_bullet(current_bullet_id, new_content, bullet_task_field);
+      }
+      
     }
   });
+
+
+//Helper method for enter key press create new bullet
+function enter_new_bullet(event){
+    let text_box_content = document.getElementById('editor_text').textContent;
+    // Cancel the default action, if needed
+    event.preventDefault();
+    if(text_box_content != "") { //Prevent creation of empty bullets
+        create_bullet(event);
+    }
+    else{
+        let editor_box_text = document.getElementById('editor_text');
+        editor_box_text.innerText = "";//If bullet is empty, clear the newline that enter key makes
+    }
+}
+
+//Helper method for editing contents of existing bullet
+function edit_exisitng_bullet(current_bullet_id, new_content, bullet_task_field){
+    let current_list = JSON.parse(localStorage.getItem(bullet_task_field));
+    let temp_bullet;
+    let counter = 0;
+    for(let bullet of current_list[0]){ 
+        counter = counter + 1;
+        if(bullet.bullet_id == current_bullet_id.innerText) {
+            temp_bullet = bullet;
+            delete_bullet_db(bullet_task_field, temp_bullet.bullet_id);
+            current_list = JSON.parse(localStorage.getItem(bullet_task_field));
+            temp_bullet.task_field = bullet_task_field;
+            temp_bullet.content = new_content;
+            current_list[0].splice(counter -1, 0, temp_bullet); //Re-insert bullet at same spot it was before                    
+            localStorage.setItem(bullet_task_field, JSON.stringify(current_list));
+            populate_global_arrays();
+            update_view(bullet_task_field);
+            return;
+        }
+    }
+}
+
+//This will keep track of what element is selected for handling enter key presses (sets the appropriate element as selected_element)
+let selected_element;
+window.onclick = e => {
+    if(e.target.tagName == 'BULLET-POINT' || e.target.tagName == 'DIV'){//Only set selected_element if a bullet point/the entry box div is clicked
+        selected_element = e.target;
+
+        if(selected_element.id == 'editor_text'){ //Remove the instruction text from the entry box when clicked.
+            document.getElementById('editor_text').textContent = "";
+        }
+    }
+} 

@@ -22,6 +22,7 @@ class BulletPoint extends HTMLElement {
             <span class="date"></span>
             <span class="entry_label"></span>
             <span class="bullet_id"></span>
+            <span class="bullet_task_field"></span>
             <button class="not-complete">Mark Complete</button>
             <button class="not-complete">Change Priority</button>
             <button class="complete">Revert Complete</button>
@@ -51,6 +52,9 @@ class BulletPoint extends HTMLElement {
         spans[0].append(entry.deadline);
         spans[1].append(entry.labels);
         spans[2].append(entry.bullet_id);
+        spans[3].append(entry.task_field);
+
+        spans[3].style.display = "none";
 
         let buttons = article.querySelectorAll('button');
 
