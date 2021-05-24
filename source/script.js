@@ -313,3 +313,20 @@ function updateView(task_field)
         throw errMsg;
     }
 }
+
+
+// Enter key to create bullet
+document.addEventListener("keyup", function(event) {
+    let textBoxContent = document.getElementById('editor_text').textContent;
+    // Number 13 is the "Enter" key on the keyboard
+    if (event.keyCode === 13) {
+      // Cancel the default action, if needed
+      event.preventDefault();
+      if(textBoxContent != "") { //Prevents creation of empty bullets
+        create_bullet(event);
+      }
+      else{
+        textBoxContent = ""; //If text area is empty, enter key should not create a newline (reset to empty text box)
+      }
+    }
+  });
