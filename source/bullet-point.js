@@ -22,6 +22,7 @@ class BulletPoint extends HTMLElement {
             <span class="date"></span>
             <span class="entry_label"></span>
             <span class="bullet_id"></span>
+            <!-- <br> <span class="comp_time"></span> print timestamp -->
             <button class="not-complete">Mark Complete</button>
             <button class="not-complete">Change Priority</button>
             <button class="complete">Revert Complete</button>
@@ -51,6 +52,7 @@ class BulletPoint extends HTMLElement {
         spans[0].append(entry.deadline);
         spans[1].append(entry.labels);
         spans[2].append(entry.bullet_id);
+        //spans[3].append(entry.comp_time); // uncomment to print timestamp
 
         let buttons = article.querySelectorAll('button');
 
