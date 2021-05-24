@@ -1,87 +1,227 @@
 var high_priority_array = [];
 var low_priority_array = [];
 var completed_array = [];
-// var id = 0;
 
+document.addEventListener('DOMContentLoaded', function(){
+    //localStorage.clear(); //for testing, comment out to preserve local storage
+    populate_global_arrays(); //load arrays when page loads
+    display_date(); // load up the dates
+    updateView("HP");
+    updateView("LP");
+    updateView("C");
+});
 
 function populate_global_arrays() {
     if (localStorage.getItem("HP") === null) {
-        localStorage.setItem("HP", JSON.stringify([]));
+        localStorage.setItem("HP", JSON.stringify({0:[]}));
+        console.log('HP created');
     }
     if (localStorage.getItem("LP") === null) {
-        localStorage.setItem("LP", JSON.stringify([]));
+        localStorage.setItem("LP", JSON.stringify({0:[]}));
+        console.log('LP created');
     }
     if (localStorage.getItem("C") === null) {
-        localStorage.setItem("C", JSON.stringify([]));
+        localStorage.setItem("C", JSON.stringify({0:[]}));
+        console.log('C created');
     }
-
-    high_priority_array = JSON.parse(localStorage.getItem("HP"));
-    low_priority_array = JSON.parse(localStorage.getItem("LP"));
-    completed_array = JSON.parse(localStorage.getItem("C"));
+    high_priority_array = JSON.parse(localStorage.getItem("HP"))[0];
+    low_priority_array = JSON.parse(localStorage.getItem("LP"))[0];
+    completed_array = JSON.parse(localStorage.getItem("C"))[0];
 }
 
-function delete_bullet_db(task_field, index){
-    let origin_list = JSON.parse(localStorage.getItem(task_field)).splice(index, 1);
-    localStorage.setItem(task_field, origin_list);
+/* localstorage obj
+{
+    HP: {
+        0: [post1, post2, post3]
+    },
+    LP: {
+        0: [post4, post5]
+    },
+    C: {
+        0: [post6, post7]
+    },
+    ID: num
+}
+*/
+
+//call this whenever a new bullet point is created
+//returns an integer, which will be the unique bullet id
+//ID's are reset to 1 whenever local storage is cleared
+function get_bullet_id()
+{
+    if (localStorage.getItem("ID") === null) {
+        localStorage.setItem("ID", 0);
+        console.log('id set to 0');
+    }
+    let id = localStorage.getItem('ID');
+    id++;
+    localStorage.setItem('ID', id);
+    return id;
+}
+
+function delete_bullet_db(task_field, id){
+    let origin_list = JSON.parse(localStorage.getItem(task_field)); //js object
+    for(let i = 0; i < origin_list[0].length; i++) { //search through and remove bullet
+        if(origin_list[0][i].bullet_id == id){
+            origin_list[0].splice(i, 1);
+        }
+    }
+    localStorage.setItem(task_field, JSON.stringify(origin_list));
+    populate_global_arrays();
+    updateView(task_field);
 }
 
 function create_bullet_db(bullet){
-    let origin_list = JSON.parse(localStorage.getItem(bullet.task_field));
-    origin_list.append(bullet);
-    localStorage.setItem(bullet.task_field, origin_list);
+    let origin_list = JSON.parse(localStorage.getItem(bullet.task_field));  // {0: [{bullet1},{bullet2} ...]}
+    origin_list[0].push(bullet);
+    localStorage.setItem(bullet.task_field, JSON.stringify(origin_list));
+    populate_global_arrays(); // READ
+    updateView(bullet.task_field);
 }
 
-function high_low_migration(task_field, index) {
-    let origin_list = JSON.parse(localStorage.getItem(task_field));
-    let temp_bullet = origin_list[index];
-
-    if (task_field == 'HP') {
-        delete_bullet_db(task_field, index);
-        temp_bullet.task_field = 'LP';
-        create_bullet_db(temp_bullet);
-    } else if (task_field == 'LP') {
-        delete_bullet_db(task_field, index);
-        temp_bullet.task_field = 'HP';
-        create_bullet_db(temp_bullet);
-    } else {
-        console.log('Wrong task_field: Cannot be completed');
+//move a bullet from HP to LP, or LP to HP
+function high_low_migration(task_field, id) {
+    if (task_field != 'HP' && task_field != 'LP'){
+        throw 'Wrong task_field: Cannot be completed';
+    } else{
+        if(task_field == 'HP') {
+            let origin_list = JSON.parse(localStorage.getItem(task_field));
+            let other_list = JSON.parse(localStorage.getItem('LP'));
+            let temp_bullet;
+            for(let bullet of origin_list[0]){
+                if(bullet.bullet_id == id) {
+                    temp_bullet = bullet;
+                    delete_bullet_db(temp_bullet.task_field, temp_bullet.bullet_id);
+                    temp_bullet.task_field = 'LP';
+                    other_list[0].unshift(temp_bullet);
+                    localStorage.setItem('LP', JSON.stringify(other_list));
+                    populate_global_arrays();
+                    updateView(task_field);
+                    updateView("LP");
+                    return;
+                }
+            }
+            throw "Cannot find bullet id in task_field";
+        } else { //LP
+            let origin_list = JSON.parse(localStorage.getItem(task_field));
+            let other_list = JSON.parse(localStorage.getItem('HP'));
+            let temp_bullet;
+            for(let bullet of origin_list[0]){
+                if(bullet.bullet_id == id) {
+                    temp_bullet = bullet;
+                    delete_bullet_db(temp_bullet.task_field, temp_bullet.bullet_id);
+                    temp_bullet.task_field = 'HP';
+                    other_list[0].unshift(temp_bullet);
+                    localStorage.setItem('HP', JSON.stringify(other_list));
+                    populate_global_arrays();
+                    updateView(task_field);
+                    updateView("HP");
+                    return;
+                }
+            }
+            throw "Cannot find bullet id in task_field";
+        }
     }
 }
 
-function complete_migration(task_field, index) {
+export { complete_migration, high_low_migration, delete_bullet_db, revert_complete_migration };
+
+//moves from LP or HP to complete
+function complete_migration(task_field, id) {
     if (task_field != 'HP' && task_field != 'LP'){
-        console.log('Wrong task_field: Cannot be completed');
+        throw 'Wrong task_field: Cannot be completed';
     } else{
         let origin_list = JSON.parse(localStorage.getItem(task_field));
         let completed_list = JSON.parse(localStorage.getItem('C'));
-        let temp_bullet = temp_list[index];
-
-        delete_bullet_db(task_field, index);
-        temp_bullet.task_field = 'C';
-        completed_list.prepend(temp_bullet);
-        localStorage.setItem('C', completed_list);
+        let temp_bullet;
+        for(let bullet of origin_list[0]){
+            if(bullet.bullet_id == id) {
+                temp_bullet = bullet;
+                delete_bullet_db(temp_bullet.task_field, temp_bullet.bullet_id);
+                temp_bullet.task_field = 'C';
+                completed_list[0].unshift(temp_bullet); //insert removed bullet to 'C'
+                localStorage.setItem('C', JSON.stringify(completed_list));
+                populate_global_arrays();
+                updateView(task_field);
+                updateView("C");
+                return;
+            }
+        }
+        throw "Cannot find bullet id in task_field";
     }
 }
 
+//moves from complete to LP
+function revert_complete_migration(task_field, id){
+    if(task_field != 'C'){
+        throw 'Wrong task_field: Should be \'C\'! ';
+    }
+    else{
+        let completed_list = JSON.parse(localStorage.getItem('C'));
+        let low_priority_list = JSON.parse(localStorage.getItem('LP'));
+        let temp_bullet;
+        for(let bullet of completed_list[0]){
+            if(bullet.bullet_id == id){
+                temp_bullet = bullet;
+                delete_bullet_db(temp_bullet.task_field, temp_bullet.bullet_id);
+                temp_bullet.task_field = 'LP';
+                low_priority_list[0].unshift(temp_bullet); //By default moved to LP column, even if bullet was previously in HP column
+                localStorage.setItem('LP', JSON.stringify(low_priority_list));
+                populate_global_arrays();
+                updateView(task_field);
+                updateView("LP");
+                return;
+            }
+        }
+        throw "Cannot find bullet id in task_field";
+    }
+}
+
+
+/* press enter to submit the text post rather than pressing the button
+let textBox = document.getElementById('editor_text');
+
+textBox.addEventListener("keydown", function (e) {
+    if (e.code === "Enter") {  //checks whether the pressed key is "Enter"
+        console.log('yes');
+    }
+});
+*/
+
+let submitPost = document.getElementById('get_text');
+submitPost.addEventListener('click', function(e){
+    create_bullet(e);
+});
+
 function create_bullet(e) {
     e.preventDefault();
-    var task_field = document.getElementById('bullet_task_field').value;
-    var labels = document.getElementById('bullet_labels').value;
-    var deadline = document.getElementById('bullet_deadline').value;
-    var content = document.getElementById('bullet_contents').value;
+    let task_field = document.getElementById('check_priority').checked;
+    let labels = document.getElementById('select2').value;
+    let deadline = document.getElementById('entry_date').value;
+    let content = document.getElementById('editor_text').textContent;
+    let bullet_id = get_bullet_id();
+    document.getElementById('editor_text').textContent = ""; //clear text box, temp fix?
+
     /* TODO: will have to change how we handle labels later; will probably have to loop
     across all label checkboxes and add the ones that have been selected to labels */
-    let bullet = JSON.stringify({
+
+    if (task_field == true) {
+        task_field = 'HP';
+    }
+    else {
+        task_field = 'LP';
+    }
+
+    let bullet = {
         "task_field": task_field,
         "labels": labels,
         "deadline": deadline,
         "content": content,
+        "bullet_id": bullet_id,
         "CompTimeStamp": null
-    });
+    };
 
     create_bullet_db(bullet); // CUD
-    populate_global_arrays(); // READ
-    updateView();
 }
 
 function display_date()
@@ -114,10 +254,62 @@ function display_date()
     }
 }
 
-// When the user first opens the page, load up the dates
-window.onload = display_date;
 
-//TODO
-function updateView() {
+/*
+    Renders the task array onto its respective place in the DOM.
+    task_field is a string that is either "HP", "LP", or "C"
+*/
+function updateView(task_field)
+{
+    if(task_field === "HP")
+    {
+        let box_hp = document.getElementById('box_hp');
+        let bullet_points = box_hp.querySelectorAll("div > bullet-point");
+        for(let b of bullet_points)
+        {
+            b.parentNode.removeChild(b); //clear bullet-points before rendering
+        }
 
+        for(let bullet of high_priority_array)
+        {
+            let new_bullet = document.createElement("bullet-point");
+            new_bullet.entry = bullet;
+            let section = box_hp.appendChild(new_bullet);
+        }
+    }
+    else if(task_field === "LP")
+    {
+        let box_lp = document.getElementById('box_lp');
+        let bullet_points = box_lp.querySelectorAll("div > bullet-point");
+        for(let b of bullet_points)
+        {
+            b.parentNode.removeChild(b); //clear bullet-points before rendering
+        }
+        for(let bullet of low_priority_array)
+        {
+            let new_bullet = document.createElement("bullet-point");
+            new_bullet.entry = bullet;
+            let section = box_lp.appendChild(new_bullet);
+        }
+    }
+    else if(task_field === "C")
+    {
+        let box_c = document.getElementById("box_c");
+        let bullet_points = box_c.querySelectorAll("div > bullet-point");
+        for(let b of bullet_points)
+        {
+            b.parentNode.removeChild(b); //clear bullet-points before rendering
+        }
+        for(let bullet of completed_array)
+        {
+            let new_bullet = document.createElement("bullet-point");
+            new_bullet.entry = bullet;
+            let section = box_c.appendChild(new_bullet);
+        }
+    }
+    else //error
+    {
+        let errMsg = `Attempting to render ${task_field}, this is not "HP", "LP", or "C"`;
+        throw errMsg;
+    }
 }
