@@ -5,8 +5,7 @@ header {
     grid-template-columns: fit-content(50px) auto fit-content(470px) 110px;
     grid-template-rows: auto;
     grid-gap: 0px;
-    height: 8%;
-    min-height: 50px;
+    height: 50px;
     width: 100%;
     padding: 5px 5px 5px 5px;
     background-color:rgb(181, 220, 255);
@@ -52,7 +51,7 @@ header {
     grid-column-start: 4;
     grid-column-end: 4;
     justify-content: right;
-    margin-top: 2%;
+    margin-top: 3%;
 }
 
 #logo {
@@ -223,12 +222,14 @@ body {
     margin-top: 80px;
     justify-content: center;
     height: 32em;
-    max-height: 70%;
+    max-height: 68vh;
     margin-bottom: 120px;
 }
 
 .box {
-    display: inline-block;
+    display: grid;
+    grid-template-rows: fit-content(100px) auto;
+    grid-gap: 0px;
     width: 30%;
     height: 98%;
     margin-left: 5px;
@@ -245,6 +246,54 @@ h1 {
     font-size: 22px;
     font-family: 'Source Sans Pro', sans-serif;
     color: black;
+}
+
+.column_grid_h1 {
+    grid-row-start: 1;
+    grid-row-end: 1;
+    grid-column-start: 1;
+    grid-column-end: 1;
+}
+
+.column_grid_h2 {
+    grid-row-start: 1;
+    grid-row-end: 1;
+    grid-column-start: 1;
+    grid-column-end: 1;
+}
+
+.column_grid_h3 {
+    grid-row-start: 1;
+    grid-row-end: 1;
+    grid-column-start: 1;
+    grid-column-end: 1;
+}
+
+#hp_bullets {
+    align-content: flex-start;
+    grid-row-start: 2;
+    grid-row-end: 2;
+    grid-column-start: 1;
+    grid-column-end: 1;
+    overflow-y: auto;
+}
+
+#lp_bullets {
+    align-content: flex-start;
+    grid-row-start: 2;
+    grid-row-end: 2;
+    grid-column-start: 1;
+    grid-column-end: 1;
+    overflow-y: auto;
+}
+
+#c_bullets {
+    align-content: flex-start;
+    grid-row-start: 2;
+    grid-row-end: 2;
+    grid-column-start: 1;
+    grid-column-end: 1;
+    overflow-y: auto;
 }
 
 #high_priority_header {
