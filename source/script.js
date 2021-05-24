@@ -73,7 +73,7 @@ function delete_bullet_db(task_field, id){
 
 function create_bullet_db(bullet){
     let origin_list = JSON.parse(localStorage.getItem(bullet.task_field));  // {0: [{bullet1},{bullet2} ...]}
-    origin_list[0].push(bullet);
+    origin_list[0].unshift(bullet);
     localStorage.setItem(bullet.task_field, JSON.stringify(origin_list));
     populate_global_arrays(); // READ
     updateView(bullet.task_field);
