@@ -88,11 +88,13 @@ function high_low_migration(task_field, id) {
             let origin_list = JSON.parse(localStorage.getItem(task_field));
             let other_list = JSON.parse(localStorage.getItem('LP'));
             let temp_bullet;
-            for(let bullet of origin_list[0]){ 
-                if(bullet.bullet_id == id) {
+            for(let bullet of origin_list[0]){
+                if(bullet.bullet_id == id) { //find bullet in array
                     temp_bullet = bullet;
+                    //find and remove from array HP
                     delete_bullet_db(temp_bullet.task_field, temp_bullet.bullet_id);
                     temp_bullet.task_field = 'LP';
+                    //add to array LP
                     other_list[0].unshift(temp_bullet);
                     localStorage.setItem('LP', JSON.stringify(other_list));
                     populate_global_arrays();
@@ -107,10 +109,12 @@ function high_low_migration(task_field, id) {
             let other_list = JSON.parse(localStorage.getItem('HP'));
             let temp_bullet;
             for(let bullet of origin_list[0]){
-                if(bullet.bullet_id == id) {
+                if(bullet.bullet_id == id) { //find bullet in array
                     temp_bullet = bullet;
+                    //find and remove from array LP
                     delete_bullet_db(temp_bullet.task_field, temp_bullet.bullet_id);
                     temp_bullet.task_field = 'HP';
+                    //add to array HP
                     other_list[0].unshift(temp_bullet);
                     localStorage.setItem('HP', JSON.stringify(other_list));
                     populate_global_arrays();
@@ -135,11 +139,14 @@ function complete_migration(task_field, id) {
         let completed_list = JSON.parse(localStorage.getItem('C'));
         let temp_bullet;
         for(let bullet of origin_list[0]){
-            if(bullet.bullet_id == id) {
+            if(bullet.bullet_id == id) { //find bullet in array
                 temp_bullet = bullet;
+                //find and remove from LP or HP
                 delete_bullet_db(temp_bullet.task_field, temp_bullet.bullet_id);
                 temp_bullet.task_field = 'C';
-                completed_list[0].unshift(temp_bullet); //insert removed bullet to 'C'
+                const now = new Date();
+                temp_bullet.comp_time = now.toISOString(); //set timestamp
+                completed_list[0].unshift(temp_bullet); //insert new bullet to 'C'
                 localStorage.setItem('C', JSON.stringify(completed_list));
                 populate_global_arrays();
                 update_view(task_field);
@@ -165,6 +172,7 @@ function revert_complete_migration(task_field, id){
                 temp_bullet = bullet;
                 delete_bullet_db(temp_bullet.task_field, temp_bullet.bullet_id);
                 temp_bullet.task_field = 'LP';
+                temp_bullet.comp_time = null; //remove "comp_time"
                 low_priority_list[0].unshift(temp_bullet); //By default moved to LP column, even if bullet was previously in HP column
                 localStorage.setItem('LP', JSON.stringify(low_priority_list));
                 populate_global_arrays();
@@ -200,7 +208,7 @@ function create_bullet(e) {
     let deadline = document.getElementById('entry_date').value;
     let content = document.getElementById('editor_text').textContent;
     let bullet_id = get_bullet_id();
-    document.getElementById('editor_text').textContent = ""; //clear text box, temp fix?
+    document.getElementById('editor_text').textContent = ""; //clear text box
 
     /* TODO: will have to change how we handle labels later; will probably have to loop
     across all label checkboxes and add the ones that have been selected to labels */
@@ -218,7 +226,7 @@ function create_bullet(e) {
         "deadline": deadline,
         "content": content,
         "bullet_id": bullet_id,
-        "CompTimeStamp": null
+        "comp_time": null
     };
 
     create_bullet_db(bullet); // CUD
