@@ -318,6 +318,7 @@ function update_view(task_field)
 document.addEventListener("keyup", function(event) {
     // Number 13 is the "Enter" key on the keyboard
     if (event.keyCode === 13) {
+        event.preventDefault();
       if(selected_element == null){
           return;
       }
@@ -327,8 +328,8 @@ document.addEventListener("keyup", function(event) {
       else if(selected_element.tagName == 'BULLET-POINT'){
           let current_bullet_id = selected_element.shadowRoot.querySelector('span.bullet_id');
           let current_bullet_content = selected_element.shadowRoot.querySelector('p');
-          let new_content = current_bullet_content.innerText; 
-          new_content = new_content.replace(/^\s+|\s+$/g, ''); //Remove the newline created in the bullet content when enter key is pressed          
+          let new_content = current_bullet_content.innerText;  
+          new_content = new_content.replace(/\n/g, "");  //Remove the newline created in the bullet content when enter key is pressed   
           let bullet_task_field = selected_element.shadowRoot.querySelector('span.bullet_task_field').innerText;
           edit_exisitng_bullet(current_bullet_id, new_content, bullet_task_field);
       }
