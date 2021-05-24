@@ -6,9 +6,9 @@ document.addEventListener('DOMContentLoaded', function(){
     //localStorage.clear(); //for testing, comment out to preserve local storage
     populate_global_arrays(); //load arrays when page loads
     display_date(); // load up the dates
-    updateView("HP");
-    updateView("LP");
-    updateView("C");
+    update_view("HP");
+    update_view("LP");
+    update_view("C");
 });
 
 function populate_global_arrays() {
@@ -68,7 +68,7 @@ function delete_bullet_db(task_field, id){
     }
     localStorage.setItem(task_field, JSON.stringify(origin_list));
     populate_global_arrays();
-    updateView(task_field);
+    update_view(task_field);
 }
 
 function create_bullet_db(bullet){
@@ -76,7 +76,7 @@ function create_bullet_db(bullet){
     origin_list[0].unshift(bullet);
     localStorage.setItem(bullet.task_field, JSON.stringify(origin_list));
     populate_global_arrays(); // READ
-    updateView(bullet.task_field);
+    update_view(bullet.task_field);
 }
 
 //move a bullet from HP to LP, or LP to HP
@@ -96,8 +96,8 @@ function high_low_migration(task_field, id) {
                     other_list[0].unshift(temp_bullet);
                     localStorage.setItem('LP', JSON.stringify(other_list));
                     populate_global_arrays();
-                    updateView(task_field);
-                    updateView("LP");
+                    update_view(task_field);
+                    update_view("LP");
                     return;
                 }
             }
@@ -114,8 +114,8 @@ function high_low_migration(task_field, id) {
                     other_list[0].unshift(temp_bullet);
                     localStorage.setItem('HP', JSON.stringify(other_list));
                     populate_global_arrays();
-                    updateView(task_field);
-                    updateView("HP");
+                    update_view(task_field);
+                    update_view("HP");
                     return;
                 }
             }
@@ -142,8 +142,8 @@ function complete_migration(task_field, id) {
                 completed_list[0].unshift(temp_bullet); //insert removed bullet to 'C'
                 localStorage.setItem('C', JSON.stringify(completed_list));
                 populate_global_arrays();
-                updateView(task_field);
-                updateView("C");
+                update_view(task_field);
+                update_view("C");
                 return;
             }
         }
@@ -168,8 +168,8 @@ function revert_complete_migration(task_field, id){
                 low_priority_list[0].unshift(temp_bullet); //By default moved to LP column, even if bullet was previously in HP column
                 localStorage.setItem('LP', JSON.stringify(low_priority_list));
                 populate_global_arrays();
-                updateView(task_field);
-                updateView("LP");
+                update_view(task_field);
+                update_view("LP");
                 return;
             }
         }
@@ -259,11 +259,11 @@ function display_date()
     Renders the task array onto its respective place in the DOM.
     task_field is a string that is either "HP", "LP", or "C"
 */
-function updateView(task_field)
+function update_view(task_field)
 {
     if(task_field === "HP")
     {
-        let box_hp = document.getElementById('box_hp');
+        let box_hp = document.getElementById('hp_bullets');
         let bullet_points = box_hp.querySelectorAll("div > bullet-point");
         for(let b of bullet_points)
         {
@@ -279,7 +279,7 @@ function updateView(task_field)
     }
     else if(task_field === "LP")
     {
-        let box_lp = document.getElementById('box_lp');
+        let box_lp = document.getElementById('lp_bullets');
         let bullet_points = box_lp.querySelectorAll("div > bullet-point");
         for(let b of bullet_points)
         {
@@ -294,7 +294,7 @@ function updateView(task_field)
     }
     else if(task_field === "C")
     {
-        let box_c = document.getElementById("box_c");
+        let box_c = document.getElementById("c_bullets");
         let bullet_points = box_c.querySelectorAll("div > bullet-point");
         for(let b of bullet_points)
         {
