@@ -81,6 +81,10 @@ header {
 }
 
 #dates_grid_item22 {
+    height: 85%;
+    width:85%;
+    border-radius: 20%;
+    background-color: #3d9970;
     padding-left: 3px;
     padding-right: 3px;
     grid-column-start: 2;
@@ -89,6 +93,7 @@ header {
     grid-row-end: 1;
     text-align: center;
 }
+
 
 #dates_grid_item23 {
     padding-left: 3px;
