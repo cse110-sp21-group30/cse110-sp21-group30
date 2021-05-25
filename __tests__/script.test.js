@@ -1,8 +1,8 @@
 describe('Basic user flow for SPA ', () => {
   beforeAll(async () => {
-      await page.goto("https://nbuhr9.github.io/test-server/");
+    await page.goto("https://nbuhr9.github.io/test-server/");
   });
-
+      
   test('testing dates', async () => {
       const date = new Date();
       const d = date.getDate().toString();
