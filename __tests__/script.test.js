@@ -14,4 +14,18 @@ describe('Basic user flow for SPA ', () => {
       expect(todaysDayOfWeek).toBe(dayOfWeek);
       expect(todaysDate).toBe(d);
   });
+
+  test('make bullet point', async () => {
+      let text_box = await page.$('#editor_text');
+      await text_box.click(); //after click, box should have no text
+      await text_box.type('Test Input'); //add text
+      await page.keyboard.press('Enter'); //submit bullet, and wait for bullet to appear
+      await page.waitForSelector('bullet-point');
+
+      let bullet = await page.$('bullet-point');
+      let data = await bullet.getProperty('entry');
+      let jsonObj = await data.jsonValue();
+      expect(jsonObj.content).toBe("Test Input");
+      expect(jsonObj.bullet_id).toBe("1");
+  });
 });
