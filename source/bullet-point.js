@@ -15,6 +15,14 @@ class BulletPoint extends HTMLElement {
             .entry {
                 border: 2px solid black;
                 border-radius: 5px;
+                padding: 5px;
+            }
+            .hide-hover {
+                display: none;
+                cursor: pointer;
+            }
+            .entry:hover > .hide-hover {
+                display: inline;
             }
         </style>
         <article class="entry">
@@ -24,6 +32,8 @@ class BulletPoint extends HTMLElement {
             <span class="bullet_id"></span>
             <span class="bullet_task_field"></span>
             <!-- <br> <span class="comp_time"></span> print timestamp -->
+            <br>
+            <!-- buttons go here-->
         </article>
         `;
 
