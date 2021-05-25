@@ -1,7 +1,8 @@
 describe('Basic user flow for SPA ', () => {
   beforeAll(async () => {
-    await page.goto('https://nbuhr9.github.io/test-server/');
-    await page.waitForTimeout(500);
+      const browser = await puppeteer.launch();
+      const page = await browser.newPage();
+      await page.goto("https://nbuhr9.github.io/test-server/");
   });
 
   test('testing dates', async () => {
