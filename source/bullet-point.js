@@ -24,10 +24,6 @@ class BulletPoint extends HTMLElement {
             <span class="bullet_id"></span>
             <span class="bullet_task_field"></span>
             <!-- <br> <span class="comp_time"></span> print timestamp -->
-            <button class="not-complete">Mark Complete</button>
-            <button class="not-complete">Change Priority</button>
-            <button class="complete">Revert Complete</button>
-            <button class="general">Delete</button>
         </article>
         `;
 
@@ -57,36 +53,54 @@ class BulletPoint extends HTMLElement {
         spans[3].style.display = "none";
         //spans[4].append(entry.comp_time); // uncomment to print timestamp
 
-        let buttons = article.querySelectorAll('button');
-
         //show or hide the respective buttons
-        if(entry.task_field == "C"){
-            buttons[0].style.display = "none";
-            buttons[1].style.display = "none";
-        } else {
-            buttons[2].style.display = "none";
+        if(entry.task_field == "C")
+        {
+            //create revert complete
+            let button_rev = document.createElement("button");
+            button_rev.className = "undo-complete hide-hover";
+            button_rev.textContent = "Revert Complete";
+            button_rev.addEventListener('click', function() {
+                //(Reverts to LP even if bullet was in HP previously)
+                revert_complete_migration(entry.task_field, entry.bullet_id);
+            });
+            article.append(button_rev);
+            //create delete
+            let button_del = document.createElement("button");
+            button_del.className = "del hide-hover";
+            button_del.textContent = "Delete";
+            button_del.addEventListener('click', function() {
+                delete_bullet_db(entry.task_field, entry.bullet_id);
+            });
+            article.append(button_del);
         }
-
-        //mark as complete
-        buttons[0].addEventListener('click', function() {
-            complete_migration(entry.task_field, entry.bullet_id);
-        });
-
-        //change priority
-        buttons[1].addEventListener('click', function() {
-            high_low_migration(entry.task_field, entry.bullet_id);
-        });
-
-        //revert from complete to LP (Reverts to LP even if bullet was in HP previously)
-        buttons[2].addEventListener('click', function() {
-            revert_complete_migration(entry.task_field, entry.bullet_id);
-        });
-
-        //delete
-        buttons[3].addEventListener('click', function() {
-            delete_bullet_db(entry.task_field, entry.bullet_id);
-        });
-
+        else
+        {
+            //create "mark complete"
+            let button_comp = document.createElement("button");
+            button_comp.className = "mark-complete hide-hover";
+            button_comp.textContent = "Mark Complete";
+            button_comp.addEventListener('click', function() {
+                complete_migration(entry.task_field, entry.bullet_id);
+            });
+            article.append(button_comp);
+            //create change priority
+            let button_pri = document.createElement("button");
+            button_pri.className = "change-priority hide-hover";
+            button_pri.textContent = "Change Priority";
+            button_pri.addEventListener('click', function() {
+                high_low_migration(entry.task_field, entry.bullet_id);
+            });
+            article.append(button_pri);
+            //add delete
+            let button_del = document.createElement("button");
+            button_del.className = "del hide-hover";
+            button_del.textContent = "Delete";
+            button_del.addEventListener('click', function() {
+                delete_bullet_db(entry.task_field, entry.bullet_id);
+            });
+            article.append(button_del);
+        }
     }
 }
 
@@ -98,6 +112,6 @@ customElements.define('bullet-point', BulletPoint);
         "labels": labels,
         "deadline": deadline,
         "content": content,
-        "CompTimeStamp": null
+        "comp_time": null
     });
 */
