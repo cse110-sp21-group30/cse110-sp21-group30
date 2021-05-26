@@ -24,6 +24,9 @@ class BulletPoint extends HTMLElement {
             }
             .entry:hover > .hide-hover {
                 display: inline;
+                margin-right: 5%;
+                width:7%;
+                height: 7%;
             }
         </style>
         <article class="entry">
@@ -65,49 +68,47 @@ class BulletPoint extends HTMLElement {
         //spans[4].append(entry.comp_time); // uncomment to print timestamp
 
         //show or hide the respective buttons
-        if(entry.task_field == "C")
-        {
+        if (entry.task_field == "C") {
             //create revert complete
-            let button_rev = document.createElement("button");
+            let button_rev = document.createElement("img");
             button_rev.className = "undo-complete hide-hover";
-            button_rev.textContent = "Revert Complete";
-            button_rev.addEventListener('click', function() {
+            button_rev.src = "./images/revert.svg";
+            button_rev.addEventListener('click', function () {
                 //(Reverts to LP even if bullet was in HP previously)
                 revert_complete_migration(entry.task_field, entry.bullet_id);
             });
             article.append(button_rev);
             //create delete
-            let button_del = document.createElement("button");
+            let button_del = document.createElement("img");
+            button_del.src = "./images/trash.svg"
             button_del.className = "del hide-hover";
-            button_del.textContent = "Delete";
-            button_del.addEventListener('click', function() {
+            button_del.addEventListener('click', function () {
                 delete_bullet_db(entry.task_field, entry.bullet_id);
             });
             article.append(button_del);
         }
-        else
-        {
+        else {
             //create "mark complete"
-            let button_comp = document.createElement("button");
+            let button_comp = document.createElement("img");
             button_comp.className = "mark-complete hide-hover";
-            button_comp.textContent = "Mark Complete";
-            button_comp.addEventListener('click', function() {
+            button_comp.src = "./images/complete.svg";
+            button_comp.addEventListener('click', function () {
                 complete_migration(entry.task_field, entry.bullet_id);
             });
             article.append(button_comp);
             //create change priority
-            let button_pri = document.createElement("button");
+            let button_pri = document.createElement("img");
             button_pri.className = "change-priority hide-hover";
-            button_pri.textContent = "Change Priority";
-            button_pri.addEventListener('click', function() {
+            button_pri.src = "./images/change.svg";
+            button_pri.addEventListener('click', function () {
                 high_low_migration(entry.task_field, entry.bullet_id);
             });
             article.append(button_pri);
             //add delete
-            let button_del = document.createElement("button");
+            let button_del = document.createElement("img");
             button_del.className = "del hide-hover";
-            button_del.textContent = "Delete";
-            button_del.addEventListener('click', function() {
+            button_del.src = "./images/trash.svg";
+            button_del.addEventListener('click', function () {
                 delete_bullet_db(entry.task_field, entry.bullet_id);
             });
             article.append(button_del);
