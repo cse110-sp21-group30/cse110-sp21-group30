@@ -6,9 +6,9 @@ document.addEventListener('DOMContentLoaded', function(){
     //localStorage.clear(); //for testing, comment out to preserve local storage
     populate_global_arrays(); //load arrays when page loads
     display_date(); // load up the dates
-    updateView("HP");
-    updateView("LP");
-    updateView("C");
+    update_view("HP");
+    update_view("LP");
+    update_view("C");
 });
 
 function populate_global_arrays() {
@@ -68,15 +68,15 @@ function delete_bullet_db(task_field, id){
     }
     localStorage.setItem(task_field, JSON.stringify(origin_list));
     populate_global_arrays();
-    updateView(task_field);
+    update_view(task_field);
 }
 
 function create_bullet_db(bullet){
     let origin_list = JSON.parse(localStorage.getItem(bullet.task_field));  // {0: [{bullet1},{bullet2} ...]}
-    origin_list[0].push(bullet);
+    origin_list[0].unshift(bullet);
     localStorage.setItem(bullet.task_field, JSON.stringify(origin_list));
     populate_global_arrays(); // READ
-    updateView(bullet.task_field);
+    update_view(bullet.task_field);
 }
 
 //move a bullet from HP to LP, or LP to HP
@@ -89,15 +89,17 @@ function high_low_migration(task_field, id) {
             let other_list = JSON.parse(localStorage.getItem('LP'));
             let temp_bullet;
             for(let bullet of origin_list[0]){
-                if(bullet.bullet_id == id) {
+                if(bullet.bullet_id == id) { //find bullet in array
                     temp_bullet = bullet;
+                    //find and remove from array HP
                     delete_bullet_db(temp_bullet.task_field, temp_bullet.bullet_id);
                     temp_bullet.task_field = 'LP';
+                    //add to array LP
                     other_list[0].unshift(temp_bullet);
                     localStorage.setItem('LP', JSON.stringify(other_list));
                     populate_global_arrays();
-                    updateView(task_field);
-                    updateView("LP");
+                    update_view(task_field);
+                    update_view("LP");
                     return;
                 }
             }
@@ -107,15 +109,17 @@ function high_low_migration(task_field, id) {
             let other_list = JSON.parse(localStorage.getItem('HP'));
             let temp_bullet;
             for(let bullet of origin_list[0]){
-                if(bullet.bullet_id == id) {
+                if(bullet.bullet_id == id) { //find bullet in array
                     temp_bullet = bullet;
+                    //find and remove from array LP
                     delete_bullet_db(temp_bullet.task_field, temp_bullet.bullet_id);
                     temp_bullet.task_field = 'HP';
+                    //add to array HP
                     other_list[0].unshift(temp_bullet);
                     localStorage.setItem('HP', JSON.stringify(other_list));
                     populate_global_arrays();
-                    updateView(task_field);
-                    updateView("HP");
+                    update_view(task_field);
+                    update_view("HP");
                     return;
                 }
             }
@@ -135,15 +139,18 @@ function complete_migration(task_field, id) {
         let completed_list = JSON.parse(localStorage.getItem('C'));
         let temp_bullet;
         for(let bullet of origin_list[0]){
-            if(bullet.bullet_id == id) {
+            if(bullet.bullet_id == id) { //find bullet in array
                 temp_bullet = bullet;
+                //find and remove from LP or HP
                 delete_bullet_db(temp_bullet.task_field, temp_bullet.bullet_id);
                 temp_bullet.task_field = 'C';
-                completed_list[0].unshift(temp_bullet); //insert removed bullet to 'C'
+                const now = new Date();
+                temp_bullet.comp_time = now.toISOString(); //set timestamp
+                completed_list[0].unshift(temp_bullet); //insert new bullet to 'C'
                 localStorage.setItem('C', JSON.stringify(completed_list));
                 populate_global_arrays();
-                updateView(task_field);
-                updateView("C");
+                update_view(task_field);
+                update_view("C");
                 return;
             }
         }
@@ -165,11 +172,12 @@ function revert_complete_migration(task_field, id){
                 temp_bullet = bullet;
                 delete_bullet_db(temp_bullet.task_field, temp_bullet.bullet_id);
                 temp_bullet.task_field = 'LP';
+                temp_bullet.comp_time = null; //remove "comp_time"
                 low_priority_list[0].unshift(temp_bullet); //By default moved to LP column, even if bullet was previously in HP column
                 localStorage.setItem('LP', JSON.stringify(low_priority_list));
                 populate_global_arrays();
-                updateView(task_field);
-                updateView("LP");
+                update_view(task_field);
+                update_view("LP");
                 return;
             }
         }
@@ -200,7 +208,7 @@ function create_bullet(e) {
     let deadline = document.getElementById('entry_date').value;
     let content = document.getElementById('editor_text').textContent;
     let bullet_id = get_bullet_id();
-    document.getElementById('editor_text').textContent = ""; //clear text box, temp fix?
+    document.getElementById('editor_text').textContent = ""; //clear text box
 
     /* TODO: will have to change how we handle labels later; will probably have to loop
     across all label checkboxes and add the ones that have been selected to labels */
@@ -218,7 +226,7 @@ function create_bullet(e) {
         "deadline": deadline,
         "content": content,
         "bullet_id": bullet_id,
-        "CompTimeStamp": null
+        "comp_time": null
     };
 
     create_bullet_db(bullet); // CUD
@@ -259,11 +267,11 @@ function display_date()
     Renders the task array onto its respective place in the DOM.
     task_field is a string that is either "HP", "LP", or "C"
 */
-function updateView(task_field)
+function update_view(task_field)
 {
     if(task_field === "HP")
     {
-        let box_hp = document.getElementById('box_hp');
+        let box_hp = document.getElementById('hp_bullets');
         let bullet_points = box_hp.querySelectorAll("div > bullet-point");
         for(let b of bullet_points)
         {
@@ -279,7 +287,7 @@ function updateView(task_field)
     }
     else if(task_field === "LP")
     {
-        let box_lp = document.getElementById('box_lp');
+        let box_lp = document.getElementById('lp_bullets');
         let bullet_points = box_lp.querySelectorAll("div > bullet-point");
         for(let b of bullet_points)
         {
@@ -294,7 +302,7 @@ function updateView(task_field)
     }
     else if(task_field === "C")
     {
-        let box_c = document.getElementById("box_c");
+        let box_c = document.getElementById("c_bullets");
         let bullet_points = box_c.querySelectorAll("div > bullet-point");
         for(let b of bullet_points)
         {
@@ -313,3 +321,75 @@ function updateView(task_field)
         throw errMsg;
     }
 }
+
+// Enter key to create bullet
+document.addEventListener("keyup", function(event) {
+    // Number 13 is the "Enter" key on the keyboard
+    if (event.keyCode === 13) {
+        event.preventDefault();
+      if(selected_element == null){
+          return;
+      }
+      else if(selected_element.id == 'editor_text'){ //If new bullet being created
+        enter_new_bullet(event);
+      }
+      else if(selected_element.tagName == 'BULLET-POINT'){
+          let current_bullet_id = selected_element.shadowRoot.querySelector('span.bullet_id');
+          let current_bullet_content = selected_element.shadowRoot.querySelector('p');
+          let new_content = current_bullet_content.innerText;  
+          new_content = new_content.replace(/\n/g, "");  //Remove the newline created in the bullet content when enter key is pressed   
+          let bullet_task_field = selected_element.shadowRoot.querySelector('span.bullet_task_field').innerText;
+          edit_exisitng_bullet(current_bullet_id, new_content, bullet_task_field);
+      }
+      
+    }
+  });
+
+
+//Helper method for enter key press create new bullet
+function enter_new_bullet(event){
+    let text_box_content = document.getElementById('editor_text').textContent;
+    // Cancel the default action, if needed
+    event.preventDefault();
+    if(text_box_content != "") { //Prevent creation of empty bullets
+        create_bullet(event);
+    }
+    else{
+        let editor_box_text = document.getElementById('editor_text');
+        editor_box_text.innerText = "";//If bullet is empty, clear the newline that enter key makes
+    }
+}
+
+//Helper method for editing contents of existing bullet
+function edit_exisitng_bullet(current_bullet_id, new_content, bullet_task_field){
+    let current_list = JSON.parse(localStorage.getItem(bullet_task_field));
+    let temp_bullet;
+    let counter = 0;
+    for(let bullet of current_list[0]){ 
+        counter = counter + 1;
+        if(bullet.bullet_id == current_bullet_id.innerText) {
+            temp_bullet = bullet;
+            delete_bullet_db(bullet_task_field, temp_bullet.bullet_id);
+            current_list = JSON.parse(localStorage.getItem(bullet_task_field));
+            temp_bullet.task_field = bullet_task_field;
+            temp_bullet.content = new_content;
+            current_list[0].splice(counter -1, 0, temp_bullet); //Re-insert bullet at same spot it was before                    
+            localStorage.setItem(bullet_task_field, JSON.stringify(current_list));
+            populate_global_arrays();
+            update_view(bullet_task_field);
+            return;
+        }
+    }
+}
+
+//This will keep track of what element is selected for handling enter key presses (sets the appropriate element as selected_element)
+let selected_element;
+window.onclick = e => {
+    if(e.target.tagName == 'BULLET-POINT' || e.target.tagName == 'DIV'){//Only set selected_element if a bullet point/the entry box div is clicked
+        selected_element = e.target;
+
+        if(selected_element.id == 'editor_text'){ //Remove the instruction text from the entry box when clicked.
+            document.getElementById('editor_text').textContent = "";
+        }
+    }
+} 

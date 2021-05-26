@@ -22,8 +22,10 @@ class BulletPoint extends HTMLElement {
             <span class="date"></span>
             <span class="entry_label"></span>
             <span class="bullet_id"></span>
+            <span class="bullet_task_field"></span>
+            <!-- <br> <span class="comp_time"></span> print timestamp -->
             <button class="not-complete">Mark Complete</button>
-            <button class="not-complete">Change Priority</button>
+            <button class="change-priority">Change Priority</button>
             <button class="complete">Revert Complete</button>
             <button class="general">Delete</button>
         </article>
@@ -36,8 +38,18 @@ class BulletPoint extends HTMLElement {
         this.shadowRoot.appendChild(template.content.cloneNode(true));
     }
 
-    get entry() {
-        return this.getAttribute('entry');
+    get entry()
+    {
+        let entryObj = {
+              'task_field': this.shadowRoot.querySelector('.bullet_task_field').innerText,
+              'labels': this.shadowRoot.querySelector('.entry_label').innerText,
+              'deadline': this.shadowRoot.querySelector('.date').innerText,
+              'content': this.shadowRoot.querySelector('p').innerText,
+              'bullet_id': this.shadowRoot.querySelector('.bullet_id').innerText,
+              //'comp_time': this.shadowRoot.querySelector('.comp_time').innerText
+            };
+
+            return entryObj;
     }
 
     // Outside functions can refer to set() when a bullet is first created or loaded into
@@ -51,6 +63,9 @@ class BulletPoint extends HTMLElement {
         spans[0].append(entry.deadline);
         spans[1].append(entry.labels);
         spans[2].append(entry.bullet_id);
+        spans[3].append(entry.task_field);
+        spans[3].style.display = "none";
+        //spans[4].append(entry.comp_time); // uncomment to print timestamp
 
         let buttons = article.querySelectorAll('button');
 
@@ -93,6 +108,7 @@ customElements.define('bullet-point', BulletPoint);
         "labels": labels,
         "deadline": deadline,
         "content": content,
-        "CompTimeStamp": null
+        "bullet_id": id
+        "comp_time": null
     });
 */
