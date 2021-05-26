@@ -196,10 +196,13 @@ textBox.addEventListener("keydown", function (e) {
 });
 */
 
+/* 
 let submitPost = document.getElementById('get_text');
 submitPost.addEventListener('click', function(e){
     create_bullet(e);
 });
+*/
+
 
 function create_bullet(e) {
     e.preventDefault();
