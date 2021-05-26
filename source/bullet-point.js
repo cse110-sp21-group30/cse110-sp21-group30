@@ -49,7 +49,16 @@ class BulletPoint extends HTMLElement {
     }
 
     get entry() {
-        return this.getAttribute('entry');
+        let entryObj = {
+            'task_field': this.shadowRoot.querySelector('.bullet_task_field').innerText,
+            'labels': this.shadowRoot.querySelector('.entry_label').innerText,
+            'deadline': this.shadowRoot.querySelector('.date').innerText,
+            'content': this.shadowRoot.querySelector('p').innerText,
+            'bullet_id': this.shadowRoot.querySelector('.bullet_id').innerText,
+            //'comp_time': this.shadowRoot.querySelector('.comp_time').innerText
+        };
+
+        return entryObj;
     }
 
     // Outside functions can refer to set() when a bullet is first created or loaded into
