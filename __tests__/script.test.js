@@ -14,11 +14,11 @@ describe('Basic user flow for SPA ', () => {
       expect(todaysDate).toBe(d);
   });
 
-  test('make bullet point', async () => {
+test('make LP bullet point', async () => {
       let text_box = await page.$('#editor_text');
-      await text_box.click(); //after click, box should have no text
-      await text_box.type('Test Input'); //add text
-      await page.keyboard.press('Enter'); //submit bullet, and wait for bullet to appear
+      await text_box.click();
+      await text_box.type('Test Input');
+      await page.keyboard.press('Enter');
       await page.waitForSelector('bullet-point');
 
       let bullet = await page.$('bullet-point');
@@ -27,4 +27,37 @@ describe('Basic user flow for SPA ', () => {
       expect(jsonObj.content).toBe("Test Input");
       expect(jsonObj.bullet_id).toBe("1");
   });
+
+  test('check if bullet added to correct column (LP)', async () => {
+    const numLPBullets = await page.evaluate(() => {
+      return (Array.from(document.querySelector('#lp_bullets').children).length);
+    })
+    expect(numLPBullets).toBe(1);
+  });
+
+  test('test bullet migration (LP -> HP)', async () => {
+    await page.evaluate(() => {
+      document.querySelector("#lp_bullets > bullet-point").shadowRoot.querySelector("article > button.change-priority").click();
+    })
+    const numLPBullets = await page.evaluate(() => {
+      return (Array.from(document.querySelector('#lp_bullets').children).length);
+    })
+    const numHPBullets = await page.evaluate(() => {
+      return (Array.from(document.querySelector('#hp_bullets').children).length);
+    })
+    expect(numLPBullets).toBe(0);
+    expect(numHPBullets).toBe(1);
+  });
+
+  test('delete bullet point', async() => {
+    await page.evaluate(() => {
+      document.querySelector("#hp_bullets > bullet-point").shadowRoot.querySelector("article > button.general").click();
+    })
+    const numHPBullets = await page.evaluate(() => {
+      return (Array.from(document.querySelector('#hp_bullets').children).length);
+    })
+    expect(numHPBullets).toBe(0);
+  });
+
 });
+
