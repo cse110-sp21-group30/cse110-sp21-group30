@@ -1,18 +1,17 @@
 describe('Basic user flow for SPA ', () => {
   beforeAll(async () => {
-    await page.goto('http://127.0.0.1:5501/cse110-sp21-group30-thirdSprint/source/index.html');
-    await page.waitForTimeout(500);
+    await page.goto("https://nbuhr9.github.io/test-server/");
   });
 
   test('testing dates', async () => {
       const date = new Date();
       const d = date.getDate().toString();
       const options = { weekday: 'long' };
-      let dayOfWeek = new Intl.DateTimeFormat('en-US', options).format(date).substring(0,3);
-      const todaysDate = await page.$eval('#dates_grid_item22', elem => elem.textContent);
-      const todaysDayOfWeek = await page.$eval('#dates_grid_item12', elem => elem.textContent);
-      expect(todaysDayOfWeek).toBe(dayOfWeek);
-      expect(todaysDate).toBe(d);
+      let day_of_week = new Intl.DateTimeFormat('en-US', options).format(date).substring(0,3);
+      const todays_date = await page.$eval('#dates_grid_item22', elem => elem.textContent);
+      const todays_day_of_week = await page.$eval('#dates_grid_item12', elem => elem.textContent);
+      expect(todays_day_of_week).toBe(day_of_week);
+      expect(todays_date).toBe(d);
   });
 
   test('make LP bullet point', async () => {
@@ -26,40 +25,40 @@ describe('Basic user flow for SPA ', () => {
 
       let bullet = await page.$('bullet-point');
       let data = await bullet.getProperty('entry');
-      let jsonObj = await data.jsonValue();
-      expect(jsonObj.content).toBe("Test Input");
-      expect(jsonObj.bullet_id).toBe("1");
+      let json_obj = await data.jsonValue();
+      expect(json_obj.content).toBe("Test Input");
+      expect(json_obj.bullet_id).toBe("1");
   });
 
   test('check if bullet added to correct column (LP)', async () => {
-    const numLPBullets = await page.evaluate(() => {
+    const num_LP_bullets = await page.evaluate(() => {
       return (Array.from(document.querySelector('#lp_bullets').children).length);
     })
-    expect(numLPBullets).toBe(1);
+    expect(num_LP_bullets).toBe(1);
   });
 
   test('test bullet migration (LP -> HP)', async () => {
     await page.evaluate(() => {
       document.querySelector("#lp_bullets > bullet-point").shadowRoot.querySelector("article > button.change-priority").click();
     })
-    const numLPBullets = await page.evaluate(() => {
+    const num_LP_bullets = await page.evaluate(() => {
       return (Array.from(document.querySelector('#lp_bullets').children).length);
     })
-    const numHPBullets = await page.evaluate(() => {
+    const num_HP_bullets = await page.evaluate(() => {
       return (Array.from(document.querySelector('#hp_bullets').children).length);
     })
-    expect(numLPBullets).toBe(0);
-    expect(numHPBullets).toBe(1);
+    expect(num_LP_bullets).toBe(0);
+    expect(num_HP_bullets).toBe(1);
   });
 
   test('delete bullet point', async() => {
     await page.evaluate(() => {
       document.querySelector("#hp_bullets > bullet-point").shadowRoot.querySelector("article > button.del").click();
     })
-    const numHPBullets = await page.evaluate(() => {
+    const num_HP_bullets = await page.evaluate(() => {
       return (Array.from(document.querySelector('#hp_bullets').children).length);
     })
-    expect(numHPBullets).toBe(0);
+    expect(num_HP_bullets).toBe(0);
   });
 
 });
