@@ -19,3 +19,8 @@ Since we're constantly making changes to the project, we still have to update ou
 
 ## Future Plans
 In the future we plan to add more unit/e2e tests that will ensure that we have a working Archive and search features. We may also implement a linter and code coverage reporter.
+
+## Updated Pipeline Diagram
+The following diagram encapsulates the general process by which modifications are pushed to the main branch (and sprint branches). 
+
+![image](./phase2.drawio.png)
