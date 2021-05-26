@@ -426,7 +426,7 @@
     "puppeteer": "^9.1.1"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest --coverage"
   },
   "repository": {
     "type": "git",
