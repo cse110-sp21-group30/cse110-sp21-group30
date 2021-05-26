@@ -426,7 +426,7 @@
     "puppeteer": "^9.1.1"
   },
   "scripts": {
-    "test": "jest --coverage --watchAll"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
