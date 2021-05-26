@@ -25,7 +25,7 @@ class BulletPoint extends HTMLElement {
             <span class="bullet_task_field"></span>
             <!-- <br> <span class="comp_time"></span> print timestamp -->
             <button class="not-complete">Mark Complete</button>
-            <button class="not-complete">Change Priority</button>
+            <button class="change-priority">Change Priority</button>
             <button class="complete">Revert Complete</button>
             <button class="general">Delete</button>
         </article>
