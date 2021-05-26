@@ -15,6 +15,7 @@ describe('Basic user flow for SPA ', () => {
   });
 
   test('make LP bullet point', async () => {
+      jest.setTimeout(10000);
       let open_editor = await page.$('#edit');
       await open_editor.click();
       let text_box = await page.$('#editor_text');
@@ -39,7 +40,7 @@ describe('Basic user flow for SPA ', () => {
 
   test('test bullet migration (LP -> HP)', async () => {
     await page.evaluate(() => {
-      document.querySelector("#lp_bullets > bullet-point").shadowRoot.querySelector("article > button.change-priority").click();
+      document.querySelector("#lp_bullets > bullet-point").shadowRoot.querySelector("article > img.change-priority.hide-hover").click();
     })
     const num_LP_bullets = await page.evaluate(() => {
       return (Array.from(document.querySelector('#lp_bullets').children).length);
@@ -53,7 +54,7 @@ describe('Basic user flow for SPA ', () => {
 
   test('delete bullet point', async() => {
     await page.evaluate(() => {
-      document.querySelector("#hp_bullets > bullet-point").shadowRoot.querySelector("article > button.del").click();
+      document.querySelector("#hp_bullets > bullet-point").shadowRoot.querySelector("article > img.del.hide-hover").click();
     })
     const num_HP_bullets = await page.evaluate(() => {
       return (Array.from(document.querySelector('#hp_bullets').children).length);
