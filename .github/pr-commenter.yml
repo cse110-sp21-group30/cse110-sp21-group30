@@ -1,0 +1,15 @@
+comment:
+  on-update: recreate
+  header: |
+    Thank you for contributing to this repository :tada:!
+  footer: |
+    ---
+    Automated comment created by [PR Commenter](https://github.com/exercism/pr-commenter-action) :robot:.
+  snippets:
+    - id: any-javascript-file-changed
+      files:
+        - '*.js'
+        - '**/*.js'
+      body: |
+        It looks like you're changing a Javascript file.
+        If you didn't already, make sure you push your changes to the Github Pages branch (only source files necessary) so Github can run our automated tests.
