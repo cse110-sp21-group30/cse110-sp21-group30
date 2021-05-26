@@ -5,6 +5,11 @@
         <meta charset="utf-8">
         <title>Bullet Journal</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- ref link and script to bootstrap-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
         <link rel="icon" href="./images/logo.png">
         <link rel="stylesheet" href="style.css">
         <script src="./bullet-point.js" type="module"></script>
@@ -37,28 +42,13 @@
                 <div id="dates_grid_item16"></div>
                 <div id="dates_grid_item17"></div>
             </div>
-
-            <section class="grid_item3">
-                <!-- Search-by-date with submit button -->
-                <span class="search"> 
-                    <input type="date" id="date_search" name="date_search">
-                    <input type="submit" id="search_button1" value="Search by Date">
-                </span>
-
-                <!-- Search-by-label with submit button -->
-                <span class="search"> 
-                    <select id="select1">
-                        <option value="">--Label--</option>
-                        <option value="work">Work</option>
-                        <option value="school">School</option>
-                        <option value="fitness">Fitness</option>
-                        <option value="personal">Personal</option>
-                    </select>
-                    <input type="submit" id ="search_button2" value="Search by Label">
-                </span>
-            </section>
             
             <section class="grid_item4">
+                <a data-toggle="modal" data-target="#myModal">
+                    <span><img id="search" src="./images/search.svg"></span>
+                </a>
+                
+                <span><img id="edit" src="./images/edit.svg" alt="Edit button"></span>
                 <!-- Archive button-->
                 <span><img id="archive" src="./images/folder.png" alt="Archive button"></span>
 
@@ -66,6 +56,8 @@
                 <span><img id="FAQ" src="./images/question-mark.png" alt="FAQ button"></span>
             </section>
         </header>
+
+        
 
        <!-- The default is a 3-column view -->
         <section id="column_view">
@@ -85,41 +77,77 @@
 
         <!-- The user can toggle in and out of the Archive (NOT FINISHED)-->
 
-        <!-- The user can create new bullet points with the editor -->
-        <section id="editor">
-            <!-- Button to allow the user to add high priority bullet -->
-            <section class="grid2_item1">
-                <span><input type="checkbox" id="check_priority" name="check_priority" value="priority"></span>
-                <label for="check_priority">Click here if this is a high priority item.</label>
-            </section>
-                
-            <!-- User can enter specific bullet point contents -->
-            <section class="grid2_item2">
-                <div id="editor_text" contenteditable=true>Type up a new entry here! Basic keyboard shortcuts work (ctrl + b for bold, ctrl + i for italics, ctrl + u for underline). Hit enter while the cursor is inside this box to create your new bullet point!</div>
-                <button id="get_text">Submit</button>
-            </section>
-            
-            <section class="grid2_item3">
-                <!-- user can assign a date -->
-                <div>
-                    <div>Assign a date:</div>
-                    <input type="date" id="entry_date" name="entry_date">
-                </div>
-
-                <!-- user can assign a label-->
-                <div>Assign a label:</div>
-                <div class="labels"> 
-                    <select id="select2">
-                        <option value="">--Label--</option>
-                        <option value="work">Work</option>
-                        <option value="school">School</option>
-                        <option value="fitness">Fitness</option>
-                        <option value="personal">Personal</option>
-                    </select>
-                </div>
-            </section>
+        <section id="modal_content_display">
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Search</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="input-daterange" id="datepicker">
+                                <h2>Choose Date: </h2>
+                                <input type="date" id="start_day">
+                                <span class="add-on">to</span>
+                                <input type="date" id="end_day">
+                            </div>
+                            <div class="label_list">
+                                <h2>Choose Labels: </h2>
+                                <span class="label success">Success</span>
+                                <span class="label info">Info</span>
+                                <span class="label warning">Warning</span>
+                                <span class="label danger">Danger</span>
+                                <span class="label other">Other</span>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary">Search</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
         </section>
 
+
+        <!-- The user can create new bullet points with the editor -->
+        <div id="hidden" class="hidden">
+            <section id="editor">
+                <!-- Button to allow the user to add high priority bullet -->
+                    <section class="grid2_item1">
+                        <span><input type="checkbox" id="check_priority" name="check_priority" value="priority"></span>
+                        <label for="check_priority">Click here if this is a high priority item.</label>
+                    </section>
+                        
+                    <!-- User can enter specific bullet point contents -->
+                    <section class="grid2_item2">
+                        <div id="editor_text" contenteditable=true>Type up a new entry here! Basic keyboard shortcuts work (ctrl + b for bold, ctrl + i for italics, ctrl + u for underline). Hit enter while the cursor is inside this box to create your new bullet point!</div>
+                        <!--<button id="get_text">Submit</button>   // need to remove the submit button-->
+                        
+                    </section>
+                    
+                    <section class="grid2_item3">
+                        <!-- user can assign a date -->
+                        <div>
+                            <div>Assign a date:</div>
+                            <input type="date" id="entry_date" name="entry_date">
+                        </div>
+
+                        <!-- user can assign a label-->
+                        <div>Assign a label:</div>
+                        <div class="labels"> 
+                            <select id="select2">
+                                <option value="">--Label--</option>
+                                <option value="work">Work</option>
+                                <option value="school">School</option>
+                                <option value="fitness">Fitness</option>
+                                <option value="personal">Personal</option>
+                            </select>
+                        </div>
+                    </section>
+            </section>
+        </div>
         <template>
             <article class="entry">
                 <p contenteditable="true"></p>

@@ -13,6 +13,7 @@ class BulletPoint extends HTMLElement {
         template.innerHTML=`
         <style>
             .entry {
+                margin-top:1%;
                 border: 2px solid black;
                 border-radius: 5px;
             }
@@ -90,6 +91,13 @@ class BulletPoint extends HTMLElement {
     }
 }
 
+window.onload = function () {
+    document.getElementById('edit').addEventListener('click', function (e) {
+        var img = document.getElementById("hidden");
+        img.removeAttribute("class");
+    });
+
+};
 // Define a custom element
 customElements.define('bullet-point', BulletPoint);
 
