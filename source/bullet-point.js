@@ -96,8 +96,13 @@ window.onload = function () {
         var img = document.getElementById("hidden");
         img.removeAttribute("class");
     });
+    document.getElementById('close').addEventListener('click', function (e) {
+        var img = document.getElementById("hidden");
+        img.setAttribute("class", "hidden")
+    });
 
 };
+
 // Define a custom element
 customElements.define('bullet-point', BulletPoint);
 

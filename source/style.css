@@ -61,21 +61,31 @@ header {
 
 
 #FAQ {
+    cursor: pointer;
     height: 80%;
     margin: 0px 0px 0px 0px;
 }
 
 
 #archive {
+    cursor: pointer;
     height: 80%;
     margin: 0px 0px 0px 0px;
 }
+#close{
+    cursor: pointer;
+    width: 15%;
+    margin-left: 145px;
+    margin-top: -40px;
+}
 
 #edit{
+    cursor: pointer;
     height: 80%;
     margin: 0px 0px 0px 0px;
 }
 #search{
+    cursor: pointer;
     height: 80%;
     margin: 0px 0px 0px 0px;
 }
@@ -382,6 +392,10 @@ h1 {
 }
 
 /* Ediitng modal content and labels coloring*/
+
+#assign_date{
+    margin-top: -25px;
+}
 
 .label_list{
   margin-top: 5%;
