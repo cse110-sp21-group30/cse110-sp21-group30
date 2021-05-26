@@ -25,8 +25,8 @@ class BulletPoint extends HTMLElement {
             .entry:hover > .hide-hover {
                 display: inline;
                 margin-right: 5%;
-                width:10%;
-                height: 10%;
+                width:7%;
+                height: 7%;
             }
         </style>
         <article class="entry">
