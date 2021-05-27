@@ -6,7 +6,7 @@ export const router = {};
     var body = document.querySelector('body');
     var header = document.querySelector('header');
     var columns = document.getElementById("column_view");
-  
+
     //change state to settings
     if(state == "archive"){
 

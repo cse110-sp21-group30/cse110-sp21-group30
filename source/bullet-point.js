@@ -1,6 +1,6 @@
 // Bullet point/entry custom component
 
-import { complete_migration, high_low_migration, delete_bullet_db, revert_complete_migration } from './script.js';
+import { complete_migration, high_low_migration, delete_bullet_db, revert_complete_migration, archive_bullet } from './script.js';
 
 class BulletPoint extends HTMLElement {
     constructor() {
@@ -87,6 +87,24 @@ class BulletPoint extends HTMLElement {
                 revert_complete_migration(entry.task_field, entry.bullet_id);
             });
             article.append(button_rev);
+            //create delete
+            let button_del = document.createElement("img");
+            button_del.src = "./images/trash.svg"
+            button_del.className = "del hide-hover";
+            button_del.addEventListener('click', function () {
+                delete_bullet_db(entry.task_field, entry.bullet_id);
+            });
+            article.append(button_del);
+            //add send to archive
+            let button_archive = document.createElement('button');
+            button_archive.className = "del hide-hover";
+            button_archive.textContent = "Archive";
+            button_archive.addEventListener('click', function () {
+                archive_bullet(entry.task_field, entry.bullet_id);
+            });
+            article.append(button_archive);
+        }
+        else if(entry.task_field == "A") {
             //create delete
             let button_del = document.createElement("img");
             button_del.src = "./images/trash.svg"
