@@ -345,6 +345,15 @@ function enter_new_bullet(event){
         let editor_box_text = document.getElementById('editor_text');
         editor_box_text.innerText = "";//If bullet is empty, clear the newline that enter key makes
     }
+    reset_bullet_choices();
+}
+
+//Helper method to clear Label/Date/HP selections after entering a new bullet
+function reset_bullet_choices(){
+    document.getElementById("check_priority").checked = false;
+    document.getElementById("select2").selectedIndex = 0;
+    document.getElementById("entry_date").value = '';
+
 }
 
 //Helper method for editing contents of existing bullet
@@ -371,12 +380,12 @@ function edit_exisitng_bullet(current_bullet_id, new_content, bullet_task_field)
 
 //This will keep track of what element is selected for handling enter key presses (sets the appropriate element as selected_element)
 let selected_element;
-let default_text = document.getElementById('editor_text').innerText; //Note how this is not inside the function, meaning default_text is the default text put into the editor box on page load
+let default_text = document.getElementById('editor_text').textContent; //Note how this is not inside the function, meaning default_text is the default text put into the editor box on page load
 window.addEventListener('mousedown', e => {
     if(e.target.tagName == 'BULLET-POINT' || e.target.tagName == 'DIV'){//Only set selected_element if a bullet point/the entry box div is clicked
         selected_element = e.target;
 
-        if(selected_element.id == 'editor_text' && selected_element.innerText == default_text){ //Remove the instruction text from the entry box when clicked.
+        if(selected_element.id == 'editor_text' && selected_element.textContent == default_text){ //Remove the instruction text from the entry box when clicked.
             document.getElementById('editor_text').textContent = "";
         }     
     }
