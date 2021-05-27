@@ -4,6 +4,7 @@ const setState = router.setState;
 var high_priority_array = [];
 var low_priority_array = [];
 var completed_array = [];
+var archive_array = [];
 
 document.addEventListener('DOMContentLoaded', function(){
     //localStorage.clear(); //for testing, comment out to preserve local storage
@@ -11,7 +12,8 @@ document.addEventListener('DOMContentLoaded', function(){
     display_date(); // load up the dates
     update_view("HP");
     update_view("LP");
-    update_view("C");   
+    update_view("C");
+    update_view("A");
 });
 
 function populate_global_arrays() {
@@ -27,9 +29,14 @@ function populate_global_arrays() {
         localStorage.setItem("C", JSON.stringify({0:[]}));
         console.log('C created');
     }
+    if (localStorage.getItem("A") === null) {
+        localStorage.setItem("A", JSON.stringify({0:[]}));
+        console.log('A created');
+    }
     high_priority_array = JSON.parse(localStorage.getItem("HP"))[0];
     low_priority_array = JSON.parse(localStorage.getItem("LP"))[0];
     completed_array = JSON.parse(localStorage.getItem("C"))[0];
+    archive_array = JSON.parse(localStorage.getItem("A"))[0];
 }
 
 /* localstorage objc
@@ -42,6 +49,9 @@ function populate_global_arrays() {
     },
     C: {
         0: [post6, post7]
+    },
+    A: {
+        0: [post8]
     },
     ID: num
 }
@@ -131,7 +141,7 @@ function high_low_migration(task_field, id) {
     }
 }
 
-export { complete_migration, high_low_migration, delete_bullet_db, revert_complete_migration };
+export { complete_migration, high_low_migration, delete_bullet_db, revert_complete_migration, archive_bullet, update_view };
 
 //moves from LP or HP to complete
 function complete_migration(task_field, id) {
@@ -184,7 +194,32 @@ function revert_complete_migration(task_field, id){
                 return;
             }
         }
-        throw "Cannot find bullet id in task_field";
+        throw "Cannot find bullet id in task_field - revert";
+    }
+}
+
+function archive_bullet(task_field, id) {
+    if(task_field != 'C'){
+        throw 'Wrong task_field: Should be \'C\'! ';
+    }
+    else{
+        let completed_list = JSON.parse(localStorage.getItem('C'));
+        let archive_list = JSON.parse(localStorage.getItem('A'));
+        let temp_bullet;
+        for(let bullet of completed_list[0]){
+            if(bullet.bullet_id == id){
+                temp_bullet = bullet;
+                delete_bullet_db(temp_bullet.task_field, temp_bullet.bullet_id);
+                temp_bullet.task_field = 'A';
+                archive_list[0].unshift(temp_bullet); //move to archive
+                localStorage.setItem('A', JSON.stringify(archive_list));
+                populate_global_arrays();
+                update_view("C");
+                // update_view("A"); //might not be needed
+                return;
+            }
+        }
+        throw "Cannot find bullet id in task_field - archive";
     }
 }
 
@@ -269,7 +304,7 @@ function update_view(task_field)
         {
             let new_bullet = document.createElement("bullet-point");
             new_bullet.entry = bullet;
-            let section = box_hp.appendChild(new_bullet);
+            box_hp.appendChild(new_bullet);
         }
     }
     else if(task_field === "LP")
@@ -284,7 +319,7 @@ function update_view(task_field)
         {
             let new_bullet = document.createElement("bullet-point");
             new_bullet.entry = bullet;
-            let section = box_lp.appendChild(new_bullet);
+            box_lp.appendChild(new_bullet);
         }
     }
     else if(task_field === "C")
@@ -299,12 +334,27 @@ function update_view(task_field)
         {
             let new_bullet = document.createElement("bullet-point");
             new_bullet.entry = bullet;
-            let section = box_c.appendChild(new_bullet);
+            box_c.appendChild(new_bullet);
+        }
+    }
+    else if(task_field === 'A')
+    {
+        let box_a = document.getElementById("a_bullets");
+        let bullet_points = box_a.querySelectorAll("div > bullet-point");
+        for(let b of bullet_points)
+        {
+            b.parentNode.removeChild(b); //clear bullet-points before rendering
+        }
+        for(let bullet of archive_array)
+        {
+            let new_bullet = document.createElement("bullet-point");
+            new_bullet.entry = bullet;
+            box_a.appendChild(new_bullet);
         }
     }
     else //error
     {
-        let errMsg = `Attempting to render ${task_field}, this is not "HP", "LP", or "C"`;
+        let errMsg = `Attempting to render ${task_field}, this is not "HP", "LP", "C" or "A"`;
         throw errMsg;
     }
 }
@@ -323,12 +373,12 @@ document.addEventListener("keyup", function(event) {
       else if(selected_element.tagName == 'BULLET-POINT'){
           let current_bullet_id = selected_element.shadowRoot.querySelector('span.bullet_id');
           let current_bullet_content = selected_element.shadowRoot.querySelector('p');
-          let new_content = current_bullet_content.innerText;  
-          new_content = new_content.replace(/\n/g, "");  //Remove the newline created in the bullet content when enter key is pressed   
+          let new_content = current_bullet_content.innerText;
+          new_content = new_content.replace(/\n/g, "");  //Remove the newline created in the bullet content when enter key is pressed
           let bullet_task_field = selected_element.shadowRoot.querySelector('span.bullet_task_field').innerText;
           edit_exisitng_bullet(current_bullet_id, new_content, bullet_task_field);
       }
-      
+
     }
   });
 
@@ -352,7 +402,7 @@ function edit_exisitng_bullet(current_bullet_id, new_content, bullet_task_field)
     let current_list = JSON.parse(localStorage.getItem(bullet_task_field));
     let temp_bullet;
     let counter = 0;
-    for(let bullet of current_list[0]){ 
+    for(let bullet of current_list[0]){
         counter = counter + 1;
         if(bullet.bullet_id == current_bullet_id.innerText) {
             temp_bullet = bullet;
@@ -360,7 +410,7 @@ function edit_exisitng_bullet(current_bullet_id, new_content, bullet_task_field)
             current_list = JSON.parse(localStorage.getItem(bullet_task_field));
             temp_bullet.task_field = bullet_task_field;
             temp_bullet.content = new_content;
-            current_list[0].splice(counter -1, 0, temp_bullet); //Re-insert bullet at same spot it was before                    
+            current_list[0].splice(counter -1, 0, temp_bullet); //Re-insert bullet at same spot it was before
             localStorage.setItem(bullet_task_field, JSON.stringify(current_list));
             populate_global_arrays();
             update_view(bullet_task_field);
@@ -379,7 +429,7 @@ window.onclick = e => {
             document.getElementById('editor_text').textContent = "";
         }
     }
-} 
+}
 
 // handles back and forward buttons
 window.onpopstate = function(event){
@@ -401,5 +451,3 @@ document.querySelector('#archive').addEventListener('click', function(){
         setState("archive", true);
     }
 });
-
-

@@ -1,4 +1,5 @@
 export const router = {};
+import { update_view } from './script.js'
 /**
  * Changes the "page" (state) that your SPA app is currently set to
  */
@@ -6,7 +7,7 @@ export const router = {};
     var body = document.querySelector('body');
     var header = document.querySelector('header');
     var columns = document.getElementById("column_view");
-  
+
     //change state to settings
     if(state == "archive"){
 
@@ -17,6 +18,7 @@ export const router = {};
       document.getElementById("column_view").style.display="none";
       document.getElementById("archive_view").style.display="flex";
       document.getElementById("editor").style.display="none";
+      update_view('A');
 
       header.className = "Archive"; //change header text
       if(newState){
@@ -30,6 +32,9 @@ export const router = {};
       document.getElementById("column_view").style.display="flex";
       document.getElementById("archive_view").style.display="none";
       document.getElementById("editor").style.display="grid";
+      update_view("HP");
+      update_view("LP");
+      update_view("C");
 
       if(newState){
         window.history.pushState({page: "home"}, "home", window.location.pathname + window.location.search); //push state and change URL
