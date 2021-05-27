@@ -353,7 +353,6 @@ function reset_bullet_choices(){
     document.getElementById("check_priority").checked = false;
     document.getElementById("select2").selectedIndex = 0;
     document.getElementById("entry_date").value = '';
-
 }
 
 //Helper method for editing contents of existing bullet
