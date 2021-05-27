@@ -141,7 +141,7 @@ function high_low_migration(task_field, id) {
     }
 }
 
-export { complete_migration, high_low_migration, delete_bullet_db, revert_complete_migration, archive_bullet, update_view };
+export { complete_migration, high_low_migration, delete_bullet_db, revert_complete_migration, archive_bullet };
 
 //moves from LP or HP to complete
 function complete_migration(task_field, id) {
@@ -215,7 +215,7 @@ function archive_bullet(task_field, id) {
                 localStorage.setItem('A', JSON.stringify(archive_list));
                 populate_global_arrays();
                 update_view("C");
-                // update_view("A"); //might not be needed
+                update_view("A");
                 return;
             }
         }
