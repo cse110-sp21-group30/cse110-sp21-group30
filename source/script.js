@@ -270,7 +270,6 @@ function create_bullet(e) {
 
     /* TODO: will have to change how we handle labels later; will probably have to loop
     across all label checkboxes and add the ones that have been selected to labels */
-
     if (task_field == true) {
         task_field = 'HP';
     }
