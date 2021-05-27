@@ -310,7 +310,7 @@ function update_view(task_field)
 }
 
 // Enter key to create bullet
-document.addEventListener("keyup", function(event) {
+document.addEventListener("keydown", function(event) {
     // Number 13 is the "Enter" key on the keyboard
     if (event.keyCode === 13) {
         event.preventDefault();
@@ -371,15 +371,17 @@ function edit_exisitng_bullet(current_bullet_id, new_content, bullet_task_field)
 
 //This will keep track of what element is selected for handling enter key presses (sets the appropriate element as selected_element)
 let selected_element;
-window.onclick = e => {
+let default_text = document.getElementById('editor_text').innerText; //Note how this is not inside the function, meaning default_text is the default text put into the editor box on page load
+window.addEventListener('mousedown', e => {
+    console.log(e.target.tagName);
     if(e.target.tagName == 'BULLET-POINT' || e.target.tagName == 'DIV'){//Only set selected_element if a bullet point/the entry box div is clicked
         selected_element = e.target;
 
-        if(selected_element.id == 'editor_text'){ //Remove the instruction text from the entry box when clicked.
+        if(selected_element.id == 'editor_text' && selected_element.innerText == default_text){ //Remove the instruction text from the entry box when clicked.
             document.getElementById('editor_text').textContent = "";
-        }
+        }     
     }
-} 
+});
 
 // handles back and forward buttons
 window.onpopstate = function(event){
@@ -401,5 +403,3 @@ document.querySelector('#archive').addEventListener('click', function(){
         setState("archive", true);
     }
 });
-
-
