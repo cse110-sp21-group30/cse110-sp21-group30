@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function(){
     //localStorage.clear(); //for testing, comment out to preserve local storage
     populate_global_arrays(); //load arrays when page loads
     display_date(); // load up the dates
+    auto_archive(60); // archive old bullets in complete
     update_view("HP");
     update_view("LP");
     update_view("C");
@@ -198,6 +199,9 @@ function revert_complete_migration(task_field, id){
     }
 }
 
+/*
+    Removes a bullet from complete and moves it to archive.
+*/
 function archive_bullet(task_field, id) {
     if(task_field != 'C'){
         throw 'Wrong task_field: Should be \'C\'! ';
@@ -220,6 +224,38 @@ function archive_bullet(task_field, id) {
             }
         }
         throw "Cannot find bullet id in task_field - archive";
+    }
+}
+
+/*
+    When function is called, scans through the completed array for any
+    bullet points that are older than 'hours' and moves them to archive.
+    If hours is blank or invalid, defaults to 7 days (168 hours).
+*/
+function auto_archive(hours)
+{
+    let time;
+    if(!hours || Number.isNaN(hours) || hours < 1) {time = 168 * 60 * 60 * 1000;}
+    else {time = Math.floor(hours) * 60 * 60 * 1000;} //(hrs -> ms)
+
+    time = 60 * 1000; //set to 60s for testing!
+    let completed_list = JSON.parse(localStorage.getItem('C'));
+    let date_limit = new Date(); //curr time of function call
+    for(let bullet of completed_list[0])
+    {
+        let finish_time = bullet.comp_time;
+        if(finish_time === null) {
+            continue; // this should never happen, but just in case
+        }
+        else
+        {
+            let date_timestamp = new Date(finish_time); //bullet finish time
+            date_timestamp.setTime(date_timestamp.getTime() + time); //add time
+            if(date_timestamp < date_limit) {
+                archive_bullet(bullet.task_field, bullet.bullet_id);
+                console.log("auto archiving", bullet);
+            }
+        }
     }
 }
 
