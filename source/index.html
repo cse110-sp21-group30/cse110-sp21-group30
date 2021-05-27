@@ -14,6 +14,8 @@
         <link rel="stylesheet" href="style.css">
         <script src="./bullet-point.js" type="module"></script>
         <script src="./script.js" type="module"></script>
+        <script src="./router.js" type="module"></script>
+
     </head>
 
     <body>
@@ -43,7 +45,7 @@
                 <div id="dates_grid_item17"></div>
             </div>
             
-            <section class="grid_item4">
+            <section class="grid_item4" id="griditem">
                 <a data-toggle="modal" data-target="#myModal">
                     <span><img id="search" src="./images/search.svg"></span>
                 </a>
@@ -73,6 +75,15 @@
                 <h1 id="complete_header" class="column_grid_h3">Complete</h1>
                 <div id="c_bullets"></div>
             </div>
+        </section>
+
+        <section id= "archive_view" style="display: none;">
+            <section id="archive_page">
+              <div id="archive_header">
+                <h1>Archive</h1>
+              </div>
+              <div id="a_bullets"></div>
+            </section>
         </section>
 
         <!-- The user can toggle in and out of the Archive (NOT FINISHED)-->
