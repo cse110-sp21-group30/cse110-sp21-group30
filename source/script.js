@@ -373,7 +373,6 @@ function edit_exisitng_bullet(current_bullet_id, new_content, bullet_task_field)
 let selected_element;
 let default_text = document.getElementById('editor_text').innerText; //Note how this is not inside the function, meaning default_text is the default text put into the editor box on page load
 window.addEventListener('mousedown', e => {
-    console.log(e.target.tagName);
     if(e.target.tagName == 'BULLET-POINT' || e.target.tagName == 'DIV'){//Only set selected_element if a bullet point/the entry box div is clicked
         selected_element = e.target;
 
