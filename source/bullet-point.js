@@ -126,16 +126,33 @@ class BulletPoint extends HTMLElement {
 }
 
 window.onload = function () {
+    let column_view_fix = document.getElementById("column_view");
     document.getElementById('edit').addEventListener('click', function (e) {
         var img = document.getElementById("hidden");
-        img.removeAttribute("class");
-    });
+        if (img.classList.contains("hidden")) {
+            img.removeAttribute("class");
+            column_view_fix.style.height="32em";
+            column_view_fix.style.maxHeight="68vh";
+            column_view_fix.style.marginBottom="120px";
+        }
+        else {
+            img.setAttribute("class", "hidden");
+            column_view_fix.style.height = "85vh";
+            column_view_fix.style.maxHeight = "100vh";
+            column_view_fix.style.marginBottom = "0px";
+        }
+
+});
     document.getElementById('close').addEventListener('click', function (e) {
         var img = document.getElementById("hidden");
-        img.setAttribute("class", "hidden")
+        img.setAttribute("class", "hidden");
+        column_view_fix.style.height = "85vh";
+        column_view_fix.style.maxHeight = "100vh";
+        column_view_fix.style.marginBottom = "0px";
     });
 
 };
+
 
 // Define a custom element
 customElements.define('bullet-point', BulletPoint);

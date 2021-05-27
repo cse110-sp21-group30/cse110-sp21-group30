@@ -1,3 +1,6 @@
+import { router } from './router.js'; // Router imported so you can use it to manipulate your SPA app here
+const setState = router.setState;
+
 var high_priority_array = [];
 var low_priority_array = [];
 var completed_array = [];
@@ -8,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function(){
     display_date(); // load up the dates
     update_view("HP");
     update_view("LP");
-    update_view("C");
+    update_view("C");   
 });
 
 function populate_global_arrays() {
@@ -29,7 +32,7 @@ function populate_global_arrays() {
     completed_array = JSON.parse(localStorage.getItem("C"))[0];
 }
 
-/* localstorage obj
+/* localstorage objc
 {
     HP: {
         0: [post1, post2, post3]
@@ -184,25 +187,6 @@ function revert_complete_migration(task_field, id){
         throw "Cannot find bullet id in task_field";
     }
 }
-
-
-/* press enter to submit the text post rather than pressing the button
-let textBox = document.getElementById('editor_text');
-
-textBox.addEventListener("keydown", function (e) {
-    if (e.code === "Enter") {  //checks whether the pressed key is "Enter"
-        console.log('yes');
-    }
-});
-*/
-
-/* 
-let submitPost = document.getElementById('get_text');
-submitPost.addEventListener('click', function(e){
-    create_bullet(e);
-});
-*/
-
 
 function create_bullet(e) {
     e.preventDefault();
@@ -396,3 +380,26 @@ window.onclick = e => {
         }
     }
 } 
+
+// handles back and forward buttons
+window.onpopstate = function(event){
+    if(event.state == null){
+        setState("home", false);
+    }else{
+        setState(event.state.page, false);
+    }
+};
+
+//if archive is clicked, toggle between archive page and home
+document.querySelector('#archive').addEventListener('click', function(){
+    var image = document.querySelector('#archive').src;
+    image = image.split('/');
+    image = image.pop();
+    if(image == 'close.svg'){
+        setState("home", true);
+    }else{
+        setState("archive", true);
+    }
+});
+
+
