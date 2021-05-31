@@ -26,6 +26,6 @@ Thet Zaw
 
 Screenshots of current state of project:
 
-![image](./images/review-2-project-state-1.png)
+![image](./images/review-2-project-state-1.PNG)
 
-![image](./images/review-2-project-state-2.png)
+![image](./images/review-2-project-state-2.PNG)
