@@ -261,7 +261,6 @@ function auto_archive(hours)
 
 function create_bullet(e) {
     e.preventDefault();
-    //let task_field = document.getElementById('check_priority').checked;
     let labels = document.getElementById('select2').value;
     let deadline = document.getElementById('entry_date').value;
     let content = document.getElementById('editor_text').textContent;
