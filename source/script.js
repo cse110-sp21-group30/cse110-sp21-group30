@@ -428,10 +428,10 @@ function enter_new_bullet(event){
 }
 
 //Set default date to current day
-var today_formatted = new Date();
-var dd = String(today_formatted.getDate()).padStart(2, '0');
-var mm = String(today_formatted.getMonth() + 1).padStart(2, '0'); //January is 0!
-var yyyy = today_formatted.getFullYear();
+let today_formatted = new Date();
+let dd = String(today_formatted.getDate()).padStart(2, '0');
+let mm = String(today_formatted.getMonth() + 1).padStart(2, '0'); //January is 0!
+let yyyy = today_formatted.getFullYear();
 
 today_formatted = yyyy + '-' + mm + '-' + dd;
 document.getElementById("entry_date").value = today_formatted; 
