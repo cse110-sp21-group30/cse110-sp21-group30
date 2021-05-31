@@ -56,7 +56,7 @@ describe('Basic user flow for SPA ', () => {
     await page.evaluate(() => {
       document.querySelector("#lp_bullets > bullet-point").shadowRoot.querySelector("article > img.del.hide-hover").click();
     })
-    const num_HP_bullets = await page.evaluate(() => {
+    const num_LP_bullets = await page.evaluate(() => {
       return (Array.from(document.querySelector('#lp_bullets').children).length);
     })
     expect(num_LP_bullets).toBe(0);
