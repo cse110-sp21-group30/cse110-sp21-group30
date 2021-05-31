@@ -14,7 +14,7 @@ describe('Basic user flow for SPA ', () => {
       expect(todays_date).toBe(d);
   });
 
-  test('make LP bullet point', async () => {
+  test('make HP bullet point', async () => {
       jest.setTimeout(10000);
       let open_editor = await page.$('#edit');
       await open_editor.click();
@@ -31,25 +31,25 @@ describe('Basic user flow for SPA ', () => {
       expect(json_obj.bullet_id).toBe("1");
   });
 
-  test('check if bullet added to correct column (LP)', async () => {
+  test('check if bullet added to correct column (HP)', async () => {
     const num_LP_bullets = await page.evaluate(() => {
-      return (Array.from(document.querySelector('#lp_bullets').children).length);
+      return (Array.from(document.querySelector('#hp_bullets').children).length);
     })
     expect(num_LP_bullets).toBe(1);
   });
 
-  test('test bullet migration (LP -> HP)', async () => {
+  test('test bullet migration (HP -> LP)', async () => {
     await page.evaluate(() => {
-      document.querySelector("#lp_bullets > bullet-point").shadowRoot.querySelector("article > img.change-priority.hide-hover").click();
-    })
-    const num_LP_bullets = await page.evaluate(() => {
-      return (Array.from(document.querySelector('#lp_bullets').children).length);
+      document.querySelector("#hp_bullets > bullet-point").shadowRoot.querySelector("article > img.change-priority.hide-hover").click();
     })
     const num_HP_bullets = await page.evaluate(() => {
       return (Array.from(document.querySelector('#hp_bullets').children).length);
     })
-    expect(num_LP_bullets).toBe(0);
-    expect(num_HP_bullets).toBe(1);
+    const num_LP_bullets = await page.evaluate(() => {
+      return (Array.from(document.querySelector('#lp_bullets').children).length);
+    })
+    expect(num_HP_bullets).toBe(0);
+    expect(num_LP_bullets).toBe(1);
   });
 
   test('delete bullet point', async() => {
