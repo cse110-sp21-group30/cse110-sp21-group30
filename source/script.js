@@ -261,7 +261,6 @@ function auto_archive(hours)
 
 function create_bullet(e) {
     e.preventDefault();
-    let task_field = document.getElementById('check_priority').checked;
     let labels = document.getElementById('select2').value;
     let deadline = document.getElementById('entry_date').value;
     let content = document.getElementById('editor_text').textContent;
@@ -270,12 +269,7 @@ function create_bullet(e) {
 
     /* TODO: will have to change how we handle labels later; will probably have to loop
     across all label checkboxes and add the ones that have been selected to labels */
-    if (task_field == true) {
-        task_field = 'HP';
-    }
-    else {
-        task_field = 'LP';
-    }
+    let task_field = 'HP';
 
     let bullet = {
         "task_field": task_field,
@@ -433,11 +427,19 @@ function enter_new_bullet(event){
     reset_bullet_choices();
 }
 
+//Set default date to current day
+let today_formatted = new Date();
+let dd = String(today_formatted.getDate()).padStart(2, '0');
+let mm = String(today_formatted.getMonth() + 1).padStart(2, '0'); //January is 0!
+let yyyy = today_formatted.getFullYear();
+
+today_formatted = yyyy + '-' + mm + '-' + dd;
+document.getElementById("entry_date").value = today_formatted; 
+
 //Helper method to clear Label/Date/HP selections after entering a new bullet
 function reset_bullet_choices(){
-    document.getElementById("check_priority").checked = false;
     document.getElementById("select2").selectedIndex = 0;
-    document.getElementById("entry_date").value = '';
+    document.getElementById("entry_date").value = today_formatted;
 }
 
 //Helper method for editing contents of existing bullet
