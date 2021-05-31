@@ -1,14 +1,20 @@
+import { router } from './router.js'; // Router imported so you can use it to manipulate your SPA app here
+const setState = router.setState;
+
 var high_priority_array = [];
 var low_priority_array = [];
 var completed_array = [];
+var archive_array = [];
 
 document.addEventListener('DOMContentLoaded', function(){
     //localStorage.clear(); //for testing, comment out to preserve local storage
     populate_global_arrays(); //load arrays when page loads
     display_date(); // load up the dates
+    auto_archive(60); // archive old bullets in complete
     update_view("HP");
     update_view("LP");
     update_view("C");
+    update_view("A");
 });
 
 function populate_global_arrays() {
@@ -24,12 +30,17 @@ function populate_global_arrays() {
         localStorage.setItem("C", JSON.stringify({0:[]}));
         console.log('C created');
     }
+    if (localStorage.getItem("A") === null) {
+        localStorage.setItem("A", JSON.stringify({0:[]}));
+        console.log('A created');
+    }
     high_priority_array = JSON.parse(localStorage.getItem("HP"))[0];
     low_priority_array = JSON.parse(localStorage.getItem("LP"))[0];
     completed_array = JSON.parse(localStorage.getItem("C"))[0];
+    archive_array = JSON.parse(localStorage.getItem("A"))[0];
 }
 
-/* localstorage obj
+/* localstorage objc
 {
     HP: {
         0: [post1, post2, post3]
@@ -39,6 +50,9 @@ function populate_global_arrays() {
     },
     C: {
         0: [post6, post7]
+    },
+    A: {
+        0: [post8]
     },
     ID: num
 }
@@ -128,7 +142,7 @@ function high_low_migration(task_field, id) {
     }
 }
 
-export { complete_migration, high_low_migration, delete_bullet_db, revert_complete_migration };
+export { complete_migration, high_low_migration, delete_bullet_db, revert_complete_migration, archive_bullet };
 
 //moves from LP or HP to complete
 function complete_migration(task_field, id) {
@@ -181,25 +195,69 @@ function revert_complete_migration(task_field, id){
                 return;
             }
         }
-        throw "Cannot find bullet id in task_field";
+        throw "Cannot find bullet id in task_field - revert";
     }
 }
 
-
-/* press enter to submit the text post rather than pressing the button
-let textBox = document.getElementById('editor_text');
-
-textBox.addEventListener("keydown", function (e) {
-    if (e.code === "Enter") {  //checks whether the pressed key is "Enter"
-        console.log('yes');
-    }
-});
+/*
+    Removes a bullet from complete and moves it to archive.
 */
+function archive_bullet(task_field, id) {
+    if(task_field != 'C'){
+        throw 'Wrong task_field: Should be \'C\'! ';
+    }
+    else{
+        let completed_list = JSON.parse(localStorage.getItem('C'));
+        let archive_list = JSON.parse(localStorage.getItem('A'));
+        let temp_bullet;
+        for(let bullet of completed_list[0]){
+            if(bullet.bullet_id == id){
+                temp_bullet = bullet;
+                delete_bullet_db(temp_bullet.task_field, temp_bullet.bullet_id);
+                temp_bullet.task_field = 'A';
+                archive_list[0].unshift(temp_bullet); //move to archive
+                localStorage.setItem('A', JSON.stringify(archive_list));
+                populate_global_arrays();
+                update_view("C");
+                update_view("A");
+                return;
+            }
+        }
+        throw "Cannot find bullet id in task_field - archive";
+    }
+}
 
-let submitPost = document.getElementById('get_text');
-submitPost.addEventListener('click', function(e){
-    create_bullet(e);
-});
+/*
+    When function is called, scans through the completed array for any
+    bullet points that are older than 'hours' and moves them to archive.
+    If hours is blank or invalid, defaults to 7 days (168 hours).
+*/
+function auto_archive(hours)
+{
+    let time;
+    if(!hours || Number.isNaN(hours) || hours < 1) {time = 168 * 60 * 60 * 1000;}
+    else {time = Math.floor(hours) * 60 * 60 * 1000;} //(hrs -> ms)
+
+    time = 60 * 1000; //set to 60s for testing!
+    let completed_list = JSON.parse(localStorage.getItem('C'));
+    let date_limit = new Date(); //curr time of function call
+    for(let bullet of completed_list[0])
+    {
+        let finish_time = bullet.comp_time;
+        if(finish_time === null) {
+            continue; // this should never happen, but just in case
+        }
+        else
+        {
+            let date_timestamp = new Date(finish_time); //bullet finish time
+            date_timestamp.setTime(date_timestamp.getTime() + time); //add time
+            if(date_timestamp < date_limit) {
+                archive_bullet(bullet.task_field, bullet.bullet_id);
+                console.log("auto archiving", bullet);
+            }
+        }
+    }
+}
 
 function create_bullet(e) {
     e.preventDefault();
@@ -212,7 +270,6 @@ function create_bullet(e) {
 
     /* TODO: will have to change how we handle labels later; will probably have to loop
     across all label checkboxes and add the ones that have been selected to labels */
-
     if (task_field == true) {
         task_field = 'HP';
     }
@@ -282,7 +339,7 @@ function update_view(task_field)
         {
             let new_bullet = document.createElement("bullet-point");
             new_bullet.entry = bullet;
-            let section = box_hp.appendChild(new_bullet);
+            box_hp.appendChild(new_bullet);
         }
     }
     else if(task_field === "LP")
@@ -297,7 +354,7 @@ function update_view(task_field)
         {
             let new_bullet = document.createElement("bullet-point");
             new_bullet.entry = bullet;
-            let section = box_lp.appendChild(new_bullet);
+            box_lp.appendChild(new_bullet);
         }
     }
     else if(task_field === "C")
@@ -312,18 +369,33 @@ function update_view(task_field)
         {
             let new_bullet = document.createElement("bullet-point");
             new_bullet.entry = bullet;
-            let section = box_c.appendChild(new_bullet);
+            box_c.appendChild(new_bullet);
+        }
+    }
+    else if(task_field === 'A')
+    {
+        let box_a = document.getElementById("a_bullets");
+        let bullet_points = box_a.querySelectorAll("div > bullet-point");
+        for(let b of bullet_points)
+        {
+            b.parentNode.removeChild(b); //clear bullet-points before rendering
+        }
+        for(let bullet of archive_array)
+        {
+            let new_bullet = document.createElement("bullet-point");
+            new_bullet.entry = bullet;
+            box_a.appendChild(new_bullet);
         }
     }
     else //error
     {
-        let errMsg = `Attempting to render ${task_field}, this is not "HP", "LP", or "C"`;
+        let errMsg = `Attempting to render ${task_field}, this is not "HP", "LP", "C" or "A"`;
         throw errMsg;
     }
 }
 
 // Enter key to create bullet
-document.addEventListener("keyup", function(event) {
+document.addEventListener("keydown", function(event) {
     // Number 13 is the "Enter" key on the keyboard
     if (event.keyCode === 13) {
         event.preventDefault();
@@ -336,12 +408,12 @@ document.addEventListener("keyup", function(event) {
       else if(selected_element.tagName == 'BULLET-POINT'){
           let current_bullet_id = selected_element.shadowRoot.querySelector('span.bullet_id');
           let current_bullet_content = selected_element.shadowRoot.querySelector('p');
-          let new_content = current_bullet_content.innerText;  
-          new_content = new_content.replace(/\n/g, "");  //Remove the newline created in the bullet content when enter key is pressed   
+          let new_content = current_bullet_content.innerText;
+          new_content = new_content.replace(/\n/g, "");  //Remove the newline created in the bullet content when enter key is pressed
           let bullet_task_field = selected_element.shadowRoot.querySelector('span.bullet_task_field').innerText;
           edit_exisitng_bullet(current_bullet_id, new_content, bullet_task_field);
       }
-      
+
     }
   });
 
@@ -358,6 +430,14 @@ function enter_new_bullet(event){
         let editor_box_text = document.getElementById('editor_text');
         editor_box_text.innerText = "";//If bullet is empty, clear the newline that enter key makes
     }
+    reset_bullet_choices();
+}
+
+//Helper method to clear Label/Date/HP selections after entering a new bullet
+function reset_bullet_choices(){
+    document.getElementById("check_priority").checked = false;
+    document.getElementById("select2").selectedIndex = 0;
+    document.getElementById("entry_date").value = '';
 }
 
 //Helper method for editing contents of existing bullet
@@ -365,7 +445,7 @@ function edit_exisitng_bullet(current_bullet_id, new_content, bullet_task_field)
     let current_list = JSON.parse(localStorage.getItem(bullet_task_field));
     let temp_bullet;
     let counter = 0;
-    for(let bullet of current_list[0]){ 
+    for(let bullet of current_list[0]){
         counter = counter + 1;
         if(bullet.bullet_id == current_bullet_id.innerText) {
             temp_bullet = bullet;
@@ -373,7 +453,7 @@ function edit_exisitng_bullet(current_bullet_id, new_content, bullet_task_field)
             current_list = JSON.parse(localStorage.getItem(bullet_task_field));
             temp_bullet.task_field = bullet_task_field;
             temp_bullet.content = new_content;
-            current_list[0].splice(counter -1, 0, temp_bullet); //Re-insert bullet at same spot it was before                    
+            current_list[0].splice(counter -1, 0, temp_bullet); //Re-insert bullet at same spot it was before
             localStorage.setItem(bullet_task_field, JSON.stringify(current_list));
             populate_global_arrays();
             update_view(bullet_task_field);
@@ -384,12 +464,34 @@ function edit_exisitng_bullet(current_bullet_id, new_content, bullet_task_field)
 
 //This will keep track of what element is selected for handling enter key presses (sets the appropriate element as selected_element)
 let selected_element;
-window.onclick = e => {
+let default_text = document.getElementById('editor_text').textContent; //Note how this is not inside the function, meaning default_text is the default text put into the editor box on page load
+window.addEventListener('mousedown', e => {
     if(e.target.tagName == 'BULLET-POINT' || e.target.tagName == 'DIV'){//Only set selected_element if a bullet point/the entry box div is clicked
         selected_element = e.target;
 
-        if(selected_element.id == 'editor_text'){ //Remove the instruction text from the entry box when clicked.
+        if(selected_element.id == 'editor_text' && selected_element.textContent == default_text){ //Remove the instruction text from the entry box when clicked.
             document.getElementById('editor_text').textContent = "";
         }
     }
-} 
+});
+
+// handles back and forward buttons
+window.onpopstate = function(event){
+    if(event.state == null){
+        setState("home", false);
+    }else{
+        setState(event.state.page, false);
+    }
+};
+
+//if archive is clicked, toggle between archive page and home
+document.querySelector('#archive').addEventListener('click', function(){
+    var image = document.querySelector('#archive').src;
+    image = image.split('/');
+    image = image.pop();
+    if(image == 'close.svg'){
+        setState("home", true);
+    }else{
+        setState("archive", true);
+    }
+});

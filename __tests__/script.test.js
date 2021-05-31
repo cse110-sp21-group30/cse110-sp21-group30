@@ -2,7 +2,7 @@ describe('Basic user flow for SPA ', () => {
   beforeAll(async () => {
     await page.goto("https://nbuhr9.github.io/test-server/");
   });
-      
+
   test('testing dates', async () => {
       const date = new Date();
       const d = date.getDate().toString();
@@ -14,50 +14,52 @@ describe('Basic user flow for SPA ', () => {
       expect(todays_date).toBe(d);
   });
 
-test('make LP bullet point', async () => {
+  test('make LP bullet point', async () => {
+      jest.setTimeout(10000);
+      let open_editor = await page.$('#edit');
+      await open_editor.click();
       let text_box = await page.$('#editor_text');
-      await text_box.click();
-      await text_box.type('Test Input');
-      await page.keyboard.press('Enter');
+      await text_box.click(); //after click, box should have no text
+      await text_box.type('Test Input'); //add text
+      await page.keyboard.press('Enter'); //submit bullet, and wait for bullet to appear
       await page.waitForSelector('bullet-point');
 
       let bullet = await page.$('bullet-point');
       let data = await bullet.getProperty('entry');
-      let jsonObj = await data.jsonValue();
-      expect(jsonObj.content).toBe("Test Input");
-      expect(jsonObj.bullet_id).toBe("1");
+      let json_obj = await data.jsonValue();
+      expect(json_obj.content).toBe("Test Input");
+      expect(json_obj.bullet_id).toBe("1");
   });
 
   test('check if bullet added to correct column (LP)', async () => {
-    const num_LP_Bullets = await page.evaluate(() => {
+    const num_LP_bullets = await page.evaluate(() => {
       return (Array.from(document.querySelector('#lp_bullets').children).length);
     })
-    expect(num_LP_Bullets).toBe(1);
+    expect(num_LP_bullets).toBe(1);
   });
 
   test('test bullet migration (LP -> HP)', async () => {
     await page.evaluate(() => {
-      document.querySelector("#lp_bullets > bullet-point").shadowRoot.querySelector("article > button.change-priority").click();
+      document.querySelector("#lp_bullets > bullet-point").shadowRoot.querySelector("article > img.change-priority.hide-hover").click();
     })
-    const num_LP_Bullets = await page.evaluate(() => {
+    const num_LP_bullets = await page.evaluate(() => {
       return (Array.from(document.querySelector('#lp_bullets').children).length);
     })
-    const num_HP_Bullets = await page.evaluate(() => {
+    const num_HP_bullets = await page.evaluate(() => {
       return (Array.from(document.querySelector('#hp_bullets').children).length);
     })
-    expect(num_LP_Bullets).toBe(0);
-    expect(num_HP_Bullets).toBe(1);
+    expect(num_LP_bullets).toBe(0);
+    expect(num_HP_bullets).toBe(1);
   });
 
   test('delete bullet point', async() => {
     await page.evaluate(() => {
-      document.querySelector("#hp_bullets > bullet-point").shadowRoot.querySelector("article > button.general").click();
+      document.querySelector("#hp_bullets > bullet-point").shadowRoot.querySelector("article > img.del.hide-hover").click();
     })
-    const num_HP_Bullets = await page.evaluate(() => {
+    const num_HP_bullets = await page.evaluate(() => {
       return (Array.from(document.querySelector('#hp_bullets').children).length);
     })
-    expect(num_HP_Bullets).toBe(0);
+    expect(num_HP_bullets).toBe(0);
   });
 
 });
-

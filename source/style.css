@@ -2,10 +2,10 @@
 header {
     position: fixed;
     display: grid;
-    grid-template-columns: fit-content(50px) auto fit-content(470px) 110px;
+    grid-template-columns: fit-content(50px) auto fit-content(470px) 200px;
     grid-template-rows: auto;
     grid-gap: 0px;
-    height: 50px;
+    height: 5em;
     width: 100%;
     padding: 5px 5px 5px 5px;
     background-color:rgb(181, 220, 255);
@@ -59,12 +59,33 @@ header {
     margin: 0px 0px 0px 0px;
 }
 
+
 #FAQ {
+    cursor: pointer;
     height: 80%;
     margin: 0px 0px 0px 0px;
 }
 
+
 #archive {
+    cursor: pointer;
+    height: 80%;
+    margin: 0px 0px 0px 0px;
+}
+#close{
+    cursor: pointer;
+    width: 15%;
+    margin-left: 145px;
+    margin-top: -40px;
+}
+
+#edit{
+    cursor: pointer;
+    height: 80%;
+    margin: 0px 0px 0px 0px;
+}
+#search{
+    cursor: pointer;
     height: 80%;
     margin: 0px 0px 0px 0px;
 }
@@ -226,9 +247,17 @@ body {
     display: flex;
     margin-top: 80px;
     justify-content: center;
-    height: 32em;
-    max-height: 68vh;
-    margin-bottom: 120px;
+    height: 85vh;
+    max-height: 100vh;
+    margin-bottom: 0px;
+}
+#archive_view{
+    display: flex;
+    margin-top: 80px;
+    justify-content: center;
+    height: 85vh;
+    max-Height: 100vh;
+    margin-bottom: 0px;
 }
 
 .box {
@@ -313,6 +342,10 @@ h1 {
     background-color:lightgreen;
 }
 
+
+.hidden {
+	display:none;
+}
 /* Editor CSS Begins Here*/
 #editor {
     position: fixed;
@@ -367,5 +400,27 @@ h1 {
     grid-column-end: 3;
     padding: 5px 5px 5px 5px;
 }
+
+/* Ediitng modal content and labels coloring*/
+
+#assign_date{
+    margin-top: -25px;
+}
+
+.label_list{
+  margin-top: 5%;
+}
+
+.label {
+   
+  color: white;
+  padding: 8px;
+  font-family: Arial;
+}
+.success {background-color: #04AA6D;} /* Green */
+.info {background-color: #2196F3;} /* Blue */
+.warning {background-color: #ff9800;} /* Orange */
+.danger {background-color: #f44336;} /* Red */ 
+.other {background-color: #e7e7e7; color: black;} /* Gray *
 /* Editor CSS Ends Here */
 /* Body CSS Ends Here */

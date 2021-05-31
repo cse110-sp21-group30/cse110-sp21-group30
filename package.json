@@ -440,7 +440,7 @@
   },
   "homepage": "https://github.com/cse110-sp21-group30/cse110-sp21-group30#readme",
   "jest": {
-   "preset": "jest-puppeteer",
-   "verbose": true
-    }
+  "preset": "jest-puppeteer",
+  "verbose": true
+  }
 }
