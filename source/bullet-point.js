@@ -180,6 +180,7 @@ customElements.define('bullet-point', BulletPoint);
         "labels": labels,
         "deadline": deadline,
         "content": content,
+        "bullet_id": id
         "comp_time": null
     });
 */
