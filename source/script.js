@@ -428,18 +428,18 @@ function enter_new_bullet(event){
 }
 
 //Set default date to current day
-var today = new Date();
-var dd = String(today.getDate()).padStart(2, '0');
-var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-var yyyy = today.getFullYear();
+var today_formatted = new Date();
+var dd = String(today_formatted.getDate()).padStart(2, '0');
+var mm = String(today_formatted.getMonth() + 1).padStart(2, '0'); //January is 0!
+var yyyy = today_formatted.getFullYear();
 
-today = yyyy + '-' + mm + '-' + dd;
-document.getElementById("entry_date").value = today; 
+today_formatted = yyyy + '-' + mm + '-' + dd;
+document.getElementById("entry_date").value = today_formatted; 
 
 //Helper method to clear Label/Date/HP selections after entering a new bullet
 function reset_bullet_choices(){
     document.getElementById("select2").selectedIndex = 0;
-    document.getElementById("entry_date").value = today;
+    document.getElementById("entry_date").value = today_formatted;
 }
 
 //Helper method for editing contents of existing bullet
