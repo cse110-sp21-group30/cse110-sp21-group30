@@ -54,12 +54,12 @@ describe('Basic user flow for SPA ', () => {
 
   test('delete bullet point', async() => {
     await page.evaluate(() => {
-      document.querySelector("#hp_bullets > bullet-point").shadowRoot.querySelector("article > img.del.hide-hover").click();
+      document.querySelector("#lp_bullets > bullet-point").shadowRoot.querySelector("article > img.del.hide-hover").click();
     })
     const num_HP_bullets = await page.evaluate(() => {
-      return (Array.from(document.querySelector('#hp_bullets').children).length);
+      return (Array.from(document.querySelector('#lp_bullets').children).length);
     })
-    expect(num_HP_bullets).toBe(0);
+    expect(num_LP_bullets).toBe(0);
   });
 
 });
