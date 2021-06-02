@@ -508,3 +508,12 @@ document.querySelector('#clear').addEventListener('click', function(){
         update_view("A");
     }
 });
+
+//user clicks this to clear the archive
+document.querySelector('#clear_archive').addEventListener('click', function(){
+    if (window.confirm('Do you really want to empty the archive?')){
+        localStorage.setItem("A", JSON.stringify({0:[]}));
+        populate_global_arrays();
+        update_view("A");
+    }
+});
