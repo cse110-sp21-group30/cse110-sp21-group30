@@ -7,7 +7,6 @@ var completed_array = [];
 var archive_array = [];
 
 document.addEventListener('DOMContentLoaded', function(){
-    //localStorage.clear(); //for testing, comment out to preserve local storage
     populate_global_arrays(); //load arrays when page loads
     display_date(); // load up the dates
     auto_archive(60); // archive old bullets in complete
@@ -434,7 +433,7 @@ let mm = String(today_formatted.getMonth() + 1).padStart(2, '0'); //January is 0
 let yyyy = today_formatted.getFullYear();
 
 today_formatted = yyyy + '-' + mm + '-' + dd;
-document.getElementById("entry_date").value = today_formatted; 
+document.getElementById("entry_date").value = today_formatted;
 
 //Helper method to clear Label/Date/HP selections after entering a new bullet
 function reset_bullet_choices(){
@@ -503,9 +502,9 @@ document.querySelector('#clear').addEventListener('click', function(){
     if (window.confirm('Do you really want to delete all bullets?')){
         localStorage.clear();
         populate_global_arrays();
-
         update_view('C');
         update_view('HP');
         update_view('LP');
+        update_view("A");
     }
 });
