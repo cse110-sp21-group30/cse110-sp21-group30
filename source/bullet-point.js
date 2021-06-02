@@ -149,15 +149,18 @@ window.onload = function () {
         var img = document.getElementById("hidden");
         if (img.classList.contains("hidden")) {
             img.removeAttribute("class");
-            column_view_fix.style.height="32em";
+            column_view_fix.style.height="50em"; //Changed from 32 to 50
             column_view_fix.style.maxHeight="68vh";
             column_view_fix.style.marginBottom="120px";
+            set_complete_column_id();
+            document.getElementById('edit').style.visibility = 'hidden';
         }
         else {
             img.setAttribute("class", "hidden");
             column_view_fix.style.height = "85vh";
             column_view_fix.style.maxHeight = "100vh";
             column_view_fix.style.marginBottom = "0px";
+            set_complete_column_id();
         }
 
 });
@@ -167,9 +170,21 @@ window.onload = function () {
         column_view_fix.style.height = "85vh";
         column_view_fix.style.maxHeight = "100vh";
         column_view_fix.style.marginBottom = "0px";
+        set_complete_column_id();
+        document.getElementById('edit').style.visibility = 'visible';
     });
 
 };
+
+//Helper for setting complete column as specific id to make it shorter than other columns when editor is not open
+function set_complete_column_id(){
+    if(document.getElementById('box_c_standard') != null){
+        document.getElementById('box_c_standard').id = 'box_c';
+    }
+    else if(document.getElementById('box_c') != null){
+        document.getElementById('box_c').id = 'box_c_standard';
+    }
+}
 
 
 // Define a custom element

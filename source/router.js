@@ -17,6 +17,7 @@ export const router = {};
       document.getElementById("column_view").style.display="none";
       document.getElementById("archive_view").style.display="flex";
       document.getElementById("editor").style.display="none";
+      document.getElementById("clear").style.display="none";
 
       header.className = "Archive"; //change header text
       if(newState){
@@ -30,6 +31,7 @@ export const router = {};
       document.getElementById("column_view").style.display="flex";
       document.getElementById("archive_view").style.display="none";
       document.getElementById("editor").style.display="grid";
+      document.getElementById("clear").style.display="inline-block";
 
       if(newState){
         window.history.pushState({page: "home"}, "home", window.location.pathname + window.location.search); //push state and change URL

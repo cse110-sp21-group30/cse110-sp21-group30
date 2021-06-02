@@ -81,8 +81,11 @@ header {
 
 #edit{
     cursor: pointer;
-    height: 80%;
-    margin: 0px 0px 0px 0px;
+    height: 10%;
+    margin: 0px 0px 0px 0px;   
+    position: fixed;
+    right: 50px;
+    bottom: 3%;
 }
 
 #search{
@@ -278,6 +281,10 @@ body {
     margin-top: 0px;
 }
 
+#box_c_standard{
+    height: 85%; 
+}
+
 h1 {
     padding-top: 0.5em;
     padding-bottom: 0.5em;
@@ -287,6 +294,7 @@ h1 {
     font-size: 22px;
     font-family: 'Source Sans Pro', sans-serif;
     color: black;
+    border-radius: 15px;
 }
 
 .column_grid_h1 {
@@ -372,6 +380,7 @@ h1 {
     border-color: rgb(109, 182, 247);
     background-color:rgb(181, 220, 255);
     color:black;
+    border-radius: 15px;
 }
 
 #editor_text{
