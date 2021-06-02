@@ -84,7 +84,14 @@ header {
     height: 80%;
     margin: 0px 0px 0px 0px;
 }
+
 #search{
+    cursor: pointer;
+    height: 80%;
+    margin: 0px 0px 0px 0px;
+}
+
+#clear{
     cursor: pointer;
     height: 80%;
     margin: 0px 0px 0px 0px;
