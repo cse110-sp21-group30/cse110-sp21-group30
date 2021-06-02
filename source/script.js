@@ -491,22 +491,9 @@ document.querySelector('#archive').addEventListener('click', function(){
     var image = document.querySelector('#archive').src;
     image = image.split('/');
     image = image.pop();
-
     if(image == 'close.svg'){
         setState("home", true);
     }else{
         setState("archive", true);
-    }
-});
-
-//if the user agrees to clear all bullets after pressing the clear button, clear storage and update view
-document.querySelector('#clear').addEventListener('click', function(){
-    if (window.confirm('Do you really want to delete all bullets?')){
-        localStorage.clear();
-        populate_global_arrays();
-
-        update_view('C');
-        update_view('HP');
-        update_view('LP');
     }
 });
