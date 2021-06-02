@@ -16,9 +16,14 @@ document.addEventListener('DOMContentLoaded', function(){
     update_view("A");
 });
 
+/*
+    formats local storage, fills global arrays,
+    and also shows the FAQ the first time the user enters the page
+*/
 function populate_global_arrays() {
     if (localStorage.getItem("HP") === null) {
         localStorage.setItem("HP", JSON.stringify({0:[]}));
+        document.querySelector("#FAQ").click(); //shows the FAQ
         console.log('HP created');
     }
     if (localStorage.getItem("LP") === null) {
@@ -237,7 +242,7 @@ function auto_archive(hours)
     if(!hours || Number.isNaN(hours) || hours < 1) {time = 168 * 60 * 60 * 1000;}
     else {time = Math.floor(hours) * 60 * 60 * 1000;} //(hrs -> ms)
 
-    time = 60 * 1000; //set to 60s for testing! 
+    time = 60 * 1000; //set to 60s for testing!
     let completed_list = JSON.parse(localStorage.getItem('C'));
     let date_limit = new Date(); //curr time of function call
     for(let bullet of completed_list[0])
@@ -311,7 +316,6 @@ function display_date()
         gridDay.innerHTML = arr[j - 1].dayOfWeek;
     }
 }
-
 
 /*
     Renders the task array onto its respective place in the DOM.
@@ -409,7 +413,6 @@ document.addEventListener("keydown", function(event) {
 
     }
   });
-
 
 //Helper method for enter key press create new bullet
 function enter_new_bullet(event){
