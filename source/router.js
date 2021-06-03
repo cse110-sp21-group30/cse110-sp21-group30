@@ -11,7 +11,8 @@ export const router = {};
     if(state == "archive"){
 
       document.getElementById("edit").style.display = "none";
-      document.getElementById("search").style.display = "none";
+      document.getElementById("search_off").style.display = "none";
+      document.getElementById("search_on").style.display = "none";
       document.getElementById("archive").src="./images/close.svg";
       document.getElementById("griditem").style.paddingLeft = "101px";
       document.getElementById("column_view").style.display="none";
@@ -25,7 +26,7 @@ export const router = {};
       }
     }else if(state == "home"){
       document.getElementById("edit").style.display = "inline-block";
-      document.getElementById("search").style.display = "inline-block";
+      document.getElementById("search_off").style.display = "inline-block";
       document.getElementById("archive").src="./images/folder.png";
       document.getElementById("griditem").style.paddingLeft = "2px";
       document.getElementById("column_view").style.display="flex";
