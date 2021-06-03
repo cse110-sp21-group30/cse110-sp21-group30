@@ -64,7 +64,9 @@ describe('Basic user flow for SPA ', () => {
 
   //Test for changing to archive page toggle
   test('Home url', async() => {
-    expect(page.url()).toMatch('#archive');
+    expect(page.url()).toBe("https://nbuhr9.github.io/test-server/");
   });
+
+
 
 });
