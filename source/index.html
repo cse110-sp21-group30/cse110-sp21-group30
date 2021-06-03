@@ -65,7 +65,6 @@
         </section>
     </header>
 
-
     <!-- The default is a 3-column view -->
     <section id="column_view">
         <div class="box" id="box_hp">
@@ -84,6 +83,7 @@
         <span><img id="edit" src="./images/edit.svg" alt="Edit button"></span>
     </section>
 
+    <!-- The user can toggle in and out of the Archive -->
     <section id="archive_view" style="display: none;">
         <section id="archive_page">
             <div id="archive_header">
@@ -95,8 +95,6 @@
             <div id="a_bullets"></div>
         </section>
     </section>
-
-    <!-- The user can toggle in and out of the Archive (NOT FINISHED)-->
 
     <section id="modal_content_display_search">
         <!-- Modal -->
@@ -117,11 +115,10 @@
                         </div>
                         <div class="label_list">
                             <h2>Choose Labels: </h2>
-                            <span class="label success">Success</span>
-                            <span class="label info">Info</span>
-                            <span class="label warning">Warning</span>
-                            <span class="label danger">Danger</span>
-                            <span class="label other">Other</span>
+                            <span class="label work">Work</span>
+                            <span class="label school">School</span>
+                            <span class="label fitness">Fitness</span>
+                            <span class="label personal">Personal</span>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -162,7 +159,7 @@
         <section id="editor">
 
             <!-- User can enter specific bullet point contents -->
-            <section class="grid2_item2">
+            <section class="grid2_item1">
                 <div id="editor_text" contenteditable=true>Type up a new entry here! Basic keyboard shortcuts work (ctrl
                     + b for bold, ctrl + i for italics, ctrl + u for underline). Hit enter while the cursor is inside
                     this box to create your new bullet point!</div>
@@ -170,7 +167,7 @@
 
             </section>
 
-            <section class="grid2_item3">
+            <section class="grid2_item2">
 
                 <img id="close" src="./images/close.svg" alt="Edit button">
                 <!-- user can assign a date -->
