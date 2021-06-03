@@ -67,6 +67,15 @@ describe('Basic user flow for SPA ', () => {
     expect(page.url()).toBe("https://nbuhr9.github.io/test-server/");
   });
 
+  //Test for changing to archive page toggle
+  test('Archive view url', async() => {
+    let archive_button = await page.$('#archive');
+    await archive_button.click();
+    jest.setTimeout(10000);
+    expect(page.url()).toMatch('#archive');
+});
+
+
 
 
 });
