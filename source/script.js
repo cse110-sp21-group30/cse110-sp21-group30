@@ -465,13 +465,25 @@ document.getElementById("search_submit").addEventListener("click", function() {
         label = null;
     }
 
+    document.getElementById('start_day').value = "";
+    document.getElementById('end_day').value = "";
+    document.getElementById('select_search').value = "";
+
     toggle_filter(start_date, end_date, label);
 });
 
-document.getElementById("search_on").addEventListener("click", toggle_filter_icon());
+document.getElementById("search_on").addEventListener("click", toggle_filter_icon);
 
-function toggle_filter_icon(){
+function toggle_filter_icon() {
     toggle_filter(null, null, null);
+}
+
+document.getElementById("closeModal").addEventListener("click", clear_search_modal);
+
+function clear_search_modal() {
+    document.getElementById('start_day').value = "";
+    document.getElementById('end_day').value = "";
+    document.getElementById('select_search').value = "";
 }
 
 // Enter key to create bullet
