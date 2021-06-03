@@ -152,6 +152,39 @@
         </div><!-- /.modal -->
     </section>
 
+    <section id="modal_content_edit">
+        <!-- Modal -->
+        <div class="modal fade" id="edit_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="edit_modal_label">Edit Bullet Point</h4>
+              </div>
+              <div class="modal-body">
+                <textarea name="name" rows="5" cols="80"></textarea>
+                <input type="date" id="edit_date" name="edit_date">
+                <select id="edit_labels" class="pull-right">
+                    <option value="">--Label--</option>
+                    <option value="work">Work</option>
+                    <option value="school">School</option>
+                    <option value="fitness">Fitness</option>
+                    <option value="personal">Personal</option>
+                </select>
+                <div id ="edit_bullet_id"></div>
+                <div id ="edit_task_field"></div>
+                <div id ="edit_comp_time"></div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger pull-left" id ="delete_bullet">Delete Bullet</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close without Saving</button>
+                <button type="button" class="btn btn-primary" id="save_edits">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+    </section>
+
 
     <!-- The user can create new bullet points with the editor -->
     <div id="hidden" class="hidden">

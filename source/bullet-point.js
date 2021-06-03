@@ -2,6 +2,7 @@
 
 import { complete_migration, high_low_migration, delete_bullet_db, revert_complete_migration, archive_bullet } from './script.js';
 
+
 class BulletPoint extends HTMLElement {
     constructor() {
         super();
@@ -30,12 +31,12 @@ class BulletPoint extends HTMLElement {
             }
         </style>
         <article class="entry">
-            <p contenteditable="true"></p>
+            <p></p>
             <span class="date"></span>
             <span class="entry_label"></span>
             <span class="bullet_id"></span>
             <span class="bullet_task_field"></span>
-            <!-- <br> <span class="comp_time"></span> print timestamp -->
+            <span class="comp_time"></span>
             <br>
             <!-- buttons go here-->
         </article>
@@ -55,7 +56,7 @@ class BulletPoint extends HTMLElement {
             'deadline': this.shadowRoot.querySelector('.date').innerText,
             'content': this.shadowRoot.querySelector('p').innerText,
             'bullet_id': this.shadowRoot.querySelector('.bullet_id').innerText,
-            //'comp_time': this.shadowRoot.querySelector('.comp_time').innerText
+            'comp_time': this.shadowRoot.querySelector('.comp_time').innerText
         };
 
         return entryObj;
@@ -72,9 +73,11 @@ class BulletPoint extends HTMLElement {
         spans[0].append(entry.deadline);
         spans[1].append(entry.labels);
         spans[2].append(entry.bullet_id);
+        spans[2].style.display = "none";
         spans[3].append(entry.task_field);
         spans[3].style.display = "none";
-        //spans[4].append(entry.comp_time); // uncomment to print timestamp
+        spans[4].append(entry.comp_time);
+        spans[4].style.display = "none";
 
         // give the label a color
         if (entry.labels == 'fitness') {
@@ -101,15 +104,6 @@ class BulletPoint extends HTMLElement {
                 revert_complete_migration(entry.task_field, entry.bullet_id);
             });
             article.append(button_rev);
-            //create delete
-            let button_del = document.createElement("img");
-            button_del.src = "./images/trash.svg"
-            button_del.className = "del hide-hover";
-            button_del.style.maxWidth="20px";
-            button_del.addEventListener('click', function () {
-                delete_bullet_db(entry.task_field, entry.bullet_id);
-            });
-            article.append(button_del);
             //add send to archive
             let button_archive = document.createElement('button');
             button_archive.className = "del hide-hover";
@@ -119,6 +113,24 @@ class BulletPoint extends HTMLElement {
                 archive_bullet(entry.task_field, entry.bullet_id);
             });
             article.append(button_archive);
+            //add edit
+            let button_edit = document.createElement("img");
+            button_edit.className = "edit hide-hover";
+            button_edit.src = "./images/edit.svg";
+            button_edit.style.maxWidth="20px";
+            button_edit.addEventListener('click', function () {
+                $('#edit_modal').modal({
+                    backdrop: 'static',
+                    keyboard: false
+                });
+                $('#edit_modal textarea').val(entry.content);
+                $('#edit_modal input').val(entry.deadline);
+                $('#edit_modal select').val(entry.labels);
+                $('#edit_bullet_id').text(entry.bullet_id);
+                $('#edit_task_field').text(entry.task_field);
+                $('#edit_comp_time').text(entry.comp_time);
+            });
+            article.append(button_edit);
         }
         else if(entry.task_field == "A") {
             //create delete
@@ -150,15 +162,24 @@ class BulletPoint extends HTMLElement {
                 high_low_migration(entry.task_field, entry.bullet_id);
             });
             article.append(button_pri);
-            //add delete
-            let button_del = document.createElement("img");
-            button_del.className = "del hide-hover";
-            button_del.src = "./images/trash.svg";
-            button_del.style.maxWidth="20px";
-            button_del.addEventListener('click', function () {
-                delete_bullet_db(entry.task_field, entry.bullet_id);
+            //add edit
+            let button_edit = document.createElement("img");
+            button_edit.className = "edit hide-hover";
+            button_edit.src = "./images/edit.svg";
+            button_edit.style.maxWidth="20px";
+            button_edit.addEventListener('click', function () {
+                $('#edit_modal').modal({
+                    backdrop: 'static',
+                    keyboard: false
+                });
+                $('#edit_modal textarea').val(entry.content);
+                $('#edit_modal input').val(entry.deadline);
+                $('#edit_modal select').val(entry.labels);
+                $('#edit_bullet_id').text(entry.bullet_id);
+                $('#edit_task_field').text(entry.task_field);
+                $('#edit_comp_time').text(entry.comp_time);
             });
-            article.append(button_del);
+            article.append(button_edit);
         }
     }
 }
@@ -203,7 +224,6 @@ function set_complete_column_id(){
         document.getElementById('box_c').id = 'box_c_standard';
     }
 }
-
 
 // Define a custom element
 customElements.define('bullet-point', BulletPoint);
