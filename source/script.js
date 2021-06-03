@@ -9,7 +9,7 @@ var archive_array = [];
 document.addEventListener('DOMContentLoaded', function(){
     populate_global_arrays(); //load arrays when page loads
     display_date(); // load up the dates
-    auto_archive(60); // archive old bullets in complete
+    auto_archive(168); // archive old bullets in complete - 168 hrs (7 days)
     update_view("HP");
     update_view("LP");
     update_view("C");
@@ -242,7 +242,6 @@ function auto_archive(hours)
     if(!hours || Number.isNaN(hours) || hours < 1) {time = 168 * 60 * 60 * 1000;}
     else {time = Math.floor(hours) * 60 * 60 * 1000;} //(hrs -> ms)
 
-    time = 60 * 1000; //set to 60s for testing!
     let completed_list = JSON.parse(localStorage.getItem('C'));
     let date_limit = new Date(); //curr time of function call
     for(let bullet of completed_list[0])
