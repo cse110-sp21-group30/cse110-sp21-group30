@@ -109,12 +109,6 @@ header {
     bottom: 3%;
 }
 
-#search{
-    cursor: pointer;
-    height: 80%;
-    margin: 0px 0px 0px 0px;
-}
-
 #clear{
     cursor: pointer;
     height: 80%;
@@ -399,7 +393,20 @@ h1 {
 
 /* Editor CSS Begins Here*/
 .hidden {
-	display:none;
+	display: none;
+}
+
+#search_off{
+    cursor: pointer;
+    height: 80%;
+    margin: 0px 0px 0px 0px;
+}
+
+#search_on {
+    cursor: pointer;
+    height: 80%;
+    margin: 0px 0px 0px 0px;
+    display: none;
 }
 
 #editor {

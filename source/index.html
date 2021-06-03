@@ -49,11 +49,16 @@
 
             <!-- Search button -->
             <a data-toggle="modal" data-target="#myModal">
-                <span><img id="search" src="./images/search.svg" alt="search"></span>
+                <span><img id="search_off" src="./images/search.svg" alt="search_off"></span>
             </a>
+
+
+<span><img id="search_on" src="./images/close.svg" alt="search_on"></span>
+    
 
              <!-- Clear button -->
              <span><img id="clear" src="./images/bomb.png" alt = "Clear button"></span>
+
 
             <!-- Archive button-->
             <span><img id="archive" src="./images/folder.png" alt="Archive button"></span>
@@ -103,7 +108,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <button type="button" id = "closeModal" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         <h4 class="modal-title" id="myModalLabel_search">Search</h4>
                     </div>
                     <div class="modal-body">
@@ -115,14 +120,17 @@
                         </div>
                         <div class="label_list">
                             <h2>Choose Labels: </h2>
-                            <span class="label work">Work</span>
-                            <span class="label school">School</span>
-                            <span class="label fitness">Fitness</span>
-                            <span class="label personal">Personal</span>
+                            <select id="select_search">
+                                <option value="">--Label--</option>
+                                <option value="work">Work</option>
+                                <option value="school">School</option>
+                                <option value="fitness">Fitness</option>
+                                <option value="personal">Personal</option>
+                            </select>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">Search</button>
+                        <button type="button" id="search_submit" class="btn btn-primary" data-dismiss="modal">Search</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
