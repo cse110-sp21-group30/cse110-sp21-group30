@@ -31,7 +31,7 @@ class BulletPoint extends HTMLElement {
             }
         </style>
         <article class="entry">
-            <p contenteditable="true"></p>
+            <p></p>
             <span class="date"></span>
             <span class="entry_label"></span>
             <span class="bullet_id"></span>

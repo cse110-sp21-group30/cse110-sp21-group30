@@ -97,6 +97,38 @@ function create_bullet_db(bullet){
     update_view(bullet.task_field);
 }
 
+//listens for the modal submission
+document.querySelector("#save_edits").addEventListener('click', function() {
+    console.log("saving edits");
+    $('#edit_modal').modal('hide'); //close modal 
+});
+
+//Helper method for editing contents of existing bullet
+function edit_existing_bullet(current_bullet_id, bullet_task_field, new_entry_obj) {
+    if("HPLPCA".contains(bullet_task_field) === false) {
+        throw "invalid task field"; //find a better way to check for validity
+    }
+
+    let current_list = JSON.parse(localStorage.getItem(bullet_task_field));
+    let temp_bullet;
+    let counter = 0;
+    for(let bullet of current_list[0]){
+        counter++;
+        if(bullet.bullet_id == current_bullet_id.innerText) {
+            temp_bullet = bullet;
+            delete_bullet_db(bullet_task_field, temp_bullet.bullet_id);
+            current_list = JSON.parse(localStorage.getItem(bullet_task_field));
+            temp_bullet.task_field = bullet_task_field;
+            temp_bullet.entry = new_entry_obj;
+            current_list[0].splice(counter - 1, 0, temp_bullet); //Re-insert bullet at same spot it was before
+            localStorage.setItem(bullet_task_field, JSON.stringify(current_list));
+            populate_global_arrays();
+            update_view(bullet_task_field);
+            return;
+        }
+    }
+}
+
 //move a bullet from HP to LP, or LP to HP
 function high_low_migration(task_field, id) {
     if (task_field != 'HP' && task_field != 'LP'){
@@ -401,15 +433,6 @@ document.addEventListener("keydown", function(event) {
       else if(selected_element.id == 'editor_text'){ //If new bullet being created
         enter_new_bullet(event);
       }
-      else if(selected_element.tagName == 'BULLET-POINT'){
-          let current_bullet_id = selected_element.shadowRoot.querySelector('span.bullet_id');
-          let current_bullet_content = selected_element.shadowRoot.querySelector('p');
-          let new_content = current_bullet_content.innerText;
-          new_content = new_content.replace(/\n/g, "");  //Remove the newline created in the bullet content when enter key is pressed
-          let bullet_task_field = selected_element.shadowRoot.querySelector('span.bullet_task_field').innerText;
-          edit_exisitng_bullet(current_bullet_id, new_content, bullet_task_field);
-      }
-
     }
   });
 
@@ -441,28 +464,6 @@ document.getElementById("entry_date").value = today_formatted;
 function reset_bullet_choices(){
     document.getElementById("select2").selectedIndex = 0;
     document.getElementById("entry_date").value = today_formatted;
-}
-
-//Helper method for editing contents of existing bullet
-function edit_exisitng_bullet(current_bullet_id, new_content, bullet_task_field){
-    let current_list = JSON.parse(localStorage.getItem(bullet_task_field));
-    let temp_bullet;
-    let counter = 0;
-    for(let bullet of current_list[0]){
-        counter = counter + 1;
-        if(bullet.bullet_id == current_bullet_id.innerText) {
-            temp_bullet = bullet;
-            delete_bullet_db(bullet_task_field, temp_bullet.bullet_id);
-            current_list = JSON.parse(localStorage.getItem(bullet_task_field));
-            temp_bullet.task_field = bullet_task_field;
-            temp_bullet.content = new_content;
-            current_list[0].splice(counter -1, 0, temp_bullet); //Re-insert bullet at same spot it was before
-            localStorage.setItem(bullet_task_field, JSON.stringify(current_list));
-            populate_global_arrays();
-            update_view(bullet_task_field);
-            return;
-        }
-    }
 }
 
 //This will keep track of what element is selected for handling enter key presses (sets the appropriate element as selected_element)
