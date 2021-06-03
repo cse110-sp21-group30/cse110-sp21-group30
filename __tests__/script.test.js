@@ -66,7 +66,7 @@ describe('Basic user flow for SPA ', () => {
   test('Archive view url', async() => {
       let archive_button = await page.$('#archive');
       await archive_button.click();
-      expect(page.url()).toMatch('#beansarchive');
+      expect(page.url()).toMatch('#archive');
   });
 
 });
