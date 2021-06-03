@@ -6,6 +6,33 @@ var low_priority_array = [];
 var completed_array = [];
 var archive_array = [];
 
+var filter_toggle = false;
+var filter_start_date = null;
+var filter_end_date = null;
+var filter_label = null;
+ 
+function toggle_filter(start_date, end_date, label) {
+    if(filter_toggle === false){
+        document.getElementById("search_off").style.display = "none";
+        document.getElementById("search_on").style.display = "inline-block";
+        filter_toggle = true;
+        filter_start_date = start_date;
+        filter_end_date = end_date;
+        filter_label = label;
+    } else {
+        document.getElementById("search_off").style.display = "inline-block";
+        document.getElementById("search_on").style.display = "none";
+        filter_toggle = false;
+        filter_start_date = null;
+        filter_end_date = null;
+        filter_label = null;
+    }
+    populate_global_arrays();
+    update_view("HP");
+    update_view("LP");
+    update_view("C");
+}
+
 document.addEventListener('DOMContentLoaded', function(){
     //localStorage.clear(); //for testing, comment out to preserve local storage
     populate_global_arrays(); //load arrays when page loads
@@ -38,6 +65,35 @@ function populate_global_arrays() {
     low_priority_array = JSON.parse(localStorage.getItem("LP"))[0];
     completed_array = JSON.parse(localStorage.getItem("C"))[0];
     archive_array = JSON.parse(localStorage.getItem("A"))[0];
+
+    if(filter_toggle == true){    
+        let bullet;
+        let bullet_date;
+        
+        for(let i = low_priority_array.length - 1; i >= 0; i--) {
+            bullet = low_priority_array[i];
+            bullet_date = new Date(bullet.deadline.substring(0,4), bullet.deadline.substring(5,7), bullet.deadline.substring(8,10));
+            if((bullet_date < filter_start_date && filter_start_date != null) || (bullet_date > filter_end_date && filter_end_date != null) || (bullet.labels != filter_label && filter_label != null)) {
+                low_priority_array.splice(i, 1);
+            }
+        }
+
+        for(let i = high_priority_array.length - 1; i >= 0; i--) {
+            bullet = high_priority_array[i];
+            bullet_date = new Date(bullet.deadline.substring(0,4), bullet.deadline.substring(5,7), bullet.deadline.substring(8,10));
+            if((bullet_date < filter_start_date && filter_start_date != null) || (bullet_date > filter_end_date && filter_end_date != null) || (bullet.labels != filter_label && filter_label != null)) {
+                high_priority_array.splice(i, 1);
+            }
+        }
+
+        for(let i = completed_array.length - 1; i >= 0; i--) {
+            bullet = completed_array[i];
+            bullet_date = new Date(bullet.deadline.substring(0,4), bullet.deadline.substring(5,7), bullet.deadline.substring(8,10));
+            if((bullet_date < filter_start_date && filter_start_date != null) || (bullet_date > filter_end_date && filter_end_date != null) || (bullet.labels != filter_label && filter_label != null)) {
+                completed_array.splice(i, 1);
+            }
+        }
+    }
 }
 
 /* localstorage objc
@@ -386,6 +442,36 @@ function update_view(task_field)
         let errMsg = `Attempting to render ${task_field}, this is not "HP", "LP", "C" or "A"`;
         throw errMsg;
     }
+}
+
+document.getElementById("search_submit").addEventListener("click", function() {
+    let start_date = document.getElementById('start_day').value;
+    let end_date = document.getElementById('end_day').value;
+    let label = document.getElementById('select_search').value;
+
+    if(start_date == "") {
+        start_date = null;
+    } else {
+        start_date = new Date(start_date.substring(0,4), start_date.substring(5,7), start_date.substring(8,10));
+    }
+
+    if(end_date == "") {
+        end_date = null;
+    } else {
+        end_date = new Date(end_date.substring(0,4), end_date.substring(5,7), end_date.substring(8,10));
+    }
+
+    if(label == "") {
+        label = null;
+    }
+
+    toggle_filter(start_date, end_date, label);
+});
+
+document.getElementById("search_on").addEventListener("click", toggle_filter_icon());
+
+function toggle_filter_icon(){
+    toggle_filter(null, null, null);
 }
 
 // Enter key to create bullet
