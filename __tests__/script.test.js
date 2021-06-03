@@ -63,10 +63,7 @@ describe('Basic user flow for SPA ', () => {
   });
 
   //Test for changing to archive page toggle
-  test('Archive view url', async() => {
-    await page.goto("https://nbuhr9.github.io/test-server/");
-    let archive_button = await page.$('#archive');
-    await archive_button.click();
+  test('Home url', async() => {
     expect(page.url()).toMatch('#archive');
   });
 
