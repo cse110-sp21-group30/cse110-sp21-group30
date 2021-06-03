@@ -47,16 +47,18 @@
 
         <section class="grid_item4" id="griditem">
 
-            <!-- Clear button -->
-            <span><img id="clear" src="./images/trash.svg" alt = "Clear button"></span>
-
             <!-- Search button -->
             <a data-toggle="modal" data-target="#myModal">
                 <span><img id="search_off" src="./images/search.svg" alt="search_off"></span>
             </a>
 
+
 <span><img id="search_on" src="./images/close.svg" alt="search_on"></span>
     
+
+             <!-- Clear button -->
+             <span><img id="clear" src="./images/bomb.png" alt = "Clear button"></span>
+
 
             <!-- Archive button-->
             <span><img id="archive" src="./images/folder.png" alt="Archive button"></span>
@@ -90,7 +92,10 @@
     <section id="archive_view" style="display: none;">
         <section id="archive_page">
             <div id="archive_header">
-                <h1>Archive</h1>
+                <h1>
+                    Archive
+                    <img id="clear_archive" src="./images/trash.svg" alt = "Clear Archive">
+                </h1>
             </div>
             <div id="a_bullets"></div>
         </section>
@@ -148,11 +153,44 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">Search</button>
+                        <button type="button" class="btn btn-primary">OK</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
+    </section>
+
+    <section id="modal_content_edit">
+        <!-- Modal -->
+        <div class="modal fade" id="edit_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="edit_modal_label">Edit Bullet Point</h4>
+              </div>
+              <div class="modal-body">
+                <textarea name="name" rows="5" cols="80"></textarea>
+                <input type="date" id="edit_date" name="edit_date">
+                <select id="edit_labels" class="pull-right">
+                    <option value="">--Label--</option>
+                    <option value="work">Work</option>
+                    <option value="school">School</option>
+                    <option value="fitness">Fitness</option>
+                    <option value="personal">Personal</option>
+                </select>
+                <div id ="edit_bullet_id"></div>
+                <div id ="edit_task_field"></div>
+                <div id ="edit_comp_time"></div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger pull-left" id ="delete_bullet">Delete Bullet</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close without Saving</button>
+                <button type="button" class="btn btn-primary" id="save_edits">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
     </section>
 
 

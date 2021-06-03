@@ -34,19 +34,23 @@ function toggle_filter(start_date, end_date, label) {
 }
 
 document.addEventListener('DOMContentLoaded', function(){
-    //localStorage.clear(); //for testing, comment out to preserve local storage
     populate_global_arrays(); //load arrays when page loads
     display_date(); // load up the dates
-    auto_archive(60); // archive old bullets in complete
+    auto_archive(168); // archive old bullets in complete - 168 hrs (7 days)
     update_view("HP");
     update_view("LP");
     update_view("C");
     update_view("A");
 });
 
+/*
+    formats local storage, fills global arrays,
+    and also shows the FAQ the first time the user enters the page
+*/
 function populate_global_arrays() {
     if (localStorage.getItem("HP") === null) {
         localStorage.setItem("HP", JSON.stringify({0:[]}));
+        document.querySelector("#FAQ").click(); //shows the FAQ
         console.log('HP created');
     }
     if (localStorage.getItem("LP") === null) {
@@ -147,6 +151,56 @@ function create_bullet_db(bullet){
     localStorage.setItem(bullet.task_field, JSON.stringify(origin_list));
     populate_global_arrays(); // READ
     update_view(bullet.task_field);
+}
+
+//listens for the modal submission
+document.querySelector("#save_edits").addEventListener('click', function() {
+    let text = $('#edit_modal textarea').val().trim();
+    if(text.length < 1) { //must type something!
+        alert("Textarea is empty!");
+        return;
+    }
+    let obj = {
+        "task_field": $('#edit_task_field').text(),
+        "labels": $('#edit_modal select').val(),
+        "deadline": $('#edit_modal input').val(),
+        "content": $('#edit_modal textarea').val(),
+        "bullet_id": $('#edit_bullet_id').text(),
+        "comp_time": $('#edit_comp_time').text()
+    };
+    edit_existing_bullet(obj);
+    $('#edit_modal').modal('hide'); //close modal
+});
+
+document.querySelector("#delete_bullet").addEventListener('click', function() {
+    let bullet_id = $('#edit_bullet_id').text();
+    let task_field = $('#edit_task_field').text();
+    delete_bullet_db(task_field, bullet_id);
+    $('#edit_modal').modal('hide'); //close modal
+});
+
+//Helper method for editing contents of existing bullet
+//accepts an entry javascript object
+function edit_existing_bullet(new_entry_obj) {
+    let current_bullet_id = new_entry_obj.bullet_id;
+    let bullet_task_field = new_entry_obj.task_field;
+    let current_list = JSON.parse(localStorage.getItem(bullet_task_field));
+    let temp_bullet;
+    let counter = 0;
+    for(let bullet of current_list[0]){
+        counter++;
+        if(bullet.bullet_id == current_bullet_id) {
+            temp_bullet = bullet;
+            delete_bullet_db(bullet_task_field, temp_bullet.bullet_id);
+            current_list = JSON.parse(localStorage.getItem(bullet_task_field));
+            temp_bullet = new_entry_obj;
+            current_list[0].splice(counter - 1, 0, temp_bullet); //Re-insert bullet at same spot it was before
+            localStorage.setItem(bullet_task_field, JSON.stringify(current_list));
+            populate_global_arrays();
+            update_view(bullet_task_field);
+            return;
+        }
+    }
 }
 
 //move a bullet from HP to LP, or LP to HP
@@ -294,7 +348,6 @@ function auto_archive(hours)
     if(!hours || Number.isNaN(hours) || hours < 1) {time = 168 * 60 * 60 * 1000;}
     else {time = Math.floor(hours) * 60 * 60 * 1000;} //(hrs -> ms)
 
-    time = 60 * 1000; //set to 60s for testing! 
     let completed_list = JSON.parse(localStorage.getItem('C'));
     let date_limit = new Date(); //curr time of function call
     for(let bullet of completed_list[0])
@@ -368,7 +421,6 @@ function display_date()
         gridDay.innerHTML = arr[j - 1].dayOfWeek;
     }
 }
-
 
 /*
     Renders the task array onto its respective place in the DOM.
@@ -497,18 +549,8 @@ document.addEventListener("keydown", function(event) {
       else if(selected_element.id == 'editor_text'){ //If new bullet being created
         enter_new_bullet(event);
       }
-      else if(selected_element.tagName == 'BULLET-POINT'){
-          let current_bullet_id = selected_element.shadowRoot.querySelector('span.bullet_id');
-          let current_bullet_content = selected_element.shadowRoot.querySelector('p');
-          let new_content = current_bullet_content.innerText;
-          new_content = new_content.replace(/\n/g, "");  //Remove the newline created in the bullet content when enter key is pressed
-          let bullet_task_field = selected_element.shadowRoot.querySelector('span.bullet_task_field').innerText;
-          edit_exisitng_bullet(current_bullet_id, new_content, bullet_task_field);
-      }
-
     }
   });
-
 
 //Helper method for enter key press create new bullet
 function enter_new_bullet(event){
@@ -532,34 +574,12 @@ let mm = String(today_formatted.getMonth() + 1).padStart(2, '0'); //January is 0
 let yyyy = today_formatted.getFullYear();
 
 today_formatted = yyyy + '-' + mm + '-' + dd;
-document.getElementById("entry_date").value = today_formatted; 
+document.getElementById("entry_date").value = today_formatted;
 
 //Helper method to clear Label/Date/HP selections after entering a new bullet
 function reset_bullet_choices(){
     document.getElementById("select2").selectedIndex = 0;
     document.getElementById("entry_date").value = today_formatted;
-}
-
-//Helper method for editing contents of existing bullet
-function edit_exisitng_bullet(current_bullet_id, new_content, bullet_task_field){
-    let current_list = JSON.parse(localStorage.getItem(bullet_task_field));
-    let temp_bullet;
-    let counter = 0;
-    for(let bullet of current_list[0]){
-        counter = counter + 1;
-        if(bullet.bullet_id == current_bullet_id.innerText) {
-            temp_bullet = bullet;
-            delete_bullet_db(bullet_task_field, temp_bullet.bullet_id);
-            current_list = JSON.parse(localStorage.getItem(bullet_task_field));
-            temp_bullet.task_field = bullet_task_field;
-            temp_bullet.content = new_content;
-            current_list[0].splice(counter -1, 0, temp_bullet); //Re-insert bullet at same spot it was before
-            localStorage.setItem(bullet_task_field, JSON.stringify(current_list));
-            populate_global_arrays();
-            update_view(bullet_task_field);
-            return;
-        }
-    }
 }
 
 //This will keep track of what element is selected for handling enter key presses (sets the appropriate element as selected_element)
@@ -601,9 +621,18 @@ document.querySelector('#clear').addEventListener('click', function(){
     if (window.confirm('Do you really want to delete all bullets?')){
         localStorage.clear();
         populate_global_arrays();
-
         update_view('C');
         update_view('HP');
         update_view('LP');
+        update_view("A");
+    }
+});
+
+//user clicks this to clear the archive
+document.querySelector('#clear_archive').addEventListener('click', function(){
+    if (window.confirm('Do you really want to empty the archive?')){
+        localStorage.setItem("A", JSON.stringify({0:[]}));
+        populate_global_arrays();
+        update_view("A");
     }
 });

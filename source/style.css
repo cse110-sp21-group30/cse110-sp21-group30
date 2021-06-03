@@ -2,22 +2,22 @@
 ::-webkit-scrollbar {
     width: 10px;
   }
-    
+
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 2px grey; 
+  box-shadow: inset 0 0 2px grey;
   border-radius: 20px;
 }
-     
+
 ::-webkit-scrollbar-thumb {
-  background: LightGrey; 
+  background: LightGrey;
   border-radius: 10px;
 }
-    
+
 ::-webkit-scrollbar-thumb:hover {
-  background: grey; 
+  background: grey;
 }
 /* Scrollbar CSS Ends Here */
-  
+
 /* Header CSS Starts Here */
 header {
     position: fixed;
@@ -34,7 +34,7 @@ header {
     z-index: 999;
 }
 
-.grid_item1 { 
+.grid_item1 {
     max-height: 50px;
     grid-column-start: 1;
     grid-column-end: 1;
@@ -103,7 +103,7 @@ header {
 #edit{
     cursor: pointer;
     height: 10%;
-    margin: 0px 0px 0px 0px;   
+    margin: 0px 0px 0px 0px;
     position: fixed;
     right: 50px;
     bottom: 3%;
@@ -308,7 +308,7 @@ body {
 }
 
 #box_c_standard{
-    height: 85%; 
+    height: 85%;
 }
 
 h1 {
@@ -321,6 +321,14 @@ h1 {
     font-family: 'Source Sans Pro', sans-serif;
     color: black;
     border-radius: 15px;
+}
+
+#clear_archive{
+    cursor: pointer;
+    margin: 0px 0px 0px 0px;
+    width: 5%;
+    height: 5%;
+    display: inline;
 }
 
 .column_grid_h1 {
@@ -436,7 +444,7 @@ h1 {
     overflow-x: auto;
 }
 
-.grid2_item1 { 
+.grid2_item1 {
     grid-column-start: 1;
     grid-column-end: 1;
     padding-left: 15px;
@@ -444,7 +452,7 @@ h1 {
     padding-right: 15px;
 }
 
-.grid2_item2 { 
+.grid2_item2 {
     grid-column-start: 2;
     grid-column-end: 2;
     padding: 8px 5px 5px 5px;
@@ -467,6 +475,14 @@ h1 {
 .work {background-color: #04AA6D;} /* Green */
 .school {background-color: #2196F3;} /* Blue */
 .fitness {background-color: #ff9800;} /* Orange */
-.personal {background-color: #f44336;} /* Red */ 
+.personal {background-color: #f44336;} /* Red */
 /* Editor CSS Ends Here */
+
+/* Edit Modal CSS */
+#edit_modal textarea {
+    resize: none;
+}
+/* Edit Modal CSS Ends Here*/
+
+
 /* Body CSS Ends Here */

@@ -16,6 +16,8 @@ describe('Basic user flow for SPA ', () => {
 
   test('make HP bullet point', async () => {
       jest.setTimeout(10000);
+      let close_faq = await page.$("#faq button"); //close faq modal
+      await close_faq.click();
       let open_editor = await page.$('#edit');
       await open_editor.click();
       let text_box = await page.$('#editor_text');
@@ -32,10 +34,10 @@ describe('Basic user flow for SPA ', () => {
   });
 
   test('check if bullet added to correct column (HP)', async () => {
-    const num_LP_bullets = await page.evaluate(() => {
+    const num_HP_bullets = await page.evaluate(() => {
       return (Array.from(document.querySelector('#hp_bullets').children).length);
     })
-    expect(num_LP_bullets).toBe(1);
+    expect(num_HP_bullets).toBe(1);
   });
 
   test('test bullet migration (HP -> LP)', async () => {
@@ -52,14 +54,73 @@ describe('Basic user flow for SPA ', () => {
     expect(num_LP_bullets).toBe(1);
   });
 
-  test('delete bullet point', async() => {
-    await page.evaluate(() => {
-      document.querySelector("#lp_bullets > bullet-point").shadowRoot.querySelector("article > img.del.hide-hover").click();
-    })
-    const num_LP_bullets = await page.evaluate(() => {
-      return (Array.from(document.querySelector('#lp_bullets').children).length);
-    })
-    expect(num_LP_bullets).toBe(0);
+  test('edit a bullet point', async () => {
+      jest.setTimeout(30000);
+      //make another bullet
+      let text_box = await page.$('#editor_text');
+      await text_box.click();
+      await text_box.type('Testing Editing Bullets'); //add text
+      await page.select("#select2", "work"); //add label
+      await page.$eval('#entry_date', el => el.value = '2020-02-20'); //fill date
+      await page.keyboard.press('Enter'); //submit bullet
+
+      await page.evaluate(() => {
+        document.querySelector("#hp_bullets > bullet-point").shadowRoot.querySelector("article > img.edit.hide-hover").click();
+    });
+
+      //edit modal should be populated with bullet info
+      let edit_date = await page.$eval('#edit_date', el => el.value);
+      let edit_content = await page.$eval('#edit_modal textarea', el => el.value);
+      let edit_labels = await page.$eval('#edit_labels', el => el.value);
+      expect(edit_date).toBe("2020-02-20");
+      expect(edit_content).toBe("Testing Editing Bullets");
+      expect(edit_labels).toBe("work");
+
+      //edit
+      let edit_box = await page.$('#edit_modal textarea');
+      await edit_box.click();
+      await edit_box.type('-more text here!'); //edit text
+      await page.select("#edit_labels", "school");
+      await page.$eval('#edit_date', el => el.value = "2021-01-01");
+      let submit_edit = await page.$('#save_edits');
+      await submit_edit.click();
+
+      let bullet = await page.$('bullet-point');
+      let data = await bullet.getProperty('entry');
+      let json_obj = await data.jsonValue();
+
+      //check that edits are saved
+      expect(json_obj.content).toBe("Testing Editing Bullets-more text here!");
+      expect(json_obj.labels).toBe("school");
+      expect(json_obj.deadline).toBe("2021-01-01");
   });
 
+  test('delete bullet point', async () => {
+     await page.evaluate(() => {
+        document.querySelector("#hp_bullets > bullet-point").shadowRoot.querySelector("article > img.edit.hide-hover").click();
+    });
+
+    let delete_bullet = await page.$('#delete_bullet');
+    await delete_bullet.evaluate( d => d.click() );
+
+    const num_HP_bullets = await page.evaluate(() => {
+      return (Array.from(document.querySelector('#hp_bullets').children).length);
+    })
+    expect(num_HP_bullets).toBe(0);
+  });
+
+  test('Home url test', async() => {
+    expect(page.url()).toMatch("https://nbuhr9.github.io/test-server/");
+  });
+
+  test('Archive view url', async() => {
+    let archive_button = await page.$('#archive');
+    await archive_button.evaluate( b => b.click() );
+    expect(page.url()).toMatch('#archive');
+  });
+
+  test('Back arrow button', async() => {
+      await page.goBack();
+      expect(page.url()).toBe("https://nbuhr9.github.io/test-server/");
+  });
 });
