@@ -71,8 +71,8 @@ describe('Basic user flow for SPA ', () => {
   test('Archive view url', async() => {
     let archive_button = await page.$('#archive');
     await archive_button.click();
-    jest.setTimeout(10000);
-    expect(page.url()).toMatch('#archive');
+    await page.goBack(); 
+    expect(page.url()).toMatch('should be home');
 });
 
 
