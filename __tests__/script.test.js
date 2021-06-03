@@ -71,10 +71,8 @@ describe('Basic user flow for SPA ', () => {
 
   //Testing the back button
   test('Back arrow button', async() => {
-    //let placeHolder = page.url(); //starting url (home)
-    //let archive_button = await page.$('#archive');
-    //await archive_button.click();
-    await page.goBack(); //Simulates clikcing the back button
+    let placeHolder = page.url(); //starting url (home)
+    await page.goBack(); 
     expect(page.url()).toBe(placeHolder); 
 });
 
