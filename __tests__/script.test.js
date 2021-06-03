@@ -63,13 +63,13 @@ describe('Basic user flow for SPA ', () => {
   });
 
    //Test for changing to archive page toggle
-   test('Archive view url', async() => {
+  test('Archive view url', async() => {
     let archive_button = await page.$('#archive');
     await archive_button.click();
     expect(page.url()).toMatch('#archive');
   });
 
-  
+
 
   
 
