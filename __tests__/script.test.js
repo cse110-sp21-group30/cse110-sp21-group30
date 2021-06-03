@@ -62,21 +62,14 @@ describe('Basic user flow for SPA ', () => {
     expect(num_LP_bullets).toBe(0);
   });
 
-  
-  //Testing the back button
-  test('Back arrow button', async() => {
-    let archive_button = await page.$('#archive');
-    await archive_button.click();
-    await page.goBack(); 
-    expect(page.url()).toBe("https://nbuhr9.github.io/test-server/"); 
-  });
-
    //Test for changing to archive page toggle
    test('Archive view url', async() => {
     let archive_button = await page.$('#archive');
     await archive_button.click();
     expect(page.url()).toMatch('#archive');
   });
+
+  
 
   
 
