@@ -2,7 +2,6 @@ describe('Basic user flow for SPA ', () => {
   beforeAll(async () => {
     await page.goto("https://nbuhr9.github.io/test-server/");
   });
-  let home_url = page.url();
 
   test('testing dates', async () => {
       const date = new Date();
@@ -72,6 +71,9 @@ describe('Basic user flow for SPA ', () => {
 
   //Testing the back button
   test('Back arrow button', async() => {
+    await page.goto('https://nbuhr9.github.io/test-server/');
+    let archive_button = await page.$('#archive');
+    await archive_button.click();
     await page.goBack(); 
     expect(page.url()).toBe(home_url); 
 });
