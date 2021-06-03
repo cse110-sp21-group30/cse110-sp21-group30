@@ -69,6 +69,7 @@ describe('Basic user flow for SPA ', () => {
       expect(page.url()).toMatch('#archive');
   });
 
+  /*
   //Testing the back button
   test('Back arrow button', async() => {
     await page.goto('https://nbuhr9.github.io/test-server/');
@@ -77,5 +78,6 @@ describe('Basic user flow for SPA ', () => {
     await page.goBack(); 
     expect(page.url()).toBe('https://nbuhr9.github.io/test-server/'); 
 });
+*/
 
 });
