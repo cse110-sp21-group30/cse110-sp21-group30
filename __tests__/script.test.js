@@ -72,9 +72,7 @@ describe('Basic user flow for SPA ', () => {
   
   //Testing the back button
   test('Back arrow button', async() => {
-    let archive_button = await page.$('#archive');
-    await archive_button.click();
-    //await page.goBack(); 
+    await page.goBack(); 
     expect(page.url()).toBe("https://nbuhr9.github.io/test-server/"); 
   });
   
