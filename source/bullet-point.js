@@ -2,6 +2,7 @@
 
 import { complete_migration, high_low_migration, delete_bullet_db, revert_complete_migration, archive_bullet } from './script.js';
 
+
 class BulletPoint extends HTMLElement {
     constructor() {
         super();
@@ -119,6 +120,21 @@ class BulletPoint extends HTMLElement {
                 archive_bullet(entry.task_field, entry.bullet_id);
             });
             article.append(button_archive);
+            //add edit
+            let button_edit = document.createElement("img");
+            button_edit.className = "edit hide-hover";
+            button_edit.src = "./images/edit.svg";
+            button_edit.style.maxWidth="20px";
+            button_edit.addEventListener('click', function () {
+                $('#edit_modal').modal({
+                    backdrop: 'static',
+                    keyboard: false
+                });
+                $('#edit_modal textarea').val(entry.content);
+                $('#edit_modal input').val(entry.deadline);
+                $('#edit_modal select').val(entry.labels);
+            });
+            article.append(button_edit);
         }
         else if(entry.task_field == "A") {
             //create delete
@@ -159,6 +175,21 @@ class BulletPoint extends HTMLElement {
                 delete_bullet_db(entry.task_field, entry.bullet_id);
             });
             article.append(button_del);
+            //add edit
+            let button_edit = document.createElement("img");
+            button_edit.className = "edit hide-hover";
+            button_edit.src = "./images/edit.svg";
+            button_edit.style.maxWidth="20px";
+            button_edit.addEventListener('click', function () {
+                $('#edit_modal').modal({
+                    backdrop: 'static',
+                    keyboard: false
+                });
+                $('#edit_modal textarea').val(entry.content);
+                $('#edit_modal input').val(entry.deadline);
+                $('#edit_modal select').val(entry.labels);
+            });
+            article.append(button_edit);
         }
     }
 }
@@ -203,7 +234,6 @@ function set_complete_column_id(){
         document.getElementById('box_c').id = 'box_c_standard';
     }
 }
-
 
 // Define a custom element
 customElements.define('bullet-point', BulletPoint);
