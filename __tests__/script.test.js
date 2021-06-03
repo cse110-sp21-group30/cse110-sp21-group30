@@ -69,4 +69,13 @@ describe('Basic user flow for SPA ', () => {
       expect(page.url()).toMatch('#archive');
   });
 
+  //Testing the back button
+  test('Back arrow button', async() => {
+    let placeHolder = page.url(); //starting url (home)
+    let archive_button = await page.$('#archive');
+    await archive_button.click();
+    await page.goBack(); //Simulates clikcing the back button
+    expect(page.url()).toBe('beansHome'); //This should check if it contains /#entry1
+});
+
 });
