@@ -81,10 +81,4 @@ describe('Basic user flow for SPA ', () => {
   });
 
 
-
-  
-
-
-
-
 });
