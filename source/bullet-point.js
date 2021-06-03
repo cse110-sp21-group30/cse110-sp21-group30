@@ -104,15 +104,6 @@ class BulletPoint extends HTMLElement {
                 revert_complete_migration(entry.task_field, entry.bullet_id);
             });
             article.append(button_rev);
-            //create delete
-            let button_del = document.createElement("img");
-            button_del.src = "./images/trash.svg"
-            button_del.className = "del hide-hover";
-            button_del.style.maxWidth="20px";
-            button_del.addEventListener('click', function () {
-                delete_bullet_db(entry.task_field, entry.bullet_id);
-            });
-            article.append(button_del);
             //add send to archive
             let button_archive = document.createElement('button');
             button_archive.className = "del hide-hover";
@@ -171,15 +162,6 @@ class BulletPoint extends HTMLElement {
                 high_low_migration(entry.task_field, entry.bullet_id);
             });
             article.append(button_pri);
-            //add delete
-            let button_del = document.createElement("img");
-            button_del.className = "del hide-hover";
-            button_del.src = "./images/trash.svg";
-            button_del.style.maxWidth="20px";
-            button_del.addEventListener('click', function () {
-                delete_bullet_db(entry.task_field, entry.bullet_id);
-            });
-            article.append(button_del);
             //add edit
             let button_edit = document.createElement("img");
             button_edit.className = "edit hide-hover";

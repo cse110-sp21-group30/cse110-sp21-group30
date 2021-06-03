@@ -99,34 +99,35 @@ function create_bullet_db(bullet){
 
 //listens for the modal submission
 document.querySelector("#save_edits").addEventListener('click', function() {
-    let content = $('#edit_modal textarea').val();
-    let deadline = $('#edit_modal input').val();
-    let label = $('#edit_modal select').val();
-    let bullet_id = $('#edit_bullet_id').text();
-    let task_field = $('#edit_task_field').text();
-    let comp_time = $('#edit_comp_time').text();
+    let text = $('#edit_modal textarea').val().trim();
+    if(text.length < 1) { //must type something!
+        alert("Textarea is empty!");
+        return;
+    }
     let obj = {
-        "task_field": task_field,
-        "labels": label,
-        "deadline": deadline,
-        "content": content,
-        "bullet_id": bullet_id,
-        "comp_time": comp_time
+        "task_field": $('#edit_task_field').text(),
+        "labels": $('#edit_modal select').val(),
+        "deadline": $('#edit_modal input').val(),
+        "content": $('#edit_modal textarea').val(),
+        "bullet_id": $('#edit_bullet_id').text(),
+        "comp_time": $('#edit_comp_time').text()
     };
-    edit_existing_bullet(bullet_id, task_field, obj);
+    edit_existing_bullet(obj);
     $('#edit_modal').modal('hide'); //close modal
 });
 
 document.querySelector("#delete_bullet").addEventListener('click', function() {
-    console.log("deleting bullet");
+    let bullet_id = $('#edit_bullet_id').text();
+    let task_field = $('#edit_task_field').text();
+    delete_bullet_db(task_field, bullet_id);
     $('#edit_modal').modal('hide'); //close modal
 });
 
 //Helper method for editing contents of existing bullet
-function edit_existing_bullet(current_bullet_id, bullet_task_field, new_entry_obj) {
-    if("HPLPCA".includes(bullet_task_field) === false) {
-        throw "invalid task field"; //find a better way to check for validity
-    }
+//accepts an entry javascript object
+function edit_existing_bullet(new_entry_obj) {
+    let current_bullet_id = new_entry_obj.bullet_id;
+    let bullet_task_field = new_entry_obj.task_field;
     let current_list = JSON.parse(localStorage.getItem(bullet_task_field));
     let temp_bullet;
     let counter = 0;
