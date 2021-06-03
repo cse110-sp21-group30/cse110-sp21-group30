@@ -36,7 +36,7 @@ class BulletPoint extends HTMLElement {
             <span class="entry_label"></span>
             <span class="bullet_id"></span>
             <span class="bullet_task_field"></span>
-            <!-- <br> <span class="comp_time"></span> print timestamp -->
+            <span class="comp_time"></span>
             <br>
             <!-- buttons go here-->
         </article>
@@ -56,7 +56,7 @@ class BulletPoint extends HTMLElement {
             'deadline': this.shadowRoot.querySelector('.date').innerText,
             'content': this.shadowRoot.querySelector('p').innerText,
             'bullet_id': this.shadowRoot.querySelector('.bullet_id').innerText,
-            //'comp_time': this.shadowRoot.querySelector('.comp_time').innerText
+            'comp_time': this.shadowRoot.querySelector('.comp_time').innerText
         };
 
         return entryObj;
@@ -73,9 +73,11 @@ class BulletPoint extends HTMLElement {
         spans[0].append(entry.deadline);
         spans[1].append(entry.labels);
         spans[2].append(entry.bullet_id);
+        spans[2].style.display = "none";
         spans[3].append(entry.task_field);
         spans[3].style.display = "none";
-        //spans[4].append(entry.comp_time); // uncomment to print timestamp
+        spans[4].append(entry.comp_time);
+        spans[4].style.display = "none";
 
         // give the label a color
         if (entry.labels == 'fitness') {
@@ -133,6 +135,9 @@ class BulletPoint extends HTMLElement {
                 $('#edit_modal textarea').val(entry.content);
                 $('#edit_modal input').val(entry.deadline);
                 $('#edit_modal select').val(entry.labels);
+                $('#edit_bullet_id').text(entry.bullet_id);
+                $('#edit_task_field').text(entry.task_field);
+                $('#edit_comp_time').text(entry.comp_time);
             });
             article.append(button_edit);
         }
@@ -188,6 +193,9 @@ class BulletPoint extends HTMLElement {
                 $('#edit_modal textarea').val(entry.content);
                 $('#edit_modal input').val(entry.deadline);
                 $('#edit_modal select').val(entry.labels);
+                $('#edit_bullet_id').text(entry.bullet_id);
+                $('#edit_task_field').text(entry.task_field);
+                $('#edit_comp_time').text(entry.comp_time);
             });
             article.append(button_edit);
         }

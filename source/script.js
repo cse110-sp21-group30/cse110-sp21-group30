@@ -99,27 +99,44 @@ function create_bullet_db(bullet){
 
 //listens for the modal submission
 document.querySelector("#save_edits").addEventListener('click', function() {
-    console.log("saving edits");
-    $('#edit_modal').modal('hide'); //close modal 
+    let content = $('#edit_modal textarea').val();
+    let deadline = $('#edit_modal input').val();
+    let label = $('#edit_modal select').val();
+    let bullet_id = $('#edit_bullet_id').text();
+    let task_field = $('#edit_task_field').text();
+    let comp_time = $('#edit_comp_time').text();
+    let obj = {
+        "task_field": task_field,
+        "labels": label,
+        "deadline": deadline,
+        "content": content,
+        "bullet_id": bullet_id,
+        "comp_time": comp_time
+    };
+    edit_existing_bullet(bullet_id, task_field, obj);
+    $('#edit_modal').modal('hide'); //close modal
+});
+
+document.querySelector("#delete_bullet").addEventListener('click', function() {
+    console.log("deleting bullet");
+    $('#edit_modal').modal('hide'); //close modal
 });
 
 //Helper method for editing contents of existing bullet
 function edit_existing_bullet(current_bullet_id, bullet_task_field, new_entry_obj) {
-    if("HPLPCA".contains(bullet_task_field) === false) {
+    if("HPLPCA".includes(bullet_task_field) === false) {
         throw "invalid task field"; //find a better way to check for validity
     }
-
     let current_list = JSON.parse(localStorage.getItem(bullet_task_field));
     let temp_bullet;
     let counter = 0;
     for(let bullet of current_list[0]){
         counter++;
-        if(bullet.bullet_id == current_bullet_id.innerText) {
+        if(bullet.bullet_id == current_bullet_id) {
             temp_bullet = bullet;
             delete_bullet_db(bullet_task_field, temp_bullet.bullet_id);
             current_list = JSON.parse(localStorage.getItem(bullet_task_field));
-            temp_bullet.task_field = bullet_task_field;
-            temp_bullet.entry = new_entry_obj;
+            temp_bullet = new_entry_obj;
             current_list[0].splice(counter - 1, 0, temp_bullet); //Re-insert bullet at same spot it was before
             localStorage.setItem(bullet_task_field, JSON.stringify(current_list));
             populate_global_arrays();
