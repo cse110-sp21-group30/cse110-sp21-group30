@@ -10,6 +10,9 @@ var editor_text = document.getElementById('editor_text');
 document.getElementById('color1').addEventListener('click', function() {
     //default
 
+    //store
+    localStorage.setItem("color", "1");
+
     //body
     body.style.background = '';
 
@@ -53,6 +56,9 @@ document.getElementById('color1').addEventListener('click', function() {
 });
 
 document.getElementById('color2').addEventListener('click', function() {
+    
+    localStorage.setItem("color", "2");
+    
     //ucsd colors
     body.style.background = '#182B49';
     header.style.background = '#C69214';
@@ -91,6 +97,9 @@ document.getElementById('color2').addEventListener('click', function() {
 });
 
 document.getElementById('color3').addEventListener('click', function() {
+    
+    localStorage.setItem("color", "3");
+    
     //slack_dark
     body.style.background = '#1A1D21';
     header.style.background = '#19171D';
@@ -124,6 +133,9 @@ document.getElementById('color3').addEventListener('click', function() {
 });
 
 document.getElementById('color4').addEventListener('click', function() {
+    
+    localStorage.setItem("color", "4");
+    
     //blue
     body.style.background = '#46B1C9';
     header.style.background = '#9FB7B9';
@@ -157,6 +169,9 @@ document.getElementById('color4').addEventListener('click', function() {
 });
 
 document.getElementById('color5').addEventListener('click', function() {
+    
+    localStorage.setItem("color", "5");    
+
     //purple
     body.style.background = '#230969';
     header.style.background = '#282828';
@@ -190,6 +205,9 @@ document.getElementById('color5').addEventListener('click', function() {
 });
 
 document.getElementById('color6').addEventListener('click', function() {
+    
+    localStorage.setItem("color", "6");
+
     //bean
     body.style.background = '#016CA4';
     header.style.background = '#28AEDD';
@@ -236,7 +254,7 @@ function change_icon_color(icon_color){
         body.style.setProperty('--bullet_icon_filter', 'invert(90%)');
 
         document.getElementById("clear_archive").style.filter = 'invert(90%)';
-    }else{
+    } else{
         document.getElementById("clear").style.filter = 'none';
         document.getElementById("search_on").style.filter = 'none';
         document.getElementById("search_off").style.filter = 'none';
@@ -255,3 +273,32 @@ function change_icon_color(icon_color){
 function update_modal_colors(){
     //will do after modals are finished
 }
+
+document.addEventListener('DOMContentLoaded', function(){
+    let color_scheme = localStorage.getItem("color");
+    const event = new MouseEvent('click', {
+        view: window,
+        bubbles: true,
+        cancelable: true
+      });
+      let theme_button;
+    if(color_scheme == "1") {
+        theme_button = document.getElementById('color1');
+        theme_button.dispatchEvent(event);
+    } else if(color_scheme == "2") {
+        theme_button = document.getElementById('color2');
+        theme_button.dispatchEvent(event);
+    } else if(color_scheme == "3") {
+        theme_button = document.getElementById('color3');
+        theme_button.dispatchEvent(event);
+    } else if(color_scheme == "4") {
+        theme_button = document.getElementById('color4');
+        theme_button.dispatchEvent(event);
+    } else if(color_scheme == "5") {
+        theme_button = document.getElementById('color5');
+        theme_button.dispatchEvent(event);
+    } else if(color_scheme == "6") {
+        theme_button = document.getElementById('color6');
+        theme_button.dispatchEvent(event);
+    }
+});

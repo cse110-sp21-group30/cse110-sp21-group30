@@ -1,6 +1,6 @@
 // Bullet point/entry custom component
 
-import { complete_migration, high_low_migration, delete_bullet_db, revert_complete_migration, archive_bullet,remove_filter} from './script.js';
+import { complete_migration, high_low_migration, delete_bullet_db, revert_complete_migration, archive_bullet, remove_filter } from './script.js';
 
 
 class BulletPoint extends HTMLElement {
