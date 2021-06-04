@@ -19,19 +19,31 @@ function toggle_filter(start_date, end_date, label) {
         filter_start_date = start_date;
         filter_end_date = end_date;
         filter_label = label;
+        populate_global_arrays();
+        update_view("HP");
+        update_view("LP");
+        update_view("C");
+
     } else {
         document.getElementById("search_off").style.display = "inline-block";
         document.getElementById("search_on").style.display = "none";
-        filter_toggle = false;
-        filter_start_date = null;
-        filter_end_date = null;
-        filter_label = null;
+        remove_filter();
     }
+
+}
+
+function remove_filter(){
+    filter_toggle = false;
+    filter_start_date = null;
+    filter_end_date = null;
+    filter_label = null;
     populate_global_arrays();
     update_view("HP");
     update_view("LP");
     update_view("C");
 }
+
+
 
 document.addEventListener('DOMContentLoaded', function(){
     populate_global_arrays(); //load arrays when page loads
@@ -252,7 +264,7 @@ function high_low_migration(task_field, id) {
     }
 }
 
-export { complete_migration, high_low_migration, delete_bullet_db, revert_complete_migration, archive_bullet };
+export { complete_migration, high_low_migration, delete_bullet_db, revert_complete_migration, archive_bullet, remove_filter};
 
 //moves from LP or HP to complete
 function complete_migration(task_field, id) {
@@ -520,6 +532,9 @@ document.getElementById("search_submit").addEventListener("click", function() {
     document.getElementById('start_day').value = "";
     document.getElementById('end_day').value = "";
     document.getElementById('select_search').value = "";
+    let editor = document.getElementById("hidden");
+    editor.setAttribute("class", "hidden");
+    document.getElementById('edit').style.visibility = 'visible';
 
     toggle_filter(start_date, end_date, label);
 });
@@ -607,6 +622,7 @@ window.onpopstate = function(event){
 //if archive is clicked, toggle between archive page and home
 document.querySelector('#archive').addEventListener('click', function(){
     var image = document.querySelector('#archive').src;
+    remove_filter();
     image = image.split('/');
     image = image.pop();
     if(image == 'revert.svg'){

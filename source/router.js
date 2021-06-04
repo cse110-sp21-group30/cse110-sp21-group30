@@ -1,4 +1,5 @@
 export const router = {};
+import { remove_filter } from './script.js';
 /**
  * Changes the "page" (state) that your SPA app is currently set to
  */
