@@ -2,7 +2,6 @@
 
 import { complete_migration, high_low_migration, delete_bullet_db, revert_complete_migration, archive_bullet } from './script.js';
 
-
 class BulletPoint extends HTMLElement {
     constructor() {
         super();
@@ -59,10 +58,12 @@ class BulletPoint extends HTMLElement {
     }
 
     get entry() {
+        let dates = this.shadowRoot.querySelector('.date').innerText.split('-'); //in the form MM-DD-YYYY
+        let ymd_date = `${dates[2]}-${dates[0]}-${dates[1]}`
         let entryObj = {
             'task_field': this.shadowRoot.querySelector('.bullet_task_field').innerText,
             'labels': this.shadowRoot.querySelector('.entry_label').innerText,
-            'deadline': this.shadowRoot.querySelector('.date').innerText,
+            'deadline': ymd_date,
             'content': this.shadowRoot.querySelector('p').innerText,
             'bullet_id': this.shadowRoot.querySelector('.bullet_id').innerText,
             'comp_time': this.shadowRoot.querySelector('.comp_time').innerText
@@ -79,7 +80,9 @@ class BulletPoint extends HTMLElement {
         // Set contents
         article.querySelector('p').append(entry.content);
         let spans = article.querySelectorAll('span');
-        spans[0].append(entry.deadline);
+        let dates = entry.deadline.split('-'); //entry.deadline is formatted YYYY-MM-DD
+        let mdy_date = `${dates[1]}-${dates[2]}-${dates[0]}`;
+        spans[0].append(mdy_date);
         spans[1].append(entry.labels);
         spans[2].append(entry.bullet_id);
         spans[2].style.display = "none";
@@ -237,12 +240,13 @@ function set_complete_column_id(){
 // Define a custom element
 customElements.define('bullet-point', BulletPoint);
 
-/*  let bullet = JSON.stringify({
+/*
+    let bullet = {
         "task_field": task_field,
         "labels": labels,
-        "deadline": deadline,
+        "deadline": deadline, //YYYY-MM-DD
         "content": content,
         "bullet_id": id
         "comp_time": null
-    });
+    };
 */

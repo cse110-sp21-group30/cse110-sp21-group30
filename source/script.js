@@ -10,7 +10,7 @@ var filter_toggle = false;
 var filter_start_date = null;
 var filter_end_date = null;
 var filter_label = null;
- 
+
 function toggle_filter(start_date, end_date, label) {
     if(filter_toggle === false){
         document.getElementById("search_off").style.display = "none";
@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', function(){
     populate_global_arrays(); //load arrays when page loads
     display_date(); // load up the dates
     auto_archive(168); // archive old bullets in complete - 168 hrs (7 days)
+    reset_bullet_choices();
     update_view("HP");
     update_view("LP");
     update_view("C");
@@ -70,10 +71,10 @@ function populate_global_arrays() {
     completed_array = JSON.parse(localStorage.getItem("C"))[0];
     archive_array = JSON.parse(localStorage.getItem("A"))[0];
 
-    if(filter_toggle == true){    
+    if(filter_toggle == true){
         let bullet;
         let bullet_date;
-        
+
         for(let i = low_priority_array.length - 1; i >= 0; i--) {
             bullet = low_priority_array[i];
             bullet_date = new Date(bullet.deadline.substring(0,4), bullet.deadline.substring(5,7), bullet.deadline.substring(8,10));
@@ -543,57 +544,53 @@ document.addEventListener("keydown", function(event) {
     // Number 13 is the "Enter" key on the keyboard
     if (event.keyCode === 13) {
         event.preventDefault();
-      if(selected_element == null){
+      if(selected_element === null){
           return;
       }
       else if(selected_element.id == 'editor_text'){ //If new bullet being created
         enter_new_bullet(event);
       }
     }
-  });
+ });
+
+ //This will keep track of what element is selected for handling enter key presses (sets the appropriate element as selected_element)
+ let selected_element;
+ let default_text = document.getElementById('editor_text').textContent; //Note how this is not inside the function, meaning default_text is the default text put into the editor box on page load
+ window.addEventListener('mousedown', e => {
+     if(e.target.id == 'editor_text'){//Only set selected_element if a bullet point/the entry box div is clicked
+         selected_element = e.target;
+
+         if(selected_element.textContent == default_text){ //Remove the instruction text from the entry box when clicked.
+             document.getElementById('editor_text').textContent = "";
+         }
+     }
+ });
 
 //Helper method for enter key press create new bullet
 function enter_new_bullet(event){
     let text_box_content = document.getElementById('editor_text').textContent;
-    // Cancel the default action, if needed
-    event.preventDefault();
+    event.preventDefault(); // Cancel the default action, if needed
     if(text_box_content != "") { //Prevent creation of empty bullets
         create_bullet(event);
     }
     else{
-        let editor_box_text = document.getElementById('editor_text');
-        editor_box_text.innerText = "";//If bullet is empty, clear the newline that enter key makes
+        document.getElementById('editor_text').innerText = ""; //If bullet is empty, clear the newline that enter key makes
     }
     reset_bullet_choices();
 }
 
-//Set default date to current day
-let today_formatted = new Date();
-let dd = String(today_formatted.getDate()).padStart(2, '0');
-let mm = String(today_formatted.getMonth() + 1).padStart(2, '0'); //January is 0!
-let yyyy = today_formatted.getFullYear();
-
-today_formatted = yyyy + '-' + mm + '-' + dd;
-document.getElementById("entry_date").value = today_formatted;
-
 //Helper method to clear Label/Date/HP selections after entering a new bullet
 function reset_bullet_choices(){
+    //Set default date to current day
+    let today_formatted = new Date();
+    let dd = String(today_formatted.getDate()).padStart(2, '0');
+    let mm = String(today_formatted.getMonth() + 1).padStart(2, '0'); //January is 0!
+    let yyyy = today_formatted.getFullYear();
+
+    today_formatted = yyyy + '-' + mm + '-' + dd;
     document.getElementById("select2").selectedIndex = 0;
     document.getElementById("entry_date").value = today_formatted;
 }
-
-//This will keep track of what element is selected for handling enter key presses (sets the appropriate element as selected_element)
-let selected_element;
-let default_text = document.getElementById('editor_text').textContent; //Note how this is not inside the function, meaning default_text is the default text put into the editor box on page load
-window.addEventListener('mousedown', e => {
-    if(e.target.tagName == 'BULLET-POINT' || e.target.tagName == 'DIV'){//Only set selected_element if a bullet point/the entry box div is clicked
-        selected_element = e.target;
-
-        if(selected_element.id == 'editor_text' && selected_element.textContent == default_text){ //Remove the instruction text from the entry box when clicked.
-            document.getElementById('editor_text').textContent = "";
-        }
-    }
-});
 
 // handles back and forward buttons
 window.onpopstate = function(event){

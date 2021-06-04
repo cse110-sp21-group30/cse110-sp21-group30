@@ -81,7 +81,7 @@ describe('Basic user flow for SPA ', () => {
       await edit_box.click();
       await edit_box.type('-more text here!'); //edit text
       await page.select("#edit_labels", "school");
-      await page.$eval('#edit_date', el => el.value = "2021-01-01");
+      await page.$eval('#edit_date', el => el.value = "2021-07-04");
       let submit_edit = await page.$('#save_edits');
       await submit_edit.click();
 
@@ -92,7 +92,7 @@ describe('Basic user flow for SPA ', () => {
       //check that edits are saved
       expect(json_obj.content).toBe("Testing Editing Bullets-more text here!");
       expect(json_obj.labels).toBe("school");
-      expect(json_obj.deadline).toBe("2021-01-01");
+      expect(json_obj.deadline).toBe("2021-07-04");
   });
 
   test('delete bullet point', async () => {
