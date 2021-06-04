@@ -18,17 +18,26 @@ class BulletPoint extends HTMLElement {
                 border: 2px solid black;
                 border-radius: 5px;
                 padding: 5px;
+                background-color: var(--bullet_bg);
+                color: var(--bullet_color);
+                border-color: var(--bullet_border);
             }
             .hide-hover {
                 display: none;
                 cursor: pointer;
+                filter: var(--bullet_icon_filter);
+            }
+            .entry_label {
+                color: var(--entry_label_color);
             }
             .entry:hover > .hide-hover {
                 display: inline;
                 margin-right: 5%;
                 width:7%;
                 height: 7%;
+                filter: var(--bullet_icon_filter);
             }
+
         </style>
         <article class="entry">
             <p></p>
@@ -105,10 +114,10 @@ class BulletPoint extends HTMLElement {
             });
             article.append(button_rev);
             //add send to archive
-            let button_archive = document.createElement('button');
-            button_archive.className = "del hide-hover";
+            let button_archive = document.createElement("img");
+            button_archive.src = "./images/move_to_archive.svg";
             button_archive.style.maxWidth="20px";
-            button_archive.textContent = "Archive";
+            button_archive.className = "del hide-hover";
             button_archive.addEventListener('click', function () {
                 archive_bullet(entry.task_field, entry.bullet_id);
             });

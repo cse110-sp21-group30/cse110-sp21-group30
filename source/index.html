@@ -15,6 +15,7 @@
     <script src="./bullet-point.js" type="module"></script>
     <script src="./script.js" type="module"></script>
     <script src="./router.js" type="module"></script>
+    <script src="./color.js" type="module"></script>
 
 </head>
 
@@ -22,8 +23,17 @@
     <!-- Header will be sticky (fixed) -->
     <header>
         <!-- Team logo in far left -->
-        <img class="grid_item1" id="logo" src="./images/logo.png" alt="Picture of Cool Bean (team logo)">
-
+        <div class="dropdown">
+            <img class="grid_item1" id="logo" src="./images/logo.png" alt="Picture of Cool Bean (team logo)">
+            <div class="dropdown_content">
+                <a id="color1" href="#">Classic Theme</a>
+                <a id="color2" href="#">UCSD Theme</a>
+                <a id="color3" href="#">Dark Theme</a>
+                <a id="color4" href="#">Blue Theme</a>
+                <a id="color5" href="#">Purple Theme</a>
+                <a id="color6" href="#">BEAN THEME</a>
+            </div>
+        </div>
         <!-- Dates overview -->
         <div class="grid_item2">
             <!-- Where the dates (mm/dd) will show -->
@@ -52,20 +62,19 @@
                 <span><img id="search_off" src="./images/search.svg" alt="search_off"></span>
             </a>
 
-
-<span><img id="search_on" src="./images/close.svg" alt="search_on"></span>
+            <span><img id="search_on" src="./images/close.svg" alt="search_on"></span>
     
 
              <!-- Clear button -->
-             <span><img id="clear" src="./images/bomb.png" alt = "Clear button"></span>
+             <span><img id="clear" src="./images/clear_all.svg" alt = "Clear button"></span>
 
 
             <!-- Archive button-->
-            <span><img id="archive" src="./images/folder.png" alt="Archive button"></span>
+            <span><img id="archive" src="./images/archive.svg" alt="Archive button"></span>
 
             <!-- FAQ button -->
             <a data-toggle="modal" data-target="#faq">
-                <span><img id="FAQ" src="./images/question-mark.png" alt="FAQ button"></span>
+                <span><img id="FAQ" src="./images/faq.svg" alt="FAQ button"></span>
             </a>
         </section>
     </header>
@@ -73,11 +82,11 @@
     <!-- The default is a 3-column view -->
     <section id="column_view">
         <div class="box" id="box_hp">
-            <h1 id="high_priority_header" class="column_grid_h1">High Priority</h1>
+            <h1 id="high_priority_header" class="column_grid_h1">Backlog</h1>
             <div id="hp_bullets"></div>
         </div>
         <div class="box" id="box_lp">
-            <h1 id="low_priority_header" class="column_grid_h2">Low Priority</h1>
+            <h1 id="low_priority_header" class="column_grid_h2">In Progress</h1>
             <div id="lp_bullets"></div>
         </div>
         <div class="box" id="box_c_standard">
@@ -93,7 +102,7 @@
         <section id="archive_page">
             <div id="archive_header">
                 <h1>
-                    Archive
+                    <span id="archive_header_text">Archive</span>
                     <img id="clear_archive" src="./images/trash.svg" alt = "Clear Archive">
                 </h1>
             </div>
