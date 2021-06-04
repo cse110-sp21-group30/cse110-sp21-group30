@@ -609,7 +609,7 @@ document.querySelector('#archive').addEventListener('click', function(){
     var image = document.querySelector('#archive').src;
     image = image.split('/');
     image = image.pop();
-    if(image == 'close.svg'){
+    if(image == 'revert.svg'){
         setState("home", true);
     }else{
         setState("archive", true);
