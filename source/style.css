@@ -369,6 +369,23 @@ body {
     margin: 0px 0px 0px 0px;
 }
 
+#search_mode_header{
+    display: block;
+    margin-top: 69px;
+    font-size: 15px; 
+    font-weight: 600;
+    justify-content: center;
+    height: 3vh;
+    max-height: 6vh;
+    margin-bottom: -72px;
+    display: none; 
+    background-color:#aca7a7;
+    border-radius: 50px;
+    margin-left: 4.2%;
+    margin-right: 4.2%;
+    min-height: 29px; 
+}
+
 #column_view {
     display: flex;
     margin-top: 80px;
