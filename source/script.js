@@ -33,6 +33,9 @@ function toggle_filter(start_date, end_date, label) {
 }
 
 function remove_filter(){
+    if(document.getElementById("search_mode_header").style.display == "block"){
+        document.getElementById("search_mode_header").style.display = "none";
+    }
     filter_toggle = false;
     filter_start_date = null;
     filter_end_date = null;
@@ -508,6 +511,7 @@ function update_view(task_field)
 }
 
 document.getElementById("search_submit").addEventListener("click", function() {
+    document.getElementById('search_mode_header').style.display = "block";
     let start_date = document.getElementById('start_day').value;
     let end_date = document.getElementById('end_day').value;
     let label = document.getElementById('select_search').value;
