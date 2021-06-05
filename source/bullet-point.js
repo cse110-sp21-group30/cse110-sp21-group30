@@ -45,7 +45,6 @@ class BulletPoint extends HTMLElement {
             <span class="bullet_id"></span>
             <span class="bullet_task_field"></span>
             <span class="comp_time"></span>
-            <br>
             <!-- buttons go here-->
         </article>
         `;
@@ -101,16 +100,16 @@ class BulletPoint extends HTMLElement {
 
         // give the label a color
         if (entry.labels == 'fitness') {
-            spans[1].style.background='LightSkyBlue';
+            spans[1].style.background='LightGreen';
         } else if (entry.labels == 'school') {
             spans[1].style.background='Plum';
         } else if (entry.labels == 'work') {
-            spans[1].style.background='Silver';
+            spans[1].style.background='LightSalmon';
         } else if (entry.labels == 'personal') {
             spans[1].style.background='Wheat';
         }
         spans[1].style.borderRadius='8px';
-        spans[1].style.padding='1px 3px 1px 3px';
+        spans[1].style.padding='1px 2px 1px 2px';
 
         //show or hide the respective buttons
         if (entry.task_field == "C") {
@@ -118,7 +117,10 @@ class BulletPoint extends HTMLElement {
             let button_rev = document.createElement("img");
             button_rev.className = "undo-complete hide-hover";
             button_rev.src = "./images/revert.svg";
-            button_rev.style.maxWidth="20px";
+            button_rev.style.width="20px";
+            button_rev.style.verticalAlign="bottom";
+            button_rev.style.marginLeft="1px";
+            button_rev.style.marginRight="1px";
             button_rev.addEventListener('click', function () {
                 //(Reverts to LP even if bullet was in HP previously)
                 revert_complete_migration(entry.task_field, entry.bullet_id);
@@ -127,7 +129,10 @@ class BulletPoint extends HTMLElement {
             //add send to archive
             let button_archive = document.createElement("img");
             button_archive.src = "./images/move_to_archive.svg";
-            button_archive.style.maxWidth="20px";
+            button_archive.style.width="20px";
+            button_archive.style.verticalAlign="bottom";
+            button_archive.style.marginLeft="1px";
+            button_archive.style.marginRight="1px";
             button_archive.className = "del hide-hover";
             button_archive.addEventListener('click', function () {
                 archive_bullet(entry.task_field, entry.bullet_id);
@@ -137,7 +142,10 @@ class BulletPoint extends HTMLElement {
             let button_edit = document.createElement("img");
             button_edit.className = "edit hide-hover";
             button_edit.src = "./images/edit.svg";
-            button_edit.style.maxWidth="20px";
+            button_edit.style.width="20px";
+            button_edit.style.verticalAlign="bottom";
+            button_edit.style.marginLeft="1px";
+            button_edit.style.marginRight="1px";
             button_edit.addEventListener('click', function () {
                 $('#edit_modal').modal({
                     backdrop: 'static',
@@ -156,7 +164,10 @@ class BulletPoint extends HTMLElement {
             //create delete
             let button_del = document.createElement("img");
             button_del.src = "./images/trash.svg"
-            button_del.style.maxWidth="20px";
+            button_del.style.width="20px";
+            button_del.style.verticalAlign="bottom";
+            button_del.style.marginLeft="1px";
+            button_del.style.marginRight="1px";
             button_del.className = "del hide-hover";
             button_del.addEventListener('click', function () {
                 delete_bullet_db(entry.task_field, entry.bullet_id);
@@ -168,7 +179,10 @@ class BulletPoint extends HTMLElement {
             let button_comp = document.createElement("img");
             button_comp.className = "mark-complete hide-hover";
             button_comp.src = "./images/complete.svg";
-            button_comp.style.maxWidth="20px";
+            button_comp.style.width="20px";
+            button_comp.style.verticalAlign="bottom";
+            button_comp.style.marginLeft="1px";
+            button_comp.style.marginRight="1px";
             button_comp.addEventListener('click', function () {
                 complete_migration(entry.task_field, entry.bullet_id);
             });
@@ -177,7 +191,10 @@ class BulletPoint extends HTMLElement {
             let button_pri = document.createElement("img");
             button_pri.className = "change-priority hide-hover";
             button_pri.src = "./images/change.svg";
-            button_pri.style.maxWidth="20px";
+            button_pri.style.width="20px";
+            button_pri.style.verticalAlign="bottom";
+            button_pri.style.marginLeft="1px";
+            button_pri.style.marginRight="1px";
             button_pri.addEventListener('click', function () {
                 high_low_migration(entry.task_field, entry.bullet_id);
             });
@@ -186,7 +203,10 @@ class BulletPoint extends HTMLElement {
             let button_edit = document.createElement("img");
             button_edit.className = "edit hide-hover";
             button_edit.src = "./images/edit.svg";
-            button_edit.style.maxWidth="20px";
+            button_edit.style.width="20px";
+            button_edit.style.verticalAlign="bottom";
+            button_edit.style.marginLeft="1px";
+            button_edit.style.marginRight="1px";
             button_edit.addEventListener('click', function () {
                 $('#edit_modal').modal({
                     backdrop: 'static',

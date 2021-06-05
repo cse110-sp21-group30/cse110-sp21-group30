@@ -152,16 +152,67 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel_FAQ">Search</h4>
+                        <img id="myModalLabel_FAQ" src="./images/logo.png" alt="Picture of Cool Bean (team logo)">
                     </div>
                     <div class="modal-body">
-                        <img class="grid_item1" id="logo_search" src="./images/logo.png"
-                            alt="Picture of Cool Bean (team logo)">
-                        <h1>Cool Beans' Bullet Journal FAQ</h1>
-
+                        <div id="clear_message"><b>If you're seeing this after clearing your BuJo, please refresh the page!</b></div>
+                        <h2 id="title_faq">FAQ</h2>
+                        <div>
+                            Welcome to team Cool Beans' digital Bullet Journal! 
+                            This BuJo was designed to help you organize tasks and events and stay on top of deadlines. 
+                            <br>
+                            <h3>What is a Bullet Journal?</h3>
+                            A traditional Bullet Journal, or BuJo, is a method of personal organization that incorporates 
+                            scheduling, reminders, to-do lists, and other tasks into a single notebook. These items are written down
+                             as bulleted lists, hence the name "Bullet Journal." Digital BuJos are virtual versions of 
+                             these notebooks. 
+                            <br>
+                            <h3>How to Use This Bullet Journal</h3>
+                            First, you can click on the logo in the top left of the header (
+                            <img class="faq_image" src="./images/logo.png" alt="cool beans logo">
+                            ) to pick your favorite color theme. This theme will stick even if you refresh the page!
+                            <br><br>
+                            Then, notice that the default view in our Bullet Journal is a 3-column display with sections for tasks you're 
+                            currently working on (In Progress), tasks that you haven't started yet (Backlog), and tasks that you've completed 
+                            (Complete). You can move bullet points between these sections as necessary using the complete (
+                            <img class="faq_image" src="./images/complete.svg" alt="complete button">
+                            ) 
+                            and migrate (
+                            <img class="faq_image" src="./images/change.svg" alt="migrate button">
+                            ) buttons. Simply hover the cursor over the bullet point you want to move and these 
+                            buttons will appear.
+                            <br><br>
+                            You can choose to move tasks that have been completed into the Archive with the archive button (
+                            <img class="faq_image" src="./images/archive.svg" alt="archive button">
+                            );
+                             otherwise, if a task has been completed for a while, we'll automatically archive it for you! You can see 
+                             all the bullet points that have been archived by clicking the Archive toggle in the header (
+                            <img class="faq_image" src="./images/archive.svg" alt="archive toggle">
+                             ). 
+                            <br><br>
+                             Alternatively, you can delete a bullet point by hovering over it and clicking the edit button (
+                            <img class="faq_image" src="./images/edit.svg" alt="edit button">
+                             ) and then clicking the button that reads "Delete Bullet". All of the bullet points in the Archive can be 
+                            deleted at once by clicking the delete button by the section's header (
+                            <img class="faq_image" src="./images/trash.svg" alt="delete button">
+                            ). Similarly, all of the bullet points in your BuJo can be deleted at once by clicking the clear-all button (
+                            <img class="faq_image" src="./images/clear_all.svg" alt="clear-all button">
+                            ). Note that this will also reset the color theme to the default!
+                            <br><br>
+                            You can open the editor to create new bullet points from the 3-column view by clicking the editor button in
+                             the bottom right (
+                                <img class="faq_image" src="./images/edit.svg" alt="edit button">
+                             ). You can also edit existing bullet points by hovering over them and clicking the edit button (
+                            <img class="faq_image" src="./images/edit.svg" alt="edit button">
+                             ), making
+                              the necessary changes, and clicking the button that reads "Save Changes". 
+                            <br><br>
+                            Finally, you can search for bullet points with a specific date or label by clicking the search button (
+                            <img class="faq_image" src="./images/search.svg" alt="search button">
+                            ).
+                        </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">OK</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
@@ -193,31 +244,25 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" id ="delete_bullet">Delete Bullet</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close without Saving</button>
-                <button type="button" class="btn btn-primary" id="save_edits">Save changes</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close Without Saving</button>
+                <button type="button" class="btn btn-primary" id="save_edits">Save Changes</button>
               </div>
             </div>
           </div>
         </div>
     </section>
 
-
     <!-- The user can create new bullet points with the editor -->
     <div id="hidden" class="hidden">
-
         <section id="editor">
-
             <!-- User can enter specific bullet point contents -->
             <section class="grid2_item1">
-                <div id="editor_text" contenteditable=true>Type up a new entry here! Basic keyboard shortcuts work (ctrl
-                    + b for bold, ctrl + i for italics, ctrl + u for underline). Hit enter while the cursor is inside
-                    this box to create your new bullet point!</div>
+                <div id="editor_text" contenteditable=true>Type up a new entry here! Hit enter while the cursor is inside
+                    this box to create your new bullet point.</div>
                 <!--<button id="get_text">Submit</button>   // need to remove the submit button-->
-
             </section>
 
             <section class="grid2_item2">
-
                 <img id="close" src="./images/close.svg" alt="Edit button">
                 <!-- user can assign a date -->
                 <div id="assign_date">
@@ -247,5 +292,4 @@
         </article>
     </template>
 </body>
-
 </html>
