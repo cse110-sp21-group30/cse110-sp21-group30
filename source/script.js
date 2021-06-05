@@ -12,7 +12,7 @@ var filter_end_date = null;
 var filter_label = null;
 
 function toggle_filter(start_date, end_date, label) {
-    if(filter_toggle === false){
+    if (filter_toggle === false) {
         document.getElementById("search_off").style.display = "none";
         document.getElementById("search_on").style.display = "inline-block";
         filter_toggle = true;
@@ -32,8 +32,8 @@ function toggle_filter(start_date, end_date, label) {
 
 }
 
-function remove_filter(){
-    if(document.getElementById("search_mode_header").style.display == "block"){
+function remove_filter() {
+    if (document.getElementById("search_mode_header").style.display == "block") {
         document.getElementById("search_mode_header").style.display = "none";
     }
     filter_toggle = false;
@@ -46,7 +46,7 @@ function remove_filter(){
     update_view("C");
 }
 
-document.addEventListener('DOMContentLoaded', function(){
+document.addEventListener('DOMContentLoaded', function () {
     populate_global_arrays(); //load arrays when page loads
     display_date(); // load up the dates
     auto_archive(168); // archive old bullets in complete - 168 hrs (7 days)
@@ -63,20 +63,20 @@ document.addEventListener('DOMContentLoaded', function(){
 */
 function populate_global_arrays() {
     if (localStorage.getItem("HP") === null) {
-        localStorage.setItem("HP", JSON.stringify({0:[]}));
+        localStorage.setItem("HP", JSON.stringify({ 0: [] }));
         document.querySelector("#FAQ").click(); //shows the FAQ
         console.log('HP created');
     }
     if (localStorage.getItem("LP") === null) {
-        localStorage.setItem("LP", JSON.stringify({0:[]}));
+        localStorage.setItem("LP", JSON.stringify({ 0: [] }));
         console.log('LP created');
     }
     if (localStorage.getItem("C") === null) {
-        localStorage.setItem("C", JSON.stringify({0:[]}));
+        localStorage.setItem("C", JSON.stringify({ 0: [] }));
         console.log('C created');
     }
     if (localStorage.getItem("A") === null) {
-        localStorage.setItem("A", JSON.stringify({0:[]}));
+        localStorage.setItem("A", JSON.stringify({ 0: [] }));
         console.log('A created');
     }
     high_priority_array = JSON.parse(localStorage.getItem("HP"))[0];
@@ -84,30 +84,30 @@ function populate_global_arrays() {
     completed_array = JSON.parse(localStorage.getItem("C"))[0];
     archive_array = JSON.parse(localStorage.getItem("A"))[0];
 
-    if(filter_toggle == true){
+    if (filter_toggle == true) {
         let bullet;
         let bullet_date;
 
-        for(let i = low_priority_array.length - 1; i >= 0; i--) {
+        for (let i = low_priority_array.length - 1; i >= 0; i--) {
             bullet = low_priority_array[i];
-            bullet_date = new Date(bullet.deadline.substring(0,4), bullet.deadline.substring(5,7), bullet.deadline.substring(8,10));
-            if((bullet_date < filter_start_date && filter_start_date != null) || (bullet_date > filter_end_date && filter_end_date != null) || (bullet.labels != filter_label && filter_label != null)) {
+            bullet_date = new Date(bullet.deadline.substring(0, 4), bullet.deadline.substring(5, 7), bullet.deadline.substring(8, 10));
+            if ((bullet_date < filter_start_date && filter_start_date != null) || (bullet_date > filter_end_date && filter_end_date != null) || (bullet.labels != filter_label && filter_label != null)) {
                 low_priority_array.splice(i, 1);
             }
         }
 
-        for(let i = high_priority_array.length - 1; i >= 0; i--) {
+        for (let i = high_priority_array.length - 1; i >= 0; i--) {
             bullet = high_priority_array[i];
-            bullet_date = new Date(bullet.deadline.substring(0,4), bullet.deadline.substring(5,7), bullet.deadline.substring(8,10));
-            if((bullet_date < filter_start_date && filter_start_date != null) || (bullet_date > filter_end_date && filter_end_date != null) || (bullet.labels != filter_label && filter_label != null)) {
+            bullet_date = new Date(bullet.deadline.substring(0, 4), bullet.deadline.substring(5, 7), bullet.deadline.substring(8, 10));
+            if ((bullet_date < filter_start_date && filter_start_date != null) || (bullet_date > filter_end_date && filter_end_date != null) || (bullet.labels != filter_label && filter_label != null)) {
                 high_priority_array.splice(i, 1);
             }
         }
 
-        for(let i = completed_array.length - 1; i >= 0; i--) {
+        for (let i = completed_array.length - 1; i >= 0; i--) {
             bullet = completed_array[i];
-            bullet_date = new Date(bullet.deadline.substring(0,4), bullet.deadline.substring(5,7), bullet.deadline.substring(8,10));
-            if((bullet_date < filter_start_date && filter_start_date != null) || (bullet_date > filter_end_date && filter_end_date != null) || (bullet.labels != filter_label && filter_label != null)) {
+            bullet_date = new Date(bullet.deadline.substring(0, 4), bullet.deadline.substring(5, 7), bullet.deadline.substring(8, 10));
+            if ((bullet_date < filter_start_date && filter_start_date != null) || (bullet_date > filter_end_date && filter_end_date != null) || (bullet.labels != filter_label && filter_label != null)) {
                 completed_array.splice(i, 1);
             }
         }
@@ -135,8 +135,7 @@ function populate_global_arrays() {
 //call this whenever a new bullet point is created
 //returns an integer, which will be the unique bullet id
 //ID's are reset to 1 whenever local storage is cleared
-function get_bullet_id()
-{
+function get_bullet_id() {
     if (localStorage.getItem("ID") === null) {
         localStorage.setItem("ID", 0);
         console.log('id set to 0');
@@ -147,10 +146,10 @@ function get_bullet_id()
     return id;
 }
 
-function delete_bullet_db(task_field, id){
+function delete_bullet_db(task_field, id) {
     let origin_list = JSON.parse(localStorage.getItem(task_field)); //js object
-    for(let i = 0; i < origin_list[0].length; i++) { //search through and remove bullet
-        if(origin_list[0][i].bullet_id == id){
+    for (let i = 0; i < origin_list[0].length; i++) { //search through and remove bullet
+        if (origin_list[0][i].bullet_id == id) {
             origin_list[0].splice(i, 1);
         }
     }
@@ -159,7 +158,7 @@ function delete_bullet_db(task_field, id){
     update_view(task_field);
 }
 
-function create_bullet_db(bullet){
+function create_bullet_db(bullet) {
     let origin_list = JSON.parse(localStorage.getItem(bullet.task_field));  // {0: [{bullet1},{bullet2} ...]}
     origin_list[0].unshift(bullet);
     localStorage.setItem(bullet.task_field, JSON.stringify(origin_list));
@@ -168,9 +167,9 @@ function create_bullet_db(bullet){
 }
 
 //listens for the modal submission
-document.querySelector("#save_edits").addEventListener('click', function() {
+document.querySelector("#save_edits").addEventListener('click', function () {
     let text = $('#edit_modal textarea').val().trim();
-    if(text.length < 1) { //must type something!
+    if (text.length < 1) { //must type something!
         alert("Textarea is empty!");
         return;
     }
@@ -186,7 +185,7 @@ document.querySelector("#save_edits").addEventListener('click', function() {
     $('#edit_modal').modal('hide'); //close modal
 });
 
-document.querySelector("#delete_bullet").addEventListener('click', function() {
+document.querySelector("#delete_bullet").addEventListener('click', function () {
     let bullet_id = $('#edit_bullet_id').text();
     let task_field = $('#edit_task_field').text();
     delete_bullet_db(task_field, bullet_id);
@@ -201,9 +200,9 @@ function edit_existing_bullet(new_entry_obj) {
     let current_list = JSON.parse(localStorage.getItem(bullet_task_field));
     let temp_bullet;
     let counter = 0;
-    for(let bullet of current_list[0]){
+    for (let bullet of current_list[0]) {
         counter++;
-        if(bullet.bullet_id == current_bullet_id) {
+        if (bullet.bullet_id == current_bullet_id) {
             temp_bullet = bullet;
             delete_bullet_db(bullet_task_field, temp_bullet.bullet_id);
             current_list = JSON.parse(localStorage.getItem(bullet_task_field));
@@ -219,15 +218,15 @@ function edit_existing_bullet(new_entry_obj) {
 
 //move a bullet from HP to LP, or LP to HP
 function high_low_migration(task_field, id) {
-    if (task_field != 'HP' && task_field != 'LP'){
+    if (task_field != 'HP' && task_field != 'LP') {
         throw 'Wrong task_field: Cannot be completed';
-    } else{
-        if(task_field == 'HP') {
+    } else {
+        if (task_field == 'HP') {
             let origin_list = JSON.parse(localStorage.getItem(task_field));
             let other_list = JSON.parse(localStorage.getItem('LP'));
             let temp_bullet;
-            for(let bullet of origin_list[0]){
-                if(bullet.bullet_id == id) { //find bullet in array
+            for (let bullet of origin_list[0]) {
+                if (bullet.bullet_id == id) { //find bullet in array
                     temp_bullet = bullet;
                     //find and remove from array HP
                     delete_bullet_db(temp_bullet.task_field, temp_bullet.bullet_id);
@@ -246,8 +245,8 @@ function high_low_migration(task_field, id) {
             let origin_list = JSON.parse(localStorage.getItem(task_field));
             let other_list = JSON.parse(localStorage.getItem('HP'));
             let temp_bullet;
-            for(let bullet of origin_list[0]){
-                if(bullet.bullet_id == id) { //find bullet in array
+            for (let bullet of origin_list[0]) {
+                if (bullet.bullet_id == id) { //find bullet in array
                     temp_bullet = bullet;
                     //find and remove from array LP
                     delete_bullet_db(temp_bullet.task_field, temp_bullet.bullet_id);
@@ -266,18 +265,18 @@ function high_low_migration(task_field, id) {
     }
 }
 
-export { complete_migration, high_low_migration, delete_bullet_db, revert_complete_migration, archive_bullet, remove_filter};
+export { complete_migration, high_low_migration, delete_bullet_db, revert_complete_migration, archive_bullet, remove_filter };
 
 //moves from LP or HP to complete
 function complete_migration(task_field, id) {
-    if (task_field != 'HP' && task_field != 'LP'){
+    if (task_field != 'HP' && task_field != 'LP') {
         throw 'Wrong task_field: Cannot be completed';
-    } else{
+    } else {
         let origin_list = JSON.parse(localStorage.getItem(task_field));
         let completed_list = JSON.parse(localStorage.getItem('C'));
         let temp_bullet;
-        for(let bullet of origin_list[0]){
-            if(bullet.bullet_id == id) { //find bullet in array
+        for (let bullet of origin_list[0]) {
+            if (bullet.bullet_id == id) { //find bullet in array
                 temp_bullet = bullet;
                 //find and remove from LP or HP
                 delete_bullet_db(temp_bullet.task_field, temp_bullet.bullet_id);
@@ -297,16 +296,16 @@ function complete_migration(task_field, id) {
 }
 
 //moves from complete to LP
-function revert_complete_migration(task_field, id){
-    if(task_field != 'C'){
+function revert_complete_migration(task_field, id) {
+    if (task_field != 'C') {
         throw 'Wrong task_field: Should be \'C\'! ';
     }
-    else{
+    else {
         let completed_list = JSON.parse(localStorage.getItem('C'));
         let low_priority_list = JSON.parse(localStorage.getItem('LP'));
         let temp_bullet;
-        for(let bullet of completed_list[0]){
-            if(bullet.bullet_id == id){
+        for (let bullet of completed_list[0]) {
+            if (bullet.bullet_id == id) {
                 temp_bullet = bullet;
                 delete_bullet_db(temp_bullet.task_field, temp_bullet.bullet_id);
                 temp_bullet.task_field = 'LP';
@@ -327,15 +326,15 @@ function revert_complete_migration(task_field, id){
     Removes a bullet from complete and moves it to archive.
 */
 function archive_bullet(task_field, id) {
-    if(task_field != 'C'){
+    if (task_field != 'C') {
         throw 'Wrong task_field: Should be \'C\'! ';
     }
-    else{
+    else {
         let completed_list = JSON.parse(localStorage.getItem('C'));
         let archive_list = JSON.parse(localStorage.getItem('A'));
         let temp_bullet;
-        for(let bullet of completed_list[0]){
-            if(bullet.bullet_id == id){
+        for (let bullet of completed_list[0]) {
+            if (bullet.bullet_id == id) {
                 temp_bullet = bullet;
                 delete_bullet_db(temp_bullet.task_field, temp_bullet.bullet_id);
                 temp_bullet.task_field = 'A';
@@ -356,25 +355,22 @@ function archive_bullet(task_field, id) {
     bullet points that are older than 'hours' and moves them to archive.
     If hours is blank or invalid, defaults to 7 days (168 hours).
 */
-function auto_archive(hours)
-{
+function auto_archive(hours) {
     let time;
-    if(!hours || Number.isNaN(hours) || hours < 1) {time = 168 * 60 * 60 * 1000;}
-    else {time = Math.floor(hours) * 60 * 60 * 1000;} //(hrs -> ms)
+    if (!hours || Number.isNaN(hours) || hours < 1) { time = 168 * 60 * 60 * 1000; }
+    else { time = Math.floor(hours) * 60 * 60 * 1000; } //(hrs -> ms)
 
     let completed_list = JSON.parse(localStorage.getItem('C'));
     let date_limit = new Date(); //curr time of function call
-    for(let bullet of completed_list[0])
-    {
+    for (let bullet of completed_list[0]) {
         let finish_time = bullet.comp_time;
-        if(finish_time === null) {
+        if (finish_time === null) {
             continue; // this should never happen, but just in case
         }
-        else
-        {
+        else {
             let date_timestamp = new Date(finish_time); //bullet finish time
             date_timestamp.setTime(date_timestamp.getTime() + time); //add time
-            if(date_timestamp < date_limit) {
+            if (date_timestamp < date_limit) {
                 archive_bullet(bullet.task_field, bullet.bullet_id);
                 console.log("auto archiving", bullet);
             }
@@ -406,8 +402,7 @@ function create_bullet(e) {
     create_bullet_db(bullet); // CUD
 }
 
-function display_date()
-{
+function display_date() {
     let arr = [];
     let today = new Date();
     const options = { weekday: 'long' };
@@ -415,13 +410,12 @@ function display_date()
     let gridDay;
 
     // Populate arr with date-day pairs
-    for(let i = -1; i < 6; i++)
-    {
+    for (let i = -1; i < 6; i++) {
         let day = new Date(today);
         day.setDate(day.getDate() + i); // i is an offset from today
         let dayOfWeek = new Intl.DateTimeFormat('en-US', options).format(day); // Turns 0-6 into Sunday - Saturday
         let disp = {
-            dayOfWeek: dayOfWeek.substring(0,3), // Sun - Sat
+            dayOfWeek: dayOfWeek.substring(0, 3), // Sun - Sat
             date: day.getDate()
         }
         arr.push(disp);
@@ -440,64 +434,51 @@ function display_date()
     Renders the task array onto its respective place in the DOM.
     task_field is a string that is either "HP", "LP", or "C"
 */
-function update_view(task_field)
-{
-    if(task_field === "HP")
-    {
+function update_view(task_field) {
+    if (task_field === "HP") {
         let box_hp = document.getElementById('hp_bullets');
         let bullet_points = box_hp.querySelectorAll("div > bullet-point");
-        for(let b of bullet_points)
-        {
+        for (let b of bullet_points) {
             b.parentNode.removeChild(b); //clear bullet-points before rendering
         }
 
-        for(let bullet of high_priority_array)
-        {
+        for (let bullet of high_priority_array) {
             let new_bullet = document.createElement("bullet-point");
             new_bullet.entry = bullet;
             box_hp.appendChild(new_bullet);
         }
     }
-    else if(task_field === "LP")
-    {
+    else if (task_field === "LP") {
         let box_lp = document.getElementById('lp_bullets');
         let bullet_points = box_lp.querySelectorAll("div > bullet-point");
-        for(let b of bullet_points)
-        {
+        for (let b of bullet_points) {
             b.parentNode.removeChild(b); //clear bullet-points before rendering
         }
-        for(let bullet of low_priority_array)
-        {
+        for (let bullet of low_priority_array) {
             let new_bullet = document.createElement("bullet-point");
             new_bullet.entry = bullet;
             box_lp.appendChild(new_bullet);
         }
     }
-    else if(task_field === "C")
-    {
+    else if (task_field === "C") {
         let box_c = document.getElementById("c_bullets");
         let bullet_points = box_c.querySelectorAll("div > bullet-point");
-        for(let b of bullet_points)
-        {
+        for (let b of bullet_points) {
             b.parentNode.removeChild(b); //clear bullet-points before rendering
         }
-        for(let bullet of completed_array)
-        {
+        for (let bullet of completed_array) {
             let new_bullet = document.createElement("bullet-point");
             new_bullet.entry = bullet;
             box_c.appendChild(new_bullet);
         }
     }
-    else if(task_field === 'A')
-    {
+    else if (task_field === 'A') {
         let box_a = document.getElementById("a_bullets");
         let bullet_points = box_a.querySelectorAll("div > bullet-point");
-        for(let b of bullet_points)
-        {
+        for (let b of bullet_points) {
             b.parentNode.removeChild(b); //clear bullet-points before rendering
         }
-        for(let bullet of archive_array)
-        {
+        for (let bullet of archive_array) {
             let new_bullet = document.createElement("bullet-point");
             new_bullet.entry = bullet;
             box_a.appendChild(new_bullet);
@@ -510,25 +491,25 @@ function update_view(task_field)
     }
 }
 
-document.getElementById("search_submit").addEventListener("click", function() {
+document.getElementById("search_submit").addEventListener("click", function () {
     document.getElementById('search_mode_header').style.display = "block";
     let start_date = document.getElementById('start_day').value;
     let end_date = document.getElementById('end_day').value;
     let label = document.getElementById('select_search').value;
 
-    if(start_date == "") {
+    if (start_date == "") {
         start_date = null;
     } else {
-        start_date = new Date(start_date.substring(0,4), start_date.substring(5,7), start_date.substring(8,10));
+        start_date = new Date(start_date.substring(0, 4), start_date.substring(5, 7), start_date.substring(8, 10));
     }
 
-    if(end_date == "") {
+    if (end_date == "") {
         end_date = null;
     } else {
-        end_date = new Date(end_date.substring(0,4), end_date.substring(5,7), end_date.substring(8,10));
+        end_date = new Date(end_date.substring(0, 4), end_date.substring(5, 7), end_date.substring(8, 10));
     }
 
-    if(label == "") {
+    if (label == "") {
         label = null;
     }
 
@@ -557,47 +538,47 @@ function clear_search_modal() {
 }
 
 // Enter key to create bullet
-document.addEventListener("keydown", function(event) {
+document.addEventListener("keydown", function (event) {
     // Number 13 is the "Enter" key on the keyboard
     if (event.keyCode === 13) {
         event.preventDefault();
-      if(!selected_element){
-          return;
-      }
-      else if(selected_element.id == 'editor_text'){ //If new bullet being created
-        enter_new_bullet(event);
-      }
+        if (!selected_element) {
+            return;
+        }
+        else if (selected_element.id == 'editor_text') { //If new bullet being created
+            enter_new_bullet(event);
+        }
     }
- });
+});
 
- //This will keep track of what element is selected for handling enter key presses (sets the appropriate element as selected_element)
- let selected_element;
- let default_text = document.getElementById('editor_text').textContent; //Note how this is not inside the function, meaning default_text is the default text put into the editor box on page load
- window.addEventListener('mousedown', e => {
-     if(e.target.id == 'editor_text'){//Only set selected_element if a bullet point/the entry box div is clicked
-         selected_element = e.target;
+//This will keep track of what element is selected for handling enter key presses (sets the appropriate element as selected_element)
+let selected_element;
+let default_text = document.getElementById('editor_text').textContent; //Note how this is not inside the function, meaning default_text is the default text put into the editor box on page load
+window.addEventListener('mousedown', e => {
+    if (e.target.id == 'editor_text') {//Only set selected_element if a bullet point/the entry box div is clicked
+        selected_element = e.target;
 
-         if(selected_element.textContent == default_text){ //Remove the instruction text from the entry box when clicked.
-             document.getElementById('editor_text').textContent = "";
-         }
-     }
- });
+        if (selected_element.textContent == default_text) { //Remove the instruction text from the entry box when clicked.
+            document.getElementById('editor_text').textContent = "";
+        }
+    }
+});
 
 //Helper method for enter key press create new bullet
-function enter_new_bullet(event){
+function enter_new_bullet(event) {
     let text_box_content = document.getElementById('editor_text').textContent;
     event.preventDefault(); // Cancel the default action, if needed
-    if(text_box_content != "") { //Prevent creation of empty bullets
+    if (text_box_content != "") { //Prevent creation of empty bullets
         create_bullet(event);
     }
-    else{
+    else {
         document.getElementById('editor_text').innerText = ""; //If bullet is empty, clear the newline that enter key makes
     }
     reset_bullet_choices();
 }
 
 //Helper method to clear Label/Date/HP selections after entering a new bullet
-function reset_bullet_choices(){
+function reset_bullet_choices() {
     //Set default date to current day
     let today_formatted = new Date();
     let dd = String(today_formatted.getDate()).padStart(2, '0');
@@ -610,30 +591,30 @@ function reset_bullet_choices(){
 }
 
 // handles back and forward buttons
-window.onpopstate = function(event){
-    if(event.state == null){
+window.onpopstate = function (event) {
+    if (event.state == null) {
         setState("home", false);
-    }else{
+    } else {
         setState(event.state.page, false);
     }
 };
 
 //if archive is clicked, toggle between archive page and home
-document.querySelector('#archive').addEventListener('click', function(){
+document.querySelector('#archive').addEventListener('click', function () {
     var image = document.querySelector('#archive').src;
     remove_filter();
     image = image.split('/');
     image = image.pop();
-    if(image == 'revert.svg'){
+    if (image == 'revert.svg') {
         setState("home", true);
-    }else{
+    } else {
         setState("archive", true);
     }
 });
 
 //if the user agrees to clear all bullets after pressing the clear button, clear storage and update view
-document.querySelector('#clear').addEventListener('click', function(){
-    if (window.confirm('Do you really want to delete all bullets?')){
+document.querySelector('#clear').addEventListener('click', function () {
+    if (window.confirm('Do you really want to delete all bullets?')) {
         localStorage.clear();
         populate_global_arrays();
         update_view('C');
@@ -644,9 +625,9 @@ document.querySelector('#clear').addEventListener('click', function(){
 });
 
 //user clicks this to clear the archive
-document.querySelector('#clear_archive').addEventListener('click', function(){
-    if (window.confirm('Do you really want to empty the archive?')){
-        localStorage.setItem("A", JSON.stringify({0:[]}));
+document.querySelector('#clear_archive').addEventListener('click', function () {
+    if (window.confirm('Do you really want to empty the archive?')) {
+        localStorage.setItem("A", JSON.stringify({ 0: [] }));
         populate_global_arrays();
         update_view("A");
     }
