@@ -557,7 +557,7 @@ document.addEventListener("keydown", function(event) {
     // Number 13 is the "Enter" key on the keyboard
     if (event.keyCode === 13) {
         event.preventDefault();
-      if(selected_element === null){
+      if(!selected_element){
           return;
       }
       else if(selected_element.id == 'editor_text'){ //If new bullet being created
