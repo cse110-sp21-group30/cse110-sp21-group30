@@ -33,6 +33,9 @@ function toggle_filter(start_date, end_date, label) {
 }
 
 function remove_filter(){
+    if(document.getElementById("search_mode_header").style.display == "block"){
+        document.getElementById("search_mode_header").style.display = "none";
+    }
     filter_toggle = false;
     filter_start_date = null;
     filter_end_date = null;
