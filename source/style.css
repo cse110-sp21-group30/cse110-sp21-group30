@@ -555,6 +555,18 @@ h1 {
     margin-top: -25px;
 }
 
+#edit_bullet_id {
+    display: none;
+}
+
+#edit_task_field {
+    display: none;
+}
+
+#edit_comp_time {
+    display: none;
+}
+
 #header_faq {
     padding: 10px;
 }
