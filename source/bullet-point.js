@@ -1,6 +1,6 @@
 // Bullet point/entry custom component
 
-import { complete_migration, high_low_migration, delete_bullet_db, revert_complete_migration, archive_bullet } from './script.js';
+import { complete_migration, high_low_migration, delete_bullet_db, revert_complete_migration, archive_bullet,remove_filter} from './script.js';
 
 class BulletPoint extends HTMLElement {
     constructor() {
@@ -199,6 +199,9 @@ class BulletPoint extends HTMLElement {
 window.onload = function () {
     let column_view_fix = document.getElementById("column_view");
     document.getElementById('edit').addEventListener('click', function (e) {
+        remove_filter();
+        document.getElementById("search_off").style.display = "inline-block";
+        document.getElementById("search_on").style.display = "none";
         var img = document.getElementById("hidden");
         if (img.classList.contains("hidden")) {
             img.removeAttribute("class");

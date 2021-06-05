@@ -94,6 +94,10 @@ display: block;
 display: block;
 }
 
+#textarea{
+    width:100%;
+}
+
 .grid_item1 {
     max-height: 50px;
     grid-column-start: 1;
