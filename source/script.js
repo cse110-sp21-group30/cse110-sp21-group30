@@ -508,6 +508,7 @@ function update_view(task_field)
 }
 
 document.getElementById("search_submit").addEventListener("click", function() {
+    document.getElementById('search_mode_header').style.display = "block";
     let start_date = document.getElementById('start_day').value;
     let end_date = document.getElementById('end_day').value;
     let label = document.getElementById('select_search').value;
