@@ -43,8 +43,6 @@ function remove_filter(){
     update_view("C");
 }
 
-
-
 document.addEventListener('DOMContentLoaded', function(){
     populate_global_arrays(); //load arrays when page loads
     display_date(); // load up the dates

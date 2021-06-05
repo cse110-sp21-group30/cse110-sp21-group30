@@ -58,8 +58,12 @@ class BulletPoint extends HTMLElement {
     }
 
     get entry() {
-        let dates = this.shadowRoot.querySelector('.date').innerText.split('-'); //in the form MM-DD-YYYY
-        let ymd_date = `${dates[2]}-${dates[0]}-${dates[1]}`
+        let ymd_date = "";
+        if(this.shadowRoot.querySelector('.date').innerText.length > 1)
+        {
+            let dates = this.shadowRoot.querySelector('.date').innerText.split('-'); //in the form MM-DD-YYYY
+            ymd_date = `${dates[2]}-${dates[0]}-${dates[1]}`
+        }
         let entryObj = {
             'task_field': this.shadowRoot.querySelector('.bullet_task_field').innerText,
             'labels': this.shadowRoot.querySelector('.entry_label').innerText,
@@ -80,8 +84,12 @@ class BulletPoint extends HTMLElement {
         // Set contents
         article.querySelector('p').append(entry.content);
         let spans = article.querySelectorAll('span');
-        let dates = entry.deadline.split('-'); //entry.deadline is formatted YYYY-MM-DD
-        let mdy_date = `${dates[1]}-${dates[2]}-${dates[0]}`;
+        let mdy_date = "";
+        if(entry.deadline.length > 1)
+        {
+            let dates = entry.deadline.split('-'); //entry.deadline is formatted YYYY-MM-DD
+            mdy_date = `${dates[1]}-${dates[2]}-${dates[0]}`;
+        }
         spans[0].append(mdy_date);
         spans[1].append(entry.labels);
         spans[2].append(entry.bullet_id);
