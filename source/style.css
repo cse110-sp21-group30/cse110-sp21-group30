@@ -179,6 +179,27 @@ display: block;
     height: 80%;
     margin: 0px 0px 0px 0px;
 }
+#FAQ:hover {
+    transform: scale(1.1);
+}
+#archive:hover {
+    transform: scale(1.1);
+}
+#close:hover {
+    transform: scale(1.1);
+}
+#edit:hover {
+    transform: scale(1.1);
+}
+#clear:hover {
+    transform: scale(1.1);
+}
+#search_off:hover {
+    transform: scale(1.1);
+}
+#logo:hover {
+    transform: scale(1.1);
+}
 
 /* Dates Overview CSS Starts Here */
 #dates_grid_item21 {
@@ -394,6 +415,10 @@ h1 {
     width: 5%;
     height: 5%;
     display: inline;
+}
+
+#clear_archive:hover{
+    transform: scale(1.1);
 }
 
 .column_grid_h1 {
