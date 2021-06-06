@@ -1,6 +1,7 @@
 /* Scrollbar CSS Starts Here */
 ::-webkit-scrollbar {
     width: 10px;
+    height: 10px;
 }
 
 ::-webkit-scrollbar-track {
@@ -372,18 +373,18 @@ body {
 #search_mode_header{
     display: block;
     margin-top: 69px;
-    font-size: 15px; 
+    font-size: 15px;
     font-weight: 600;
     justify-content: center;
     height: 3vh;
     max-height: 6vh;
     margin-bottom: -72px;
-    display: none; 
+    display: none;
     background-color:#aca7a7;
     border-radius: 50px;
     margin-left: 4.2%;
     margin-right: 4.2%;
-    min-height: 29px; 
+    min-height: 29px;
 }
 
 #column_view {
@@ -599,16 +600,16 @@ h1 {
     display: inline-block;
     height: 1em;
 }
-  
+
 #title_faq {
     text-align: center;
     margin-top: 5px;
 }
-  
+
 #myModalLabel_FAQ {
     width: 30px;
 }
-  
+
 #close_faq {
     margin-top: 6px;
 }
