@@ -20,6 +20,8 @@ class BulletPoint extends HTMLElement {
                 background-color: var(--bullet_bg);
                 color: var(--bullet_color);
                 border-color: var(--bullet_border);
+                overflow: auto;
+                overflow-x: auto;
             }
             .hide-hover {
                 display: none;
@@ -35,6 +37,21 @@ class BulletPoint extends HTMLElement {
                 width:7%;
                 height: 7%;
                 filter: var(--bullet_icon_filter);
+            }
+            ::-webkit-scrollbar {
+                width: 5px;
+                height: 8px;
+            }
+            ::-webkit-scrollbar-track {
+                box-shadow: inset 0 0 2px grey;
+                border-radius: 20px;
+            }
+            ::-webkit-scrollbar-thumb {
+                background: LightGrey;
+                border-radius: 10px;
+            }
+            ::-webkit-scrollbar-thumb:hover {
+                background: grey;
             }
 
         </style>
