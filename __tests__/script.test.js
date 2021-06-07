@@ -218,6 +218,6 @@ describe('Basic user flow for SPA ', () => {
 
   test('Back arrow button', async() => {
       await page.goBack();
-      expect(page.url()).toBe("https://nbuhr9.github.io/test-server/");
+      expect(page.url()).toBe("https://nbuhr9.github.io/test-server/#");
   });
 });
