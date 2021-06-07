@@ -30,6 +30,7 @@ class BulletPoint extends HTMLElement {
             }
             .entry_label {
                 color: var(--entry_label_color);
+                border-width: 2px;
             }
             .entry:hover > .hide-hover {
                 display: inline;
@@ -115,15 +116,23 @@ class BulletPoint extends HTMLElement {
         spans[4].append(entry.comp_time);
         spans[4].style.display = "none";
 
+        spans[1].style.borderStyle='solid';
+
         // give the label a color
         if (entry.labels == 'fitness') {
             spans[1].style.background='LightGreen';
+            spans[1].style.borderColor='Green';
         } else if (entry.labels == 'school') {
             spans[1].style.background='Plum';
+            spans[1].style.borderColor='DarkOrchid';
         } else if (entry.labels == 'work') {
             spans[1].style.background='LightSalmon';
+            spans[1].style.borderColor='OrangeRed';
         } else if (entry.labels == 'personal') {
-            spans[1].style.background='Wheat';
+            spans[1].style.background='LightBlue';
+            spans[1].style.borderColor='DeepSkyBlue';
+        } else {
+            spans[1].style.borderStyle='';
         }
         spans[1].style.borderRadius='8px';
         spans[1].style.padding='1px 2px 1px 2px';

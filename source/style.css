@@ -41,30 +41,34 @@ header {
 }
 
 #color1 {
-    background-color: #FFFFFF;
+    background-color: #B53A27;
+    color: #F0F0F0;
 }
 
 #color2 {
-    background-color: #C69214;
+    background-color: #FFFFFF;
 }
 
 #color3 {
+    background-color: #C69214;
+}
+
+#color4 {
     background-color: #1A1D21;
     color: #F0F0F0;
 }
 
-#color4 {
+#color5 {
     background-color: #46B1C9;
 }
 
-#color5 {
+#color6 {
     background-color: #745db3;
     color: #F0F0F0;
 }
 
-#color6 {
-    background-color: #B53A27;
-    color: #F0F0F0;
+#color7 {
+    background-color: rgb(238, 223, 203);
 }
 
 .dropdown_content a:hover {
@@ -622,6 +626,18 @@ h1 {
     color: white;
     padding: 8px;
     font-family: Arial;
+}
+
+.modal-content {
+    width: 99.9%;
+}
+
+.modal-header {
+    border-radius: 4.2px 4.2px 0px 0px;
+}
+
+.modal-footer {
+    border-radius: 0px 0px 4.2px 4.2px;
 }
 /* Editor CSS Ends Here */
 
