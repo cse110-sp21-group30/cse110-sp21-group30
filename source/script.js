@@ -174,17 +174,29 @@ document.querySelector("#save_edits").addEventListener('click', function() {
         alert("Textarea is empty!");
         return;
     }
+    text = bullet_point_check(text);
     let obj = {
         "task_field": $('#edit_task_field').text(),
         "labels": $('#edit_modal select').val(),
         "deadline": $('#edit_modal input').val(),
-        "content": $('#edit_modal textarea').val(),
+        "content": text, 
         "bullet_id": $('#edit_bullet_id').text(),
         "comp_time": $('#edit_comp_time').text()
     };
     edit_existing_bullet(obj);
     $('#edit_modal').modal('hide'); //close modal
 });
+
+//Helper method, adds "◆ " to the start of an edited bullet in case the user removed it. 
+function bullet_point_check(text){
+    if(text.charAt(0) != "◆"){//If user removed bullet point, add a new one
+        text = "◆ " + text;
+    } 
+    if(text.charAt(1) != " "){
+        text = [text.slice(0, 1), " ", text.slice(1)].join('');
+    }
+    return text;
+}
 
 document.querySelector("#delete_bullet").addEventListener('click', function() {
     let bullet_id = $('#edit_bullet_id').text();
@@ -387,6 +399,7 @@ function create_bullet(e) {
     let labels = document.getElementById('select2').value;
     let deadline = document.getElementById('entry_date').value;
     let content = document.getElementById('editor_text').textContent;
+    content =  "◆ " + content; 
     let bullet_id = get_bullet_id();
     document.getElementById('editor_text').textContent = ""; //clear text box
 
