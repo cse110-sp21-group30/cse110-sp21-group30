@@ -354,6 +354,9 @@ function create_bullet(e) {
     create_bullet_db(bullet);
 }
 
+/*
+    Display calendar weekly view based on today's date
+*/
 function display_date() {
     let arr = [];
     let today = new Date();
@@ -367,7 +370,7 @@ function display_date() {
         day.setDate(day.getDate() + i); // i is an offset from today
         let dayOfWeek = new Intl.DateTimeFormat('en-US', options).format(day); // Turns 0-6 into Sunday - Saturday
         let disp = {
-            dayOfWeek: dayOfWeek.substring(0, 3), // Sun - Sat
+            dayOfWeek: dayOfWeek.substring(0, 3), // Sunday - Saturday
             date: day.getDate()
         }
         arr.push(disp);
@@ -425,6 +428,9 @@ function remove_filter() {
     update_view("C");
 }
 
+/*
+    Ensures that the filter is toggled off regardless of state. Updates the view to remove search mode. 
+*/
 document.getElementById("search_submit").addEventListener("click", function () {
     document.getElementById('search_mode_header').style.display = "block";
     let start_date = document.getElementById('start_day').value;
@@ -467,7 +473,9 @@ function clear_search_modal() {
     document.getElementById('select_search').value = "";
 }
 
-// Enter key to create bullet
+/*
+    Allow user to press enter to create new bullet
+*/
 document.addEventListener("keydown", function (event) {
     // Number 13 is the "Enter" key on the keyboard
     if (event.keyCode === 13) {
@@ -475,16 +483,18 @@ document.addEventListener("keydown", function (event) {
         if (!selected_element) {
             return;
         }
-        else if (selected_element.id == 'editor_text') { //If new bullet being created
+        else if (selected_element.id == 'editor_text') {
             enter_new_bullet(event);
         }
     }
 });
 
-//listens for the modal submission
+/*
+    Update existing bullet off of edit modal submission
+*/
 document.querySelector("#save_edits").addEventListener('click', function () {
     let text = $('#edit_modal textarea').val().trim();
-    if (text.length < 1) { //must type something!
+    if (text.length < 1) {
         alert("Textarea is empty!");
         return;
     }
@@ -497,18 +507,19 @@ document.querySelector("#save_edits").addEventListener('click', function () {
         "comp_time": $('#edit_comp_time').text()
     };
     edit_existing_bullet(obj);
-    $('#edit_modal').modal('hide'); //close modal
+    $('#edit_modal').modal('hide');
 });
 
 document.querySelector("#delete_bullet").addEventListener('click', function () {
     let bullet_id = $('#edit_bullet_id').text();
     let task_field = $('#edit_task_field').text();
     delete_bullet_db(task_field, bullet_id);
-    $('#edit_modal').modal('hide'); //close modal
+    $('#edit_modal').modal('hide');
 });
 
-//Helper method for editing contents of existing bullet
-//accepts an entry javascript object
+/*
+    Helper method to update existing bullet int local storage
+*/
 function edit_existing_bullet(new_entry_obj) {
     let current_bullet_id = new_entry_obj.bullet_id;
     let bullet_task_field = new_entry_obj.task_field;
@@ -535,7 +546,7 @@ function edit_existing_bullet(new_entry_obj) {
 let selected_element;
 let default_text = document.getElementById('editor_text').textContent; //Note how this is not inside the function, meaning default_text is the default text put into the editor box on page load
 window.addEventListener('mousedown', e => {
-    if (e.target.id == 'editor_text') {//Only set selected_element if a bullet point/the entry box div is clicked
+    if (e.target.id == 'editor_text') { //Only set selected_element if a bullet point/the entry box div is clicked
         selected_element = e.target;
 
         if (selected_element.textContent == default_text) { //Remove the instruction text from the entry box when clicked.
@@ -544,25 +555,28 @@ window.addEventListener('mousedown', e => {
     }
 });
 
-//Helper method for enter key press create new bullet
+/*
+    Helper method for enter key press create new bullet
+*/
 function enter_new_bullet(event) {
     let text_box_content = document.getElementById('editor_text').textContent;
-    event.preventDefault(); // Cancel the default action, if needed
+    event.preventDefault();
     if (text_box_content != "") { //Prevent creation of empty bullets
         create_bullet(event);
     }
     else {
-        document.getElementById('editor_text').innerText = ""; //If bullet is empty, clear the newline that enter key makes
+        document.getElementById('editor_text').innerText = "";
     }
     reset_bullet_choices();
 }
 
-//Helper method to clear Label/Date/HP selections after entering a new bullet
+/*
+    Clear bullet selections after bullet submission
+*/
 function reset_bullet_choices() {
-    //Set default date to current day
     let today_formatted = new Date();
     let dd = String(today_formatted.getDate()).padStart(2, '0');
-    let mm = String(today_formatted.getMonth() + 1).padStart(2, '0'); //January is 0!
+    let mm = String(today_formatted.getMonth() + 1).padStart(2, '0');
     let yyyy = today_formatted.getFullYear();
 
     today_formatted = yyyy + '-' + mm + '-' + dd;
@@ -570,7 +584,9 @@ function reset_bullet_choices() {
     document.getElementById("entry_date").value = today_formatted;
 }
 
-// handles back and forward buttons
+/*
+    Handler for forward and back buttons
+*/
 window.onpopstate = function (event) {
     if (event.state == null) {
         setState("home", false);
@@ -579,7 +595,6 @@ window.onpopstate = function (event) {
     }
 };
 
-//if archive is clicked, toggle between archive page and home
 document.querySelector('#archive').addEventListener('click', function () {
     var image = document.querySelector('#archive').src;
     remove_filter();
@@ -592,7 +607,6 @@ document.querySelector('#archive').addEventListener('click', function () {
     }
 });
 
-//if the user agrees to clear all bullets after pressing the clear button, clear storage and update view
 document.querySelector('#clear').addEventListener('click', function () {
     if (window.confirm('Do you really want to delete all bullets?')) {
         localStorage.clear();
@@ -604,7 +618,6 @@ document.querySelector('#clear').addEventListener('click', function () {
     }
 });
 
-//user clicks this to clear the archive
 document.querySelector('#clear_archive').addEventListener('click', function () {
     if (window.confirm('Do you really want to empty the archive?')) {
         localStorage.setItem("A", JSON.stringify({ 0: [] }));
