@@ -8,10 +8,56 @@ var editor = document.getElementById('editor');
 var editor_text = document.getElementById('editor_text');
 
 document.getElementById('color1').addEventListener('click', function() {
+    
+    localStorage.setItem("color", "1");
+
+    //bean
+    body.style.background = '#016CA4';
+    header.style.background = '#28AEDD';
+    curr_date.style.background = '#B53A27';
+    curr_date.style.color = '';
+    header.style.color = '#E0E0E0';
+    HP_header.style.background = '#B53A27';
+    HP_header.style.color = '#E0E0E0';
+    LP_header.style.background = '#B53A27';
+    LP_header.style.color = '#E0E0E0';
+    complete_header.style.background = '#B53A27';
+    complete_header.style.color = '#E0E0E0';
+
+    body.style.setProperty('--bullet_bg', '#B53A27');
+    body.style.setProperty('--bullet_border', '#9E3521');
+    body.style.setProperty('--bullet_color', '#E0E0E0');
+    body.style.setProperty('--entry_label_color', '#000000');
+
+    editor.style.background = '#28AEDD';
+    editor.style.borderColor = '#28AEDD';
+    editor.style.color = '#E0E0E0';
+    editor_text.style.background = '#A8EEF8';
+    editor_text.style.borderColor = '#A8EEF8';
+    editor_text.style.color = '#000000';
+    document.getElementById('entry_date').style.color = '#000000';
+    document.getElementById('select2').style.color = '#000000';
+
+    document.getElementById('archive_header_text').style.color = '#E0E0E0';
+
+    change_icon_color("white");
+
+    update_search_modal_colors("dark", "light");
+    update_faq_modal_colors("dark", "light");
+    update_edit_modal_colors("dark", "light");
+
+    document.getElementById("save_edits").style.background = '#016CA4';
+    document.getElementById("save_edits").style.borderColor = '#016CA4';
+    document.getElementById("search_submit").style.background = '#016CA4';
+    document.getElementById("search_submit").style.borderColor = '#016CA4';
+
+});
+
+document.getElementById('color2').addEventListener('click', function() {
     //default
 
     //store
-    localStorage.setItem("color", "1");
+    localStorage.setItem("color", "2");
 
     //body
     body.style.background = '';
@@ -53,11 +99,16 @@ document.getElementById('color1').addEventListener('click', function() {
 
     //icons ("white" or "black")
     change_icon_color("black");
+
+    //update modal colors
+    update_search_modal_colors("light", "light");
+    update_faq_modal_colors("light", "light");
+    update_edit_modal_colors("light", "light");
 });
 
-document.getElementById('color2').addEventListener('click', function() {
+document.getElementById('color3').addEventListener('click', function() {
     
-    localStorage.setItem("color", "2");
+    localStorage.setItem("color", "3");
     
     //ucsd colors
     body.style.background = '#182B49';
@@ -94,11 +145,15 @@ document.getElementById('color2').addEventListener('click', function() {
     document.getElementById("clear_archive").style.filter = 'invert(90%)';
 
     body.style.setProperty('--bullet_icon_filter', 'invert(90%)');
+
+    update_search_modal_colors("dark", "light");
+    update_faq_modal_colors("dark", "light");
+    update_edit_modal_colors("dark", "light");
 });
 
-document.getElementById('color3').addEventListener('click', function() {
+document.getElementById('color4').addEventListener('click', function() {
     
-    localStorage.setItem("color", "3");
+    localStorage.setItem("color", "4");
     
     //slack_dark
     body.style.background = '#1A1D21';
@@ -130,13 +185,18 @@ document.getElementById('color3').addEventListener('click', function() {
     document.getElementById('archive_header_text').style.color = '#E0E0E0';
 
     change_icon_color("white");
+
+    update_search_modal_colors("dark", "dark");
+    update_faq_modal_colors("dark", "dark");
+    update_edit_modal_colors("dark", "dark");
+    
 });
 
-document.getElementById('color4').addEventListener('click', function() {
+document.getElementById('color5').addEventListener('click', function() {
     
-    localStorage.setItem("color", "4");
+    localStorage.setItem("color", "5");
     
-    //blue
+    //blue (surf)
     body.style.background = '#46B1C9';
     header.style.background = '#9FB7B9';
     curr_date.style.background = '#46B1C9';
@@ -154,6 +214,7 @@ document.getElementById('color4').addEventListener('click', function() {
     body.style.setProperty('--bullet_color', '');
     body.style.setProperty('--entry_label_color', '#000000');
 
+
     editor.style.background = '#84C0C6';
     editor.style.borderColor = '#84C0C6';
     editor.style.color = '';
@@ -166,13 +227,17 @@ document.getElementById('color4').addEventListener('click', function() {
     document.getElementById('archive_header_text').style.color = '';
 
     change_icon_color("black");
+
+    update_search_modal_colors("light", "light");
+    update_faq_modal_colors("light", "light");
+    update_edit_modal_colors("light", "light");
 });
 
-document.getElementById('color5').addEventListener('click', function() {
+document.getElementById('color6').addEventListener('click', function() {
     
-    localStorage.setItem("color", "5");    
+    localStorage.setItem("color", "6");    
 
-    //purple
+    //purple (kinetic)
     body.style.background = '#230969';
     header.style.background = '#282828';
     curr_date.style.background = '#745db3';
@@ -202,42 +267,50 @@ document.getElementById('color5').addEventListener('click', function() {
     document.getElementById('archive_header_text').style.color = '#E0E0E0';
 
     change_icon_color("white");
+
+    update_search_modal_colors("dark", "dark");
+    update_faq_modal_colors("dark", "dark");
+    update_edit_modal_colors("dark", "dark");
 });
 
-document.getElementById('color6').addEventListener('click', function() {
+document.getElementById('color7').addEventListener('click', function() {
     
-    localStorage.setItem("color", "6");
+    localStorage.setItem("color", "7");
 
-    //bean
-    body.style.background = '#016CA4';
-    header.style.background = '#28AEDD';
-    curr_date.style.background = '#B53A27';
+    //coffee (Sonika's color palette!)
+    body.style.background = '';
+    header.style.background = 'rgb(209, 174, 143)';
+    curr_date.style.background = 'rgb(238, 223, 203)';
     curr_date.style.color = '';
-    header.style.color = '#E0E0E0';
-    HP_header.style.background = '#B53A27';
-    HP_header.style.color = '#E0E0E0';
-    LP_header.style.background = '#B53A27';
-    LP_header.style.color = '#E0E0E0';
-    complete_header.style.background = '#B53A27';
-    complete_header.style.color = '#E0E0E0';
+    header.style.color = '';
+    HP_header.style.background = 'rgb(238, 223, 203)';
+    HP_header.style.color = '';
+    LP_header.style.background = 'rgb(238, 223, 203)';
+    LP_header.style.color = '';
+    complete_header.style.background = 'rgb(238, 223, 203)';
+    complete_header.style.color = '';
 
-    body.style.setProperty('--bullet_bg', '#B53A27');
-    body.style.setProperty('--bullet_border', '#9E3521');
-    body.style.setProperty('--bullet_color', '#E0E0E0');
-    body.style.setProperty('--entry_label_color', '#000000');
+    body.style.setProperty('--bullet_bg', 'rgb(243, 240, 235)');
+    body.style.setProperty('--bullet_border', 'rgb(243, 240, 235)');
+    body.style.setProperty('--bullet_color', '');
+    body.style.setProperty('--entry_label_color', '');
 
-    editor.style.background = '#28AEDD';
-    editor.style.borderColor = '#28AEDD';
-    editor.style.color = '#E0E0E0';
-    editor_text.style.background = '#A8EEF8';
-    editor_text.style.borderColor = '#A8EEF8';
-    editor_text.style.color = '#000000';
+    editor.style.background = 'rgb(238, 223, 203)';
+    editor.style.borderColor = 'rgb(209, 174, 143)';
+    editor.style.color = '';
+    editor_text.style.background = 'rgb(255, 245, 232)';
+    editor_text.style.borderColor = 'rgb(255, 245, 232)';
+    editor_text.style.color = '';
     document.getElementById('entry_date').style.color = '#000000';
     document.getElementById('select2').style.color = '#000000';
 
-    document.getElementById('archive_header_text').style.color = '#E0E0E0';
+    document.getElementById('archive_header_text').style.color = '';
 
-    change_icon_color("white");
+    change_icon_color("black");
+
+    update_search_modal_colors("light", "light");
+    update_faq_modal_colors("light", "light");
+    update_edit_modal_colors("light", "light");
 });
 
 //changes colors of icons
@@ -269,9 +342,112 @@ function change_icon_color(icon_color){
     }
 }
 
-//changes modal colors
-function update_modal_colors(){
-    //will do after modals are finished
+//changes search modal colors
+function update_search_modal_colors(background_shade, header_shade){
+
+    //changes body text to be black if the background is light and white if the background is dark
+    if(background_shade == "light"){
+        document.getElementsByClassName("modal-body")[0].style.color = "#000000";
+    }else{
+        document.getElementsByClassName("modal-body")[0].style.color = "#E0E0E0";
+    }
+
+    //changes close icon to be visible on both light and dark backgrounds
+    if(header_shade == "light"){
+        document.getElementsByClassName("close")[0].style.filter = "none";
+    }else{
+        document.getElementsByClassName("close")[0].style.filter = "invert(90%)";
+    }
+
+    //changes header colors
+    document.getElementsByClassName("modal-header")[0].style.background = header.style.background;
+    document.getElementsByClassName("modal-header")[0].style.color = header.style.color;
+
+    //changes body colors
+    document.getElementsByClassName("modal-body")[0].style.background = body.style.background;
+    document.getElementById("start_day").style.color = "#000000";
+    document.getElementById("end_day").style.color = "#000000";
+    document.getElementById("select_search").style.color = "#000000";
+
+    //changes footer colors
+    document.getElementsByClassName("modal-footer")[0].style.background = header.style.background;
+    document.getElementById("search_submit").style.background = curr_date.style.background;
+    document.getElementById("search_submit").style.borderColor = curr_date.style.background;
+    //makes the search button text color match
+    if(header.style.color == "" && curr_date.style.color == "" && curr_date.style.background != ""){
+        document.getElementById("search_submit").style.color = "#000000";
+    }else{
+        document.getElementById("search_submit").style.color = curr_date.style.color;
+    }
+}
+
+//changes faq modal colors
+function update_faq_modal_colors(background_shade, header_shade){
+
+    //changes body text to be black if the background is light and white if the background is dark
+    //also changes icons for the same reason
+    if(background_shade == "light"){
+        document.getElementsByClassName("modal-body")[1].style.color = "#000000";
+        for(var i = 0; i < 11; i++){
+            if(i != 9){
+                document.getElementsByClassName("faq_image")[i].style.filter = "none";
+            }
+        }
+    }else{
+        document.getElementsByClassName("modal-body")[1].style.color = "#E0E0E0";
+        for(var i = 0; i < 11; i++){
+            if(i != 9){
+                document.getElementsByClassName("faq_image")[i].style.filter = "invert(90%)";
+            }
+        }
+    }
+
+    //changes close icon to be visible on both light and dark backgrounds
+    if(header_shade == "light"){
+        document.getElementsByClassName("close")[1].style.filter = "none";
+    }else{
+        document.getElementsByClassName("close")[1].style.filter = "invert(90%)";
+    }
+
+    //changes the backgrounds for header, body, and footer
+    document.getElementsByClassName("modal-header")[1].style.background = header.style.background;
+    document.getElementsByClassName("modal-body")[1].style.background = body.style.background;
+    document.getElementsByClassName("modal-footer")[1].style.background = header.style.background;
+
+    //changes clear message back to red since we changed the text color earlier
+    document.getElementById('clear_message').style.color = 'red';
+}
+
+//changes edit modal colors
+function update_edit_modal_colors(background_shade, header_shade){
+    //changes close icon to be visible on both light and dark backgrounds
+    if(header_shade == "light"){
+        document.getElementsByClassName("close")[2].style.filter = "none";
+    }else{
+        document.getElementsByClassName("close")[2].style.filter = "invert(90%)";
+    }
+
+    //changes header colors
+    document.getElementsByClassName("modal-header")[2].style.background = header.style.background;
+    document.getElementsByClassName("modal-header")[2].style.color = header.style.color;
+
+    //changes body colors
+    document.getElementsByClassName("modal-body")[2].style.background = body.style.background;
+    //changes text area colors
+    document.getElementById("textarea").style.background = body.style.getPropertyValue('--bullet_bg');
+    document.getElementById("textarea").style.borderColor = body.style.getPropertyValue('--bullet_border');
+    document.getElementById("textarea").style.color = body.style.getPropertyValue('--bullet_color');
+
+    //changes footer colors
+    document.getElementsByClassName("modal-footer")[2].style.background = header.style.background;
+    document.getElementById("save_edits").style.background = curr_date.style.background;
+    document.getElementById("save_edits").style.borderColor = curr_date.style.background;
+    if(header.style.color == "" && curr_date.style.color == "" && curr_date.style.background != ""){
+        document.getElementById("save_edits").style.color = "#000000";
+    }else{
+        document.getElementById("save_edits").style.color = curr_date.style.color;
+    }
+    
 }
 
 document.addEventListener('DOMContentLoaded', function(){
@@ -280,25 +456,36 @@ document.addEventListener('DOMContentLoaded', function(){
         view: window,
         bubbles: true,
         cancelable: true
-      });
-      let theme_button;
-    if(color_scheme == "1") {
+    });
+
+    let theme_button;
+    let first_time = localStorage.getItem("first_time");
+    if(!first_time) {
+        localStorage.setItem("first_time","1");
         theme_button = document.getElementById('color1');
         theme_button.dispatchEvent(event);
-    } else if(color_scheme == "2") {
-        theme_button = document.getElementById('color2');
-        theme_button.dispatchEvent(event);
-    } else if(color_scheme == "3") {
-        theme_button = document.getElementById('color3');
-        theme_button.dispatchEvent(event);
-    } else if(color_scheme == "4") {
-        theme_button = document.getElementById('color4');
-        theme_button.dispatchEvent(event);
-    } else if(color_scheme == "5") {
-        theme_button = document.getElementById('color5');
-        theme_button.dispatchEvent(event);
-    } else if(color_scheme == "6") {
-        theme_button = document.getElementById('color6');
-        theme_button.dispatchEvent(event);
+    }else{
+        if(color_scheme == "1") {
+            theme_button = document.getElementById('color1');
+            theme_button.dispatchEvent(event);
+        } else if(color_scheme == "2") {
+            theme_button = document.getElementById('color2');
+            theme_button.dispatchEvent(event);
+        } else if(color_scheme == "3") {
+            theme_button = document.getElementById('color3');
+            theme_button.dispatchEvent(event);
+        } else if(color_scheme == "4") {
+            theme_button = document.getElementById('color4');
+            theme_button.dispatchEvent(event);
+        } else if(color_scheme == "5") {
+            theme_button = document.getElementById('color5');
+            theme_button.dispatchEvent(event);
+        } else if(color_scheme == "6") {
+            theme_button = document.getElementById('color6');
+            theme_button.dispatchEvent(event);
+        } else if(color_scheme == "7") {
+            theme_button = document.getElementById('color7');
+            theme_button.dispatchEvent(event);
+        }
     }
 });

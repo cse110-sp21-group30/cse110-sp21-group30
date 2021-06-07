@@ -20,6 +20,14 @@ class BulletPoint extends HTMLElement {
                 background-color: var(--bullet_bg);
                 color: var(--bullet_color);
                 border-color: var(--bullet_border);
+                overflow: auto;
+                overflow-x: auto;
+            }
+            .entry .move-archive {
+                float: right;
+            }
+            .entry .edit {
+                float: right;
             }
             .hide-hover {
                 display: none;
@@ -28,13 +36,29 @@ class BulletPoint extends HTMLElement {
             }
             .entry_label {
                 color: var(--entry_label_color);
+                border-width: 2px;
             }
             .entry:hover > .hide-hover {
                 display: inline;
                 margin-right: 5%;
-                width:7%;
+                width: 7%;
                 height: 7%;
                 filter: var(--bullet_icon_filter);
+            }
+            ::-webkit-scrollbar {
+                width: 5px;
+                height: 8px;
+            }
+            ::-webkit-scrollbar-track {
+                box-shadow: inset 0 0 2px grey;
+                border-radius: 20px;
+            }
+            ::-webkit-scrollbar-thumb {
+                background: LightGrey;
+                border-radius: 10px;
+            }
+            ::-webkit-scrollbar-thumb:hover {
+                background: grey;
             }
 
         </style>
@@ -98,34 +122,62 @@ class BulletPoint extends HTMLElement {
         spans[4].append(entry.comp_time);
         spans[4].style.display = "none";
 
+        spans[1].style.borderStyle='solid';
+
         // give the label a color
         if (entry.labels == 'fitness') {
             spans[1].style.background='LightGreen';
+            spans[1].style.borderColor='Green';
         } else if (entry.labels == 'school') {
             spans[1].style.background='Plum';
+            spans[1].style.borderColor='DarkOrchid';
         } else if (entry.labels == 'work') {
             spans[1].style.background='LightSalmon';
+            spans[1].style.borderColor='OrangeRed';
         } else if (entry.labels == 'personal') {
-            spans[1].style.background='Wheat';
+            spans[1].style.background='LightBlue';
+            spans[1].style.borderColor='DeepSkyBlue';
+        } else {
+            spans[1].style.borderStyle='';
         }
         spans[1].style.borderRadius='8px';
         spans[1].style.padding='1px 2px 1px 2px';
 
         //show or hide the respective buttons
         if (entry.task_field == "C") {
-            //create revert complete
+            //create revert complete (left arrow)
             let button_rev = document.createElement("img");
             button_rev.className = "undo-complete hide-hover";
-            button_rev.src = "./images/revert.svg";
+            button_rev.src = "./images/left-arrow.svg";
             button_rev.style.width="20px";
             button_rev.style.verticalAlign="bottom";
             button_rev.style.marginLeft="1px";
             button_rev.style.marginRight="1px";
             button_rev.addEventListener('click', function () {
-                //(Reverts to LP even if bullet was in HP previously)
                 revert_complete_migration(entry.task_field, entry.bullet_id);
             });
             article.append(button_rev);
+            //add edit
+            let button_edit = document.createElement("img");
+            button_edit.className = "edit hide-hover";
+            button_edit.src = "./images/edit.svg";
+            button_edit.style.width="20px";
+            button_edit.style.verticalAlign="bottom";
+            button_edit.style.marginLeft="1px";
+            button_edit.style.marginRight="1px";
+            button_edit.addEventListener('click', function () {
+                $('#edit_modal').modal({
+                    backdrop: 'static',
+                    keyboard: false
+                });
+                $('#edit_modal textarea').val(entry.content);
+                $('#edit_modal input').val(entry.deadline);
+                $('#edit_modal select').val(entry.labels);
+                $('#edit_bullet_id').text(entry.bullet_id);
+                $('#edit_task_field').text(entry.task_field);
+                $('#edit_comp_time').text(entry.comp_time);
+            });
+            article.append(button_edit);
             //add send to archive
             let button_archive = document.createElement("img");
             button_archive.src = "./images/move_to_archive.svg";
@@ -133,11 +185,39 @@ class BulletPoint extends HTMLElement {
             button_archive.style.verticalAlign="bottom";
             button_archive.style.marginLeft="1px";
             button_archive.style.marginRight="1px";
-            button_archive.className = "del hide-hover";
+            button_archive.className = "move-archive hide-hover";
             button_archive.addEventListener('click', function () {
                 archive_bullet(entry.task_field, entry.bullet_id);
             });
             article.append(button_archive);
+        }
+        else if(entry.task_field == "A") {
+            //create delete
+            let button_del = document.createElement("img");
+            button_del.src = "./images/trash.svg"
+            button_del.style.width="20px";
+            button_del.style.verticalAlign="bottom";
+            button_del.style.marginLeft="1px";
+            button_del.style.marginRight="1px";
+            button_del.className = "del hide-hover";
+            button_del.addEventListener('click', function () {
+                delete_bullet_db(entry.task_field, entry.bullet_id);
+            });
+            article.append(button_del);
+        }
+        else if (entry.task_field == "HP"){
+            //create change priority (right arrow)
+            let button_pri = document.createElement("img");
+            button_pri.className = "change-priority hide-hover";
+            button_pri.src = "./images/right-arrow.svg";
+            button_pri.style.width="20px";
+            button_pri.style.verticalAlign="bottom";
+            button_pri.style.marginLeft="1px";
+            button_pri.style.marginRight="1px";
+            button_pri.addEventListener('click', function () {
+                high_low_migration(entry.task_field, entry.bullet_id);
+            });
+            article.append(button_pri);
             //add edit
             let button_edit = document.createElement("img");
             button_edit.className = "edit hide-hover";
@@ -160,37 +240,11 @@ class BulletPoint extends HTMLElement {
             });
             article.append(button_edit);
         }
-        else if(entry.task_field == "A") {
-            //create delete
-            let button_del = document.createElement("img");
-            button_del.src = "./images/trash.svg"
-            button_del.style.width="20px";
-            button_del.style.verticalAlign="bottom";
-            button_del.style.marginLeft="1px";
-            button_del.style.marginRight="1px";
-            button_del.className = "del hide-hover";
-            button_del.addEventListener('click', function () {
-                delete_bullet_db(entry.task_field, entry.bullet_id);
-            });
-            article.append(button_del);
-        }
-        else {
-            //create "mark complete"
-            let button_comp = document.createElement("img");
-            button_comp.className = "mark-complete hide-hover";
-            button_comp.src = "./images/complete.svg";
-            button_comp.style.width="20px";
-            button_comp.style.verticalAlign="bottom";
-            button_comp.style.marginLeft="1px";
-            button_comp.style.marginRight="1px";
-            button_comp.addEventListener('click', function () {
-                complete_migration(entry.task_field, entry.bullet_id);
-            });
-            article.append(button_comp);
-            //create change priority
+        else { //LP
+            //create change priority (left arrow)
             let button_pri = document.createElement("img");
             button_pri.className = "change-priority hide-hover";
-            button_pri.src = "./images/change.svg";
+            button_pri.src = "./images/left-arrow.svg";
             button_pri.style.width="20px";
             button_pri.style.verticalAlign="bottom";
             button_pri.style.marginLeft="1px";
@@ -199,6 +253,18 @@ class BulletPoint extends HTMLElement {
                 high_low_migration(entry.task_field, entry.bullet_id);
             });
             article.append(button_pri);
+            //create "mark complete" (right arrow)
+            let button_comp = document.createElement("img");
+            button_comp.className = "mark-complete hide-hover";
+            button_comp.src = "./images/right-arrow.svg";
+            button_comp.style.width="20px";
+            button_comp.style.verticalAlign="bottom";
+            button_comp.style.marginLeft="1px";
+            button_comp.style.marginRight="1px";
+            button_comp.addEventListener('click', function () {
+                complete_migration(entry.task_field, entry.bullet_id);
+            });
+            article.append(button_comp);
             //add edit
             let button_edit = document.createElement("img");
             button_edit.className = "edit hide-hover";

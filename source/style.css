@@ -1,6 +1,7 @@
 /* Scrollbar CSS Starts Here */
 ::-webkit-scrollbar {
     width: 10px;
+    height: 10px;
 }
 
 ::-webkit-scrollbar-track {
@@ -40,30 +41,34 @@ header {
 }
 
 #color1 {
-    background-color: #FFFFFF;
+    background-color: #B53A27;
+    color: #F0F0F0;
 }
 
 #color2 {
-    background-color: #C69214;
+    background-color: #FFFFFF;
 }
 
 #color3 {
+    background-color: #C69214;
+}
+
+#color4 {
     background-color: #1A1D21;
     color: #F0F0F0;
 }
 
-#color4 {
+#color5 {
     background-color: #46B1C9;
 }
 
-#color5 {
+#color6 {
     background-color: #745db3;
     color: #F0F0F0;
 }
 
-#color6 {
-    background-color: #B53A27;
-    color: #F0F0F0;
+#color7 {
+    background-color: rgb(238, 223, 203);
 }
 
 .dropdown_content a:hover {
@@ -372,18 +377,18 @@ body {
 #search_mode_header{
     display: block;
     margin-top: 69px;
-    font-size: 15px; 
+    font-size: 15px;
     font-weight: 600;
     justify-content: center;
     height: 3vh;
     max-height: 6vh;
     margin-bottom: -72px;
-    display: none; 
+    display: none;
     background-color:#aca7a7;
     border-radius: 50px;
     margin-left: 4.2%;
     margin-right: 4.2%;
-    min-height: 29px; 
+    min-height: 29px;
 }
 
 #column_view {
@@ -599,16 +604,16 @@ h1 {
     display: inline-block;
     height: 1em;
 }
-  
+
 #title_faq {
     text-align: center;
     margin-top: 5px;
 }
-  
+
 #myModalLabel_FAQ {
     width: 30px;
 }
-  
+
 #close_faq {
     margin-top: 6px;
 }
@@ -621,6 +626,18 @@ h1 {
     color: white;
     padding: 8px;
     font-family: Arial;
+}
+
+.modal-content {
+    width: 99.9%;
+}
+
+.modal-header {
+    border-radius: 4.2px 4.2px 0px 0px;
+}
+
+.modal-footer {
+    border-radius: 0px 0px 4.2px 4.2px;
 }
 /* Editor CSS Ends Here */
 
