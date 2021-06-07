@@ -220,4 +220,38 @@ describe('Basic user flow for SPA ', () => {
       await page.goBack();
       expect(page.url()).toBe("https://nbuhr9.github.io/test-server/#");
   });
+
+  test('Mark a bullet as complete', async() => {
+
+    await page.evaluate(() => {
+      document.querySelector("#hp_bullets > bullet-point").shadowRoot.querySelector("article > img.change-priority.hide-hover").click();
+    })
+    await page.evaluate(() => {
+      document.querySelector("#lp_bullets > bullet-point").shadowRoot.querySelector("article > img.mark-complete.hide-hover").click();
+    })
+
+    const num_C_bullets = await page.evaluate(() => {
+      return (Array.from(document.querySelector('#c_bullets').children).length);
+    })
+    expect(num_C_bullets).toBe(1);
+  });
+
+  test('Archive a bullet', async() => {
+    await page.evaluate(() => {
+      document.querySelector("#c_bullets > bullet-point").shadowRoot.querySelector("article > img.move-archive.hide-hover").click();
+    })
+    let archive_button = await page.$('#archive');
+    await archive_button.click();
+
+    const num_archived_bullets = await page.evaluate(() => {
+      return (Array.from(document.querySelector('#a_bullets').children).length);
+    })
+
+    let bullet = await page.$('bullet-point');
+    let data = await bullet.getProperty('entry');
+    let json_obj = await data.jsonValue();
+    expect(json_obj.content).toBe("◆ Test Input");
+    expect(num_archived_bullets).toBe(1);
+  });
+  
 });
