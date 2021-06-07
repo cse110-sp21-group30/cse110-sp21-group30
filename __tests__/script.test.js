@@ -74,7 +74,7 @@ describe('Basic user flow for SPA ', () => {
       let edit_content = await page.$eval('#edit_modal textarea', el => el.value);
       let edit_labels = await page.$eval('#edit_labels', el => el.value);
       expect(edit_date).toBe("2020-02-20");
-      expect(edit_content).toBe("Testing Editing Bullets");
+      expect(edit_content).toBe("◆ Testing Editing Bullets");
       expect(edit_labels).toBe("work");
 
       //edit
@@ -91,7 +91,7 @@ describe('Basic user flow for SPA ', () => {
       let json_obj = await data.jsonValue();
 
       //check that edits are saved
-      expect(json_obj.content).toBe("Testing Editing Bullets-more text here!");
+      expect(json_obj.content).toBe("◆ Testing Editing Bullets-more text here!");
       expect(json_obj.labels).toBe("school");
       expect(json_obj.deadline).toBe("2021-07-04");
   });
