@@ -61,6 +61,8 @@ describe('Basic user flow for SPA ', () => {
     let text_box = await page.$('#editor_text');
     await text_box.click();
     await text_box.type('Test Input 2');
+    await page.keyboard.press('Enter');
+    await page.waitForSelector('bullet-point');
 
     await page.evaluate(() => {
       document.querySelector("#hp_bullets > bullet-point").shadowRoot.querySelector("article > img.change-priority.hide-hover").click();
