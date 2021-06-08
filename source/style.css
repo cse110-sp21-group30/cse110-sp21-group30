@@ -528,7 +528,7 @@ h1 {
     bottom: 10px;
     display: grid;
     padding: 2px 2px 2px 2px;
-    grid-template-columns: auto 160px;
+    grid-template-columns: 1fr 160px;
     grid-template-rows: auto;
     grid-gap: 0px;
     width: 98%;
@@ -549,7 +549,7 @@ h1 {
     border-style: solid;
     border-color: rgb(138, 199, 252);
     height: 85%;
-    max-height: 13vh;
+    max-height: 77px;
     width: 100%;
     max-width: 100%;
     margin: 2.5px 5px 5px 0px;
@@ -564,6 +564,7 @@ h1 {
     padding-left: 15px;
     padding-top: 4px;
     padding-right: 15px;
+    min-width: 50px;
 }
 
 .grid2_item2 {
