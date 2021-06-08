@@ -29,6 +29,9 @@ class BulletPoint extends HTMLElement {
             .entry .edit {
                 float: right;
             }
+            .entry .del{
+                float:right;
+            }
             .hide-hover {
                 display: none;
                 cursor: pointer;
@@ -145,18 +148,6 @@ class BulletPoint extends HTMLElement {
 
         //show or hide the respective buttons
         if (entry.task_field == "C") {
-            //create delete
-            let button_del = document.createElement("img");
-            button_del.src = "./images/trash.svg"
-            button_del.style.width="20px";
-            button_del.style.verticalAlign="bottom";
-            button_del.style.marginLeft="1px";
-            button_del.style.marginRight="1px";
-            button_del.className = "del hide-hover";
-            button_del.addEventListener('click', function () {
-                delete_bullet_db(entry.task_field, entry.bullet_id);
-            });
-            article.append(button_del);
             //create revert complete (left arrow)
             let button_rev = document.createElement("img");
             button_rev.className = "undo-complete hide-hover";
@@ -175,7 +166,7 @@ class BulletPoint extends HTMLElement {
             button_edit.src = "./images/edit.svg";
             button_edit.style.width="20px";
             button_edit.style.verticalAlign="bottom";
-            button_edit.style.marginLeft="1px";
+            button_edit.style.marginLeft="2px";
             button_edit.style.marginRight="1px";
             button_edit.addEventListener('click', function () {
                 $('#edit_modal').modal({
@@ -190,6 +181,18 @@ class BulletPoint extends HTMLElement {
                 $('#edit_comp_time').text(entry.comp_time);
             });
             article.append(button_edit);
+            //create delete
+            let button_del = document.createElement("img");
+            button_del.src = "./images/trash.svg"
+            button_del.style.width="20px";
+            button_del.style.verticalAlign="bottom";
+            button_del.style.marginLeft="3px"; 
+            button_del.style.marginRight="1px";
+            button_del.className = "del hide-hover";
+            button_del.addEventListener('click', function () {
+                delete_bullet_db(entry.task_field, entry.bullet_id);
+            });
+            article.append(button_del);
             //add send to archive
             let button_archive = document.createElement("img");
             button_archive.src = "./images/move_to_archive.svg";
@@ -218,18 +221,6 @@ class BulletPoint extends HTMLElement {
             article.append(button_del);
         }
         else if (entry.task_field == "HP"){
-            //create delete
-            let button_del = document.createElement("img");
-            button_del.src = "./images/trash.svg"
-            button_del.style.width="20px";
-            button_del.style.verticalAlign="bottom";
-            button_del.style.marginLeft="1px";
-            button_del.style.marginRight="1px";
-            button_del.className = "del hide-hover";
-            button_del.addEventListener('click', function () {
-                    delete_bullet_db(entry.task_field, entry.bullet_id);
-            });
-            article.append(button_del);
             //create change priority (right arrow)
             let button_pri = document.createElement("img");
             button_pri.className = "change-priority hide-hover";
@@ -248,7 +239,7 @@ class BulletPoint extends HTMLElement {
             button_edit.src = "./images/edit.svg";
             button_edit.style.width="20px";
             button_edit.style.verticalAlign="bottom";
-            button_edit.style.marginLeft="1px";
+            button_edit.style.marginLeft="2px";
             button_edit.style.marginRight="1px";
             button_edit.addEventListener('click', function () {
                 $('#edit_modal').modal({
@@ -263,8 +254,6 @@ class BulletPoint extends HTMLElement {
                 $('#edit_comp_time').text(entry.comp_time);
             });
             article.append(button_edit);
-        }
-        else { //LP
             //create delete
             let button_del = document.createElement("img");
             button_del.src = "./images/trash.svg"
@@ -277,6 +266,8 @@ class BulletPoint extends HTMLElement {
                     delete_bullet_db(entry.task_field, entry.bullet_id);
             });
             article.append(button_del);
+        }
+        else { //LP
             //create change priority (left arrow)
             let button_pri = document.createElement("img");
             button_pri.className = "change-priority hide-hover";
@@ -307,7 +298,7 @@ class BulletPoint extends HTMLElement {
             button_edit.src = "./images/edit.svg";
             button_edit.style.width="20px";
             button_edit.style.verticalAlign="bottom";
-            button_edit.style.marginLeft="1px";
+            button_edit.style.marginLeft="2px";
             button_edit.style.marginRight="1px";
             button_edit.addEventListener('click', function () {
                 $('#edit_modal').modal({
@@ -322,6 +313,18 @@ class BulletPoint extends HTMLElement {
                 $('#edit_comp_time').text(entry.comp_time);
             });
             article.append(button_edit);
+            //create delete
+            let button_del = document.createElement("img");
+            button_del.src = "./images/trash.svg"
+            button_del.style.width="20px";
+            button_del.style.verticalAlign="bottom";
+            button_del.style.marginLeft="1px";
+            button_del.style.marginRight="1px";
+            button_del.className = "del hide-hover";
+            button_del.addEventListener('click', function () {
+                    delete_bullet_db(entry.task_field, entry.bullet_id);
+            });
+            article.append(button_del);
         }
     }
 }
@@ -335,7 +338,7 @@ window.onload = function () {
         var img = document.getElementById("hidden");
         if (img.classList.contains("hidden")) {
             img.removeAttribute("class");
-            column_view_fix.style.height="68vh"; // Changed from 32 to 50
+            column_view_fix.style.height="68vh"; 
             column_view_fix.style.maxHeight="100vh";
             column_view_fix.style.marginBottom="120px";
             set_complete_column_id();
