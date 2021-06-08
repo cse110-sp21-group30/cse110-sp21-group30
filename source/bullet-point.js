@@ -145,6 +145,20 @@ class BulletPoint extends HTMLElement {
 
         //show or hide the respective buttons
         if (entry.task_field == "C") {
+            //create delete
+            let button_del = document.createElement("img");
+            button_del.src = "./images/trash.svg"
+            button_del.style.width="20px";
+            button_del.style.verticalAlign="bottom";
+            button_del.style.marginLeft="1px";
+            button_del.style.marginRight="1px";
+            button_del.className = "del hide-hover";
+            button_del.addEventListener('click', function () {
+                if (window.confirm("Delete this bullet?")){
+                    delete_bullet_db(entry.task_field, entry.bullet_id);
+                }
+            });
+            article.append(button_del);
             //create revert complete (left arrow)
             let button_rev = document.createElement("img");
             button_rev.className = "undo-complete hide-hover";
@@ -206,6 +220,20 @@ class BulletPoint extends HTMLElement {
             article.append(button_del);
         }
         else if (entry.task_field == "HP"){
+            //create delete
+            let button_del = document.createElement("img");
+            button_del.src = "./images/trash.svg"
+            button_del.style.width="20px";
+            button_del.style.verticalAlign="bottom";
+            button_del.style.marginLeft="1px";
+            button_del.style.marginRight="1px";
+            button_del.className = "del hide-hover";
+            button_del.addEventListener('click', function () {
+                if (window.confirm("Delete this bullet?")){
+                    delete_bullet_db(entry.task_field, entry.bullet_id);
+                }
+            });
+            article.append(button_del);
             //create change priority (right arrow)
             let button_pri = document.createElement("img");
             button_pri.className = "change-priority hide-hover";
@@ -241,6 +269,20 @@ class BulletPoint extends HTMLElement {
             article.append(button_edit);
         }
         else { //LP
+            //create delete
+            let button_del = document.createElement("img");
+            button_del.src = "./images/trash.svg"
+            button_del.style.width="20px";
+            button_del.style.verticalAlign="bottom";
+            button_del.style.marginLeft="1px";
+            button_del.style.marginRight="1px";
+            button_del.className = "del hide-hover";
+            button_del.addEventListener('click', function () {
+                if (window.confirm("Delete this bullet?")){
+                    delete_bullet_db(entry.task_field, entry.bullet_id);
+                }
+            });
+            article.append(button_del);
             //create change priority (left arrow)
             let button_pri = document.createElement("img");
             button_pri.className = "change-priority hide-hover";
