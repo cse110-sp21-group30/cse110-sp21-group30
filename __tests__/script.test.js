@@ -253,5 +253,39 @@ describe('Basic user flow for SPA ', () => {
     expect(json_obj.content).toBe("◆ Test Input");
     expect(num_archived_bullets).toBe(1);
   });
+
+  test('Default theme color check', async() => {
+    expect(await page.$eval('body > header', e => getComputedStyle(e).background)).toMatch('rgb(40, 174, 221)'); 
+  });
+
+  test('Alternate theme selections', async() => {
+    let logo = await page.$('#logo');
+    await logo.evaluate( b => b.click() );
+
+    let default_theme_button = await page.$('#color2');
+    await default_theme_button.evaluate( b => b.click() );
+    expect(await page.$eval('body > header', e => getComputedStyle(e).background)).toMatch('rgb(181, 220, 255)'); 
+
+    let UCSD_theme_button = await page.$('#color3');
+    await UCSD_theme_button.evaluate( b => b.click() );
+    expect(await page.$eval('body > header', e => getComputedStyle(e).background)).toMatch('rgb(198, 146, 20)'); 
+
+    let dark_theme_button = await page.$('#color4');
+    await dark_theme_button.evaluate( b => b.click() );
+    expect(await page.$eval('body > header', e => getComputedStyle(e).background)).toMatch('rgb(25, 23, 29)'); 
+
+    let surf_theme_button = await page.$('#color5');
+    await surf_theme_button.evaluate( b => b.click() );
+    expect(await page.$eval('body > header', e => getComputedStyle(e).background)).toMatch('rgb(159, 183, 185)'); 
+
+    let kinetic_theme_button = await page.$('#color6');
+    await kinetic_theme_button.evaluate( b => b.click() );
+    expect(await page.$eval('body > header', e => getComputedStyle(e).background)).toMatch('rgb(40, 40, 40)'); 
+
+    let coffee_theme_button = await page.$('#color7');
+    await coffee_theme_button.evaluate( b => b.click() );
+    expect(await page.$eval('body > header', e => getComputedStyle(e).background)).toMatch('rgb(209, 174, 143)'); 
+
+  });
   
 });
