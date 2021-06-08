@@ -52,10 +52,18 @@ describe('Basic user flow for SPA ', () => {
     const num_HP_bullets = await page.evaluate(() => {
       return (Array.from(document.querySelector('#hp_bullets').children).length);
     });
-    expect(num_HP_bullets).toBe(1);
+    expect(num_HP_bullets).toBe(0);
   });
 
   test('Test for bullet migration (HP -> LP)', async () => {
+    let open_editor = await page.$('#edit');
+    await open_editor.click();
+    let text_box = await page.$('#editor_text');
+    await text_box.click();
+    await text_box.type('Test Input 2');
+    await page.keyboard.press('Enter');
+    await page.waitForSelector('bullet-point');
+
     await page.evaluate(() => {
       document.querySelector("#hp_bullets > bullet-point").shadowRoot.querySelector("article > img.change-priority.hide-hover").click();
     });
@@ -70,9 +78,6 @@ describe('Basic user flow for SPA ', () => {
   });
 
   test('Test for marking a bullet as complete', async() => {
-    await page.evaluate(() => {
-      document.querySelector("#hp_bullets > bullet-point").shadowRoot.querySelector("article > img.change-priority.hide-hover").click();
-    });
     await page.evaluate(() => {
       document.querySelector("#lp_bullets > bullet-point").shadowRoot.querySelector("article > img.mark-complete.hide-hover").click();
     });
@@ -245,7 +250,7 @@ describe('Basic user flow for SPA ', () => {
     let bullet = await page.$('bullet-point');
     let data = await bullet.getProperty('entry');
     let json_obj = await data.jsonValue();
-    expect(json_obj.content).toBe("◆ Test Input");
+    expect(json_obj.content).toBe("◆ test date");
     expect(num_archived_bullets).toBe(1);
   });
 
