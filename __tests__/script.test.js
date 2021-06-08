@@ -250,7 +250,7 @@ describe('Basic user flow for SPA ', () => {
     let bullet = await page.$('bullet-point');
     let data = await bullet.getProperty('entry');
     let json_obj = await data.jsonValue();
-    expect(json_obj.content).toBe("◆ Test Input 2");
+    expect(json_obj.content).toBe("◆ test date");
     expect(num_archived_bullets).toBe(1);
   });
 
