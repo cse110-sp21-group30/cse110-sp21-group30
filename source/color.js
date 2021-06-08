@@ -463,7 +463,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     document.getElementById('clear').addEventListener('click', function() {
-        theme_button = document.getElementById('color1');
+        let theme_button = document.getElementById('color1');
         theme_button.dispatchEvent(event);
     });
 });
