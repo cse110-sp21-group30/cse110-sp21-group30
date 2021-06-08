@@ -154,9 +154,7 @@ class BulletPoint extends HTMLElement {
             button_del.style.marginRight="1px";
             button_del.className = "del hide-hover";
             button_del.addEventListener('click', function () {
-                if (window.confirm("Delete this bullet?")){
-                    delete_bullet_db(entry.task_field, entry.bullet_id);
-                }
+                delete_bullet_db(entry.task_field, entry.bullet_id);
             });
             article.append(button_del);
             //create revert complete (left arrow)
@@ -229,9 +227,7 @@ class BulletPoint extends HTMLElement {
             button_del.style.marginRight="1px";
             button_del.className = "del hide-hover";
             button_del.addEventListener('click', function () {
-                if (window.confirm("Delete this bullet?")){
                     delete_bullet_db(entry.task_field, entry.bullet_id);
-                }
             });
             article.append(button_del);
             //create change priority (right arrow)
@@ -278,9 +274,7 @@ class BulletPoint extends HTMLElement {
             button_del.style.marginRight="1px";
             button_del.className = "del hide-hover";
             button_del.addEventListener('click', function () {
-                if (window.confirm("Delete this bullet?")){
                     delete_bullet_db(entry.task_field, entry.bullet_id);
-                }
             });
             article.append(button_del);
             //create change priority (left arrow)
