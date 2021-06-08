@@ -12,4 +12,4 @@ In the future we plan to add workflows that will run unit tests, Javascript vali
 ## Pipeline Diagram
 The following diagram encapsulates the general process by which modifications are pushed to the main branch (or direct branches off of main).
 
-![image](/phase1.drawio.png)
+![image](./phase1.drawio.png)
