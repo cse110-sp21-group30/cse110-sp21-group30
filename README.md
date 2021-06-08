@@ -4,12 +4,12 @@ CSE 110 Bullet Journal Project, Spring 2021, Group 30
 [Github Page](https://nbuhr9.github.io/test-server/) published through the [test server](https://github.com/nbuhr9/test-server).
 
 # Requirements
+- A stable internet connection
 - The bullet journal performs best when accessed using a desktop computer and Google Chrome browser.
-- ***Anything else?***
 # Functionalities
 Users can click on the cool beans logo in the top left of the header to pick their favorite color theme. This theme will stick even if the user refreshes the page!
 
-The default view in our Bullet Journal is a 3-column display with sections for tasks that are In Progress, tasks that you haven't started yet (Backlog), and tasks that are Complete. Hovering the cursor over each bullet point will reveal 'complete' and 'migrate' buttons that allow the user to move bullets between sections.
+The default view in our Bullet Journal is a 3-column display with sections for tasks that are In Progress, tasks that you haven't started yet (Backlog), and tasks that are Complete. Hovering the cursor over each bullet point will reveal 'left' and 'right' buttons that allow the user to move bullets between sections.
 
 Users may manually archive 'Complete' tasks using the 'Archive' button, however, completed tasks will automatically be archived after a period of time. Archived bullets can be viewed by clicking the Archive toggle in the header.
 

@@ -1,0 +1,18 @@
+<svg width="512" height="512" xmlns="http://www.w3.org/2000/svg" class="ionicon">
+ <title>Folder Open</title>
+
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <path id="svg_1" stroke-width="32" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="none" d="m64,192l0,-72a40,40 0 0 1 40,-40l75.89,0a40,40 0 0 1 22.19,6.72l27.84,18.56a40,40 0 0 0 22.19,6.72l155.89,0a40,40 0 0 1 40,40l0,40"/>
+  <path id="svg_2" stroke-width="32" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="none" d="m479.9,226.55l-16.22,165.45a40,40 0 0 1 -39.93,40l-335.5,0a40,40 0 0 1 -39.93,-40l-16.22,-165.45a32,32 0 0 1 31.9,-34.55l384.1,0a32,32 0 0 1 31.8,34.55z"/>
+  <g transform="rotate(-90 254.1231384277344,311.33953857421875) " id="svg_7">
+   <line stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" id="svg_4" y2="371.085062" x2="253.93109" y1="246.275665" x1="254.315258" fill-opacity="null" stroke-opacity="null" stroke-width="32" fill="none"/>
+   <line stroke="currentColor" transform="rotate(45 286.4985046386721,345.74783325195307) " stroke-linecap="round" stroke-linejoin="round" id="svg_5" y2="388.909273" x2="286.306425" y1="302.586402" x1="286.690593" fill-opacity="null" stroke-opacity="null" stroke-width="32" fill="none"/>
+   <line stroke="currentColor" transform="rotate(-45 221.7477722167967,345.74783325195307) " stroke-linecap="round" stroke-linejoin="round" id="svg_6" y2="388.909273" x2="221.555692" y1="302.586402" x1="221.93986" fill-opacity="null" stroke-opacity="null" stroke-width="32" fill="none"/>
+  </g>
+ </g>
+</svg>
