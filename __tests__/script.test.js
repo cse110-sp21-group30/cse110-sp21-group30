@@ -79,9 +79,6 @@ describe('Basic user flow for SPA ', () => {
 
   test('Test for marking a bullet as complete', async() => {
     await page.evaluate(() => {
-      document.querySelector("#hp_bullets > bullet-point").shadowRoot.querySelector("article > img.change-priority.hide-hover").click();
-    });
-    await page.evaluate(() => {
       document.querySelector("#lp_bullets > bullet-point").shadowRoot.querySelector("article > img.mark-complete.hide-hover").click();
     });
     const num_C_bullets = await page.evaluate(() => {
