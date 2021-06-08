@@ -1,15 +1,13 @@
-// Bullet point/entry custom component
-
 import { complete_migration, high_low_migration, delete_bullet_db, revert_complete_migration, archive_bullet, remove_filter } from './script.js';
-
+/*
+    Bullet Point Creation and custom Web Components
+*/
 class BulletPoint extends HTMLElement {
     constructor() {
         super();
-
-        // Templated HTML content
         const template = document.createElement('template');
 
-        //style is currently a temp fix, just so we can see where one entry ends and the next one begins
+        //CSS styling for the templete element
         template.innerHTML=`
         <style>
             .entry {
@@ -75,14 +73,14 @@ class BulletPoint extends HTMLElement {
             <!-- buttons go here-->
         </article>
         `;
-
-        // Create a shadow root for the component
         this.attachShadow({ mode: 'open' });
-
-        // Attach cloned content of template to shadow DOM
         this.shadowRoot.appendChild(template.content.cloneNode(true));
     }
 
+
+    /*
+        Create JSON Object based on user inputs
+    */
     get entry() {
         let ymd_date = "";
         if(this.shadowRoot.querySelector('.date').innerText.length > 1)
@@ -102,12 +100,11 @@ class BulletPoint extends HTMLElement {
         return entryObj;
     }
 
-    // Outside functions can refer to set() when a bullet is first created or loaded into
-    // the DOM from localStorage
+    /*
+        Set web components for display including icons within each bullets
+    */
     set entry(entry) {
         let article = this.shadowRoot.querySelector('article');
-
-        // Set contents
         article.querySelector('p').append(entry.content);
         let spans = article.querySelectorAll('span');
         let mdy_date = "";
@@ -146,8 +143,9 @@ class BulletPoint extends HTMLElement {
         spans[1].style.borderRadius='8px';
         spans[1].style.padding='1px 2px 1px 2px';
 
-        //show or hide the respective buttons
+        //show or hide the respective buttons based on column (Backlogs, In Progress, Complete)
         if (entry.task_field == "C") {
+
             //create revert complete (left arrow)
             let button_rev = document.createElement("img");
             button_rev.className = "undo-complete hide-hover";
@@ -160,7 +158,8 @@ class BulletPoint extends HTMLElement {
                 revert_complete_migration(entry.task_field, entry.bullet_id);
             });
             article.append(button_rev);
-            //add edit
+
+            //create editing icon and functionality
             let button_edit = document.createElement("img");
             button_edit.className = "edit hide-hover";
             button_edit.src = "./images/edit.svg";
@@ -181,7 +180,8 @@ class BulletPoint extends HTMLElement {
                 $('#edit_comp_time').text(entry.comp_time);
             });
             article.append(button_edit);
-            //create delete
+
+            //create delete icon and functionality
             let button_del = document.createElement("img");
             button_del.src = "./images/trash.svg"
             button_del.style.width="20px";
@@ -193,7 +193,8 @@ class BulletPoint extends HTMLElement {
                 delete_bullet_db(entry.task_field, entry.bullet_id);
             });
             article.append(button_del);
-            //add send to archive
+
+            //add archive icon and functionality
             let button_archive = document.createElement("img");
             button_archive.src = "./images/move_to_archive.svg";
             button_archive.style.width="20px";
@@ -233,7 +234,8 @@ class BulletPoint extends HTMLElement {
                 high_low_migration(entry.task_field, entry.bullet_id);
             });
             article.append(button_pri);
-            //add edit
+
+            //create editing icon and functionality
             let button_edit = document.createElement("img");
             button_edit.className = "edit hide-hover";
             button_edit.src = "./images/edit.svg";
@@ -254,7 +256,8 @@ class BulletPoint extends HTMLElement {
                 $('#edit_comp_time').text(entry.comp_time);
             });
             article.append(button_edit);
-            //create delete
+
+            //create delete icon and functionality
             let button_del = document.createElement("img");
             button_del.src = "./images/trash.svg"
             button_del.style.width="20px";
@@ -267,7 +270,7 @@ class BulletPoint extends HTMLElement {
             });
             article.append(button_del);
         }
-        else { //LP
+        else { 
             //create change priority (left arrow)
             let button_pri = document.createElement("img");
             button_pri.className = "change-priority hide-hover";
@@ -280,6 +283,7 @@ class BulletPoint extends HTMLElement {
                 high_low_migration(entry.task_field, entry.bullet_id);
             });
             article.append(button_pri);
+
             //create "mark complete" (right arrow)
             let button_comp = document.createElement("img");
             button_comp.className = "mark-complete hide-hover";
@@ -292,7 +296,8 @@ class BulletPoint extends HTMLElement {
                 complete_migration(entry.task_field, entry.bullet_id);
             });
             article.append(button_comp);
-            //add edit
+            
+            //create editing icon and functionality
             let button_edit = document.createElement("img");
             button_edit.className = "edit hide-hover";
             button_edit.src = "./images/edit.svg";
@@ -313,7 +318,8 @@ class BulletPoint extends HTMLElement {
                 $('#edit_comp_time').text(entry.comp_time);
             });
             article.append(button_edit);
-            //create delete
+
+            //create delete icon and functionality
             let button_del = document.createElement("img");
             button_del.src = "./images/trash.svg"
             button_del.style.width="20px";
@@ -329,6 +335,9 @@ class BulletPoint extends HTMLElement {
     }
 }
 
+/*
+    Editor icons used to open and close the editor and disable editing and searching in archive view
+*/
 window.onload = function () {
     let column_view_fix = document.getElementById("column_view");
     document.getElementById('edit').addEventListener('click', function (e) {
@@ -350,8 +359,7 @@ window.onload = function () {
             column_view_fix.style.marginBottom = "0px";
             set_complete_column_id();
         }
-
-});
+    });
     document.getElementById('close').addEventListener('click', function (e) {
         var img = document.getElementById("hidden");
         img.setAttribute("class", "hidden");
@@ -360,10 +368,11 @@ window.onload = function () {
         set_complete_column_id();
         document.getElementById('edit').style.visibility = 'visible';
     });
-
 };
 
-//Helper for setting complete column as specific id to make it shorter than other columns when editor is not open
+/*
+    Helper function for setting setting ID for complete column
+*/
 function set_complete_column_id(){
     if(document.getElementById('box_c_standard') != null){
         document.getElementById('box_c_standard').id = 'box_c';
@@ -373,16 +382,5 @@ function set_complete_column_id(){
     }
 }
 
-// Define a custom element
 customElements.define('bullet-point', BulletPoint);
 
-/*
-    let bullet = {
-        "task_field": task_field,
-        "labels": labels,
-        "deadline": deadline, //YYYY-MM-DD
-        "content": content,
-        "bullet_id": id
-        "comp_time": null
-    };
-*/
