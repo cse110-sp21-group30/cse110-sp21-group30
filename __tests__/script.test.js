@@ -41,6 +41,20 @@ describe('Basic user flow for SPA ', () => {
     expect(num_HP_bullets).toBe(1);
   });
 
+  test('Test for deleting bullet', async () => {
+    await page.evaluate(() => {
+       document.querySelector("#hp_bullets > bullet-point").shadowRoot.querySelector("article > img.edit.hide-hover").click();
+    });
+
+    let delete_bullet = await page.$('#delete_bullet');
+    await delete_bullet.evaluate(d => d.click());
+
+    const num_HP_bullets = await page.evaluate(() => {
+      return (Array.from(document.querySelector('#hp_bullets').children).length);
+    });
+    expect(num_HP_bullets).toBe(1);
+  });
+
   test('Test for bullet migration (HP -> LP)', async () => {
     await page.evaluate(() => {
       document.querySelector("#hp_bullets > bullet-point").shadowRoot.querySelector("article > img.change-priority.hide-hover").click();
@@ -55,7 +69,20 @@ describe('Basic user flow for SPA ', () => {
     expect(num_LP_bullets).toBe(1);
   });
 
-  test('Test for editing a bullet ', async () => {
+  test('Test for marking a bullet as complete', async() => {
+    await page.evaluate(() => {
+      document.querySelector("#hp_bullets > bullet-point").shadowRoot.querySelector("article > img.change-priority.hide-hover").click();
+    });
+    await page.evaluate(() => {
+      document.querySelector("#lp_bullets > bullet-point").shadowRoot.querySelector("article > img.mark-complete.hide-hover").click();
+    });
+    const num_C_bullets = await page.evaluate(() => {
+      return (Array.from(document.querySelector('#c_bullets').children).length);
+    });
+    expect(num_C_bullets).toBe(1);
+  });
+
+  test('Test for editing a bullet', async () => {
       jest.setTimeout(30000);
       let text_box = await page.$('#editor_text');
       await text_box.click();
@@ -123,16 +150,16 @@ describe('Basic user flow for SPA ', () => {
   test('Test to search by date', async () => {
       //create bullet
       let open_editor = await page.$('#edit');
-      await open_editor.evaluate( b => b.click());
+      await open_editor.evaluate(b => b.click());
       let text_box = await page.$('#editor_text');
-      await text_box.evaluate( b => b.click());
+      await text_box.evaluate(b => b.click());
       await text_box.type('test date');
       await page.select("#select2", "work");
       await page.$eval('#entry_date', el => el.value = '2021-07-01');
       await page.keyboard.press('Enter');
 
       let search = await page.$('#search_off');
-      await search.evaluate( b => b.click());
+      await search.evaluate(b => b.click());
       await page.$eval('#start_day', el => el.value = "2021-07-01");
       await page.$eval('#end_day', el => el.value = "2021-07-04");
       await page.$eval('#select_search', el => el.value = "");
@@ -190,28 +217,13 @@ describe('Basic user flow for SPA ', () => {
       expect(search_5).toBe(2);
   });
 
-
-  test('Test for deleting bullet', async () => {
-     await page.evaluate(() => {
-        document.querySelector("#hp_bullets > bullet-point").shadowRoot.querySelector("article > img.edit.hide-hover").click();
-    });
-
-    let delete_bullet = await page.$('#delete_bullet');
-    await delete_bullet.evaluate(d => d.click());
-
-    const num_HP_bullets = await page.evaluate(() => {
-      return (Array.from(document.querySelector('#hp_bullets').children).length);
-    });
-    expect(num_HP_bullets).toBe(1);
-  });
-
   test('Test for home url', async() => {
     expect(page.url()).toMatch("https://nbuhr9.github.io/test-server/");
   });
 
   test('Test for archive url', async() => {
     let archive_button = await page.$('#archive');
-    await archive_button.evaluate( b => b.click() );
+    await archive_button.evaluate(b => b.click());
     expect(page.url()).toMatch('#archive');
   });
 
@@ -220,23 +232,10 @@ describe('Basic user flow for SPA ', () => {
       expect(page.url()).toBe("https://nbuhr9.github.io/test-server/#");
   });
 
-  test('Test for marking a bullet as complete', async() => {
-    await page.evaluate(() => {
-      document.querySelector("#hp_bullets > bullet-point").shadowRoot.querySelector("article > img.change-priority.hide-hover").click();
-    });
-    await page.evaluate(() => {
-      document.querySelector("#lp_bullets > bullet-point").shadowRoot.querySelector("article > img.mark-complete.hide-hover").click();
-    });
-    const num_C_bullets = await page.evaluate(() => {
-      return (Array.from(document.querySelector('#c_bullets').children).length);
-    });
-    expect(num_C_bullets).toBe(1);
-  });
-
   test('Test for archiving a bullet', async() => {
     await page.evaluate(() => {
       document.querySelector("#c_bullets > bullet-point").shadowRoot.querySelector("article > img.move-archive.hide-hover").click();
-    })
+    });
     let archive_button = await page.$('#archive');
     await archive_button.click();
     const num_archived_bullets = await page.evaluate(() => {
@@ -254,7 +253,7 @@ describe('Basic user flow for SPA ', () => {
     expect(await page.$eval('body > header', e => getComputedStyle(e).background)).toMatch('rgb(40, 174, 221)'); 
   });
 
-  test('Alternate theme selections', async() => {
+  test('Test for changing color themes', async() => {
     let logo = await page.$('#logo');
     await logo.evaluate(b => b.click());
 
@@ -282,5 +281,4 @@ describe('Basic user flow for SPA ', () => {
     await coffee_theme_button.evaluate(b => b.click());
     expect(await page.$eval('body > header', e => getComputedStyle(e).background)).toMatch('rgb(209, 174, 143)'); 
   });
-  
 });
