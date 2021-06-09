@@ -5,26 +5,28 @@
     <meta charset="utf-8">
     <title>Bullet Journal</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- ref link and script to bootstrap-->
+
+    <!-- external links (bootstrap, style, scripts) -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+    <!-- relative links (icons, style, scripts)-->
     <link rel="icon" href="./images/logo.png">
     <link rel="stylesheet" href="style.css">
     <script src="./bullet-point.js" type="module"></script>
     <script src="./script.js" type="module"></script>
     <script src="./router.js" type="module"></script>
     <script src="./color.js" type="module"></script>
-
 </head>
 
 <body>
-    <!-- Header will be sticky (fixed) -->
+    <!-- fixed header -->
     <header>
-        <!-- Team logo in far left -->
+        <!-- team logo -->
         <div class="dropdown">
-            <img class="grid_item1" id="logo" src="./images/logo.png" alt="Picture of Cool Bean (team logo)">
+            <img class="grid_item1" id="logo" src="./images/logo.png" alt="cool bean logo">
+            <!-- color theme selector -->
             <div class="dropdown_content">
                 <a id="color1" href="#">BEAN THEME</a>
                 <a id="color2" href="#">Classic Theme</a>
@@ -35,9 +37,10 @@
                 <a id="color7" href="#">Coffee Theme</a>
             </div>
         </div>
-        <!-- Dates overview -->
+
+        <!-- dates overview -->
         <div class="grid_item2">
-            <!-- Where the dates (mm/dd) will show -->
+            <!-- dates (1, 2, 3...) -->
             <div id="dates_grid_item21"></div>
             <div id="dates_grid_item22"></div>
             <div id="dates_grid_item23"></div>
@@ -46,7 +49,7 @@
             <div id="dates_grid_item26"></div>
             <div id="dates_grid_item27"></div>
 
-            <!-- Where the days (Mon, Tue, Wed...) will show-->
+            <!-- days (Mon, Tue, Wed...) -->
             <div id="dates_grid_item11"></div>
             <div id="dates_grid_item12"></div>
             <div id="dates_grid_item13"></div>
@@ -56,82 +59,94 @@
             <div id="dates_grid_item17"></div>
         </div>
 
-        <section class="grid_item4" id="griditem">
-
-            <!-- Search button -->
-            <a data-toggle="modal" data-target="#myModal">
+        <!-- buttons (top right) -->
+        <section class="grid_item4" id="grid_item">
+            <!-- search (to open) -->
+            <a data-toggle="modal" data-target="#search_modal">
                 <span><img id="search_off" src="./images/search.svg" alt="search_off"></span>
             </a>
 
+            <!-- search (to close)-->
             <span><img id="search_on" src="./images/close.svg" alt="search_on"></span>
 
-             <!-- Clear button -->
-             <span><img id="clear" src="./images/clear_all.svg" alt = "Clear button"></span>
+            <!-- clear ALL -->
+            <span><img id="clear" src="./images/clear_all.svg" alt="clear"></span>
 
+            <!-- archive -->
+            <span><img id="archive" src="./images/archive.svg" alt="archive"></span>
 
-            <!-- Archive button-->
-            <span><img id="archive" src="./images/archive.svg" alt="Archive button"></span>
-
-            <!-- FAQ button -->
+            <!-- FAQ -->
             <a data-toggle="modal" data-target="#faq">
-                <span><img id="FAQ" src="./images/faq.svg" alt="FAQ button"></span>
+                <span><img id="FAQ" src="./images/faq.svg" alt="FAQ"></span>
             </a>
         </section>
     </header>
 
-    <!-- The default is a 3-column view -->
+    <!-- 3-column view -->
     <section id="outer_section">
+        <!-- displays during search -->
         <h1 id="search_mode_header">Search Mode</h1>
+
         <section id="column_view">
+            <!-- backlog (prev: high priority) -->
             <div class="box" id="box_hp">
                 <h1 id="high_priority_header" class="column_grid_h1">Backlog</h1>
                 <div id="hp_bullets"></div>
             </div>
+
+            <!-- in progress (prev: low priority) -->
             <div class="box" id="box_lp">
                 <h1 id="low_priority_header" class="column_grid_h2">In Progress</h1>
                 <div id="lp_bullets"></div>
             </div>
+
+            <!-- complete -->
             <div class="box" id="box_c_standard">
                 <h1 id="complete_header" class="column_grid_h3">Complete</h1>
                 <div id="c_bullets"></div>
             </div>
-            <!-- Edit button -->
-            <span><img id="edit" src="./images/edit.svg" alt="Edit button"></span>
+
+            <!-- open editor (for new bullet points) -->
+            <span><img id="edit" src="./images/edit.svg" alt="edit"></span>
         </section>
     </section>
 
-    <!-- The user can toggle in and out of the Archive -->
-    <section id="archive_view" style="display: none;">
+    <!-- archive -->
+    <section id="archive_view">
         <section id="archive_page">
             <div id="archive_header">
                 <h1>
                     <span id="archive_header_text">Archive</span>
-                    <img id="clear_archive" src="./images/trash.svg" alt = "Clear Archive">
+                    <img id="clear_archive" src="./images/trash.svg" alt="clear archive">
                 </h1>
             </div>
             <div id="a_bullets"></div>
         </section>
     </section>
 
+    <!-- search modal -->
     <section id="modal_content_display_search">
-        <!-- Modal -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel_search"
-            aria-hidden="true">
+        <div class="modal fade" id="search_modal" tabindex="-1" role="dialog" aria-labelledby="search_modal_label" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
+                    <!-- search-by-date header-->
                     <div class="modal-header">
-                        <button type="button" id = "closeModal" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel_search">Search</h4>
+                        <button type="button" id="close_modal" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="search_modal_label">Search</h4>
                     </div>
+
                     <div class="modal-body">
+                        <!-- search-by-date -->
                         <div class="input-daterange" id="datepicker">
                             <h2>Choose Date: </h2>
                             <input type="date" id="start_day">
                             <span class="add-on">to</span>
                             <input type="date" id="end_day">
                         </div>
+
+                        <!-- search-by-label -->
                         <div class="label_list">
-                            <h2>Choose Labels: </h2>
+                            <h2>Choose Label: </h2>
                             <select id="select_search">
                                 <option value="">--Label--</option>
                                 <option value="work">Work</option>
@@ -141,136 +156,154 @@
                             </select>
                         </div>
                     </div>
+
                     <div class="modal-footer">
+                        <!-- submit search terms -->
                         <button type="button" id="search_submit" class="btn btn-primary" data-dismiss="modal">Search</button>
                     </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
+                </div>
+            </div>
+        </div>
     </section>
 
+    <!-- FAQ modal -->
     <section id="modal_content_display_FAQ">
-        <!-- Modal -->
-        <div class="modal fade" id="faq" tabindex="-1" role="dialog" aria-labelledby="myModalLabel_FAQ" aria-hidden="true">
+        <div class="modal fade" id="faq" tabindex="-1" role="dialog" aria-labelledby="FAQ_modal_label" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
+                    <!-- faq header-->
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <img id="myModalLabel_FAQ" src="./images/logo.png" alt="Picture of Cool Bean (team logo)">
+                        <img id="FAQ_modal_label" src="./images/logo.png" alt="Picture of Cool Bean (team logo)">
                     </div>
+
+                    <!-- BuJo intro and overview of features -->
                     <div class="modal-body">
                         <div id="clear_message"><b>If you're seeing this after clearing your BuJo, please refresh the page!</b></div>
                         <h2 id="title_faq">FAQ</h2>
                         <div>
-                            Welcome to team Cool Beans' digital Bullet Journal!
-                            This BuJo was designed to help you organize tasks and events and stay on top of deadlines.
+                            Welcome to team Cool Beans' digital Bullet Journal! This BuJo was designed to help you organize tasks and
+                            events and stay on top of deadlines.
                             <br>
                             <h4><b>Q. What is a Bullet Journal?</b></h4>
                             A traditional Bullet Journal, or BuJo, is a method of personal organization that incorporates
                             scheduling, reminders, to-do lists, and other tasks into a single notebook. These items are written down
-                             as bulleted lists, hence the name "Bullet Journal." Digital BuJos are virtual versions of
-                             these notebooks.
+                            as bulleted lists, hence the name "Bullet Journal." Digital BuJos are virtual versions of
+                            these notebooks.
                             <br>
 
                             <h4><b>Q. How does this bullet journal work?</b></h4>
                             The default view in our Bullet Journal is a 3-column display with sections for tasks that are In Progress,
-                            tasks that you haven't started yet (Backlog), and tasks that are Complete. Hovering the cursor over each bullet
-                            point will reveal 'left' ( <img class="faq_image" src="./images/left-arrow.svg" alt="left button">
-                            ) and 'right' (<img class="faq_image" src="./images/right-arrow.svg" alt="right button"> ) buttons that allow the
-                            user to move bullets between sections.
+                            tasks that you haven't started yet (Backlog), and tasks that are Complete. Hovering the cursor over each 
+                            bullet point will reveal 'left' ( <img class="faq_image" src="./images/left-arrow.svg" alt="left button">
+                            ) and 'right' ( <img class="faq_image" src="./images/right-arrow.svg" alt="right button"> ) buttons that allow
+                            the user to move bullets between sections.
                             <br><br>
 
                             Users may manually archive 'Complete' tasks using the 'Archive' button (
-                            <img class="faq_image" src="./images/move_to_archive.svg" alt="archive button"> ), however, completed tasks will automatically
-                            be archived after a period of time (7 days after being marked complete). Archived bullets can be viewed by clicking the Archive toggle (
+                            <img class="faq_image" src="./images/move_to_archive.svg" alt="archive button"> ), however, completed tasks 
+                            will automatically be archived after a period of time (7 days after being marked complete). Archived bullets
+                            can be viewed by clicking the Archive toggle (
                             <img class="faq_image" src="./images/archive.svg" alt="archive toggle"> ) in the header.
                             <br><br>
 
-                            The editor becomes visible upon clicking the editor button ( <img class="faq_image" src="./images/edit.svg" alt="edit button"> ) in
-                            the bottom right of the page, wherein the user can create new bullet points. The user can also edit existing bullet points by hovering
-                            over them, clicking the edit button ( <img class="faq_image" src="./images/edit.svg" alt="edit button"> ), making the necessary changes,
-                            and clicking the button that reads "Save Changes".
+                            The editor becomes visible upon clicking the editor button ( 
+                            <img class="faq_image" src="./images/edit.svg" alt="edit button"> ) in the bottom right of the page, wherein
+                            the user can create new bullet points. The user can also edit existing bullet points by hovering
+                            over them, clicking the edit button ( <img class="faq_image" src="./images/edit.svg" alt="edit button"> ),
+                            making the necessary changes, and clicking the button that reads "Save Changes".
                             <br>
+
                             <h4><b>Q. How do I clear my journal?</b></h4>
                             Users may also completely delete, <i>not archive</i>, bullets by hovering over them, clicking the edit button (
-                            <img class="faq_image" src="./images/edit.svg" alt="edit button"> ), and selecting "Delete Bullet". Archived bullets
-                            can be deleted en masse through the delete button (
-                            <img class="faq_image" src="./images/trash.svg" alt="delete button"> ) by the Archive section's header. Similarly,
-                            active bullet points can be mass deleted by clicking the clear-all button (
-                            <img class="faq_image" src="./images/clear_all.svg" alt="clear-all button"> ). This will also reset the color theme to the default!
+                            <img class="faq_image" src="./images/edit.svg" alt="edit button"> ), and selecting "Delete Bullet". Archived
+                            bullets can be deleted en masse through the delete button (
+                            <img class="faq_image" src="./images/trash.svg" alt="delete button"> ) by the Archive section's header.
+                            Similarly, active bullet points can be mass deleted by clicking the clear-all button (
+                            <img class="faq_image" src="./images/clear_all.svg" alt="clear-all button"> ). This will also reset the color
+                            theme to the default!
                             <br>
 
                             <h4><b>Q. Can I change how my journal looks?</b></h4>
                             Users can click on the cool beans logo in the top left of the header (
-                                <img class="faq_image" src="./images/logo.png" alt="cool beans logo">
-                                ) to pick their favorite color theme. This theme will stick even if the user refreshes the page!
+                            <img class="faq_image" src="./images/logo.png" alt="cool beans logo"> ) to pick their favorite color theme.
+                            This theme will stick even if the user refreshes the page!
                             <br>
 
                             <h4><b>Q. How do I search for my bullets?</b></h4>
-
-                            The Cool Bean bullet journal supports search capabilities via specified date or label by clicking the search button (
-                            <img class="faq_image" src="./images/search.svg" alt="search button"> ) located at the top-right of the screen.
+                            The Cool Bean bullet journal supports search capabilities via specified date or label by clicking the search 
+                            button ( <img class="faq_image" src="./images/search.svg" alt="search button"> ) located at the top-right of
+                            the screen.
                         </div>
                     </div>
-                    <div class="modal-footer">
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
-    </section>
 
-    <section id="modal_content_edit">
-        <!-- Modal -->
-        <div class="modal fade" id="edit_modal" tabindex="-1" role="dialog" aria-labelledby="edit_modal_label">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="edit_modal_label">Edit Bullet Point</h4>
-              </div>
-              <div class="modal-body">
-                <textarea name="name" rows="5" id="textarea" spellcheck="true"></textarea>
-                <input type="date" id="edit_date" name="edit_date">
-                <select id="edit_labels" class="pull-right">
-                    <option value="">--Label--</option>
-                    <option value="work">Work</option>
-                    <option value="school">School</option>
-                    <option value="fitness">Fitness</option>
-                    <option value="personal">Personal</option>
-                </select>
-                <div id ="edit_bullet_id"></div>
-                <div id ="edit_task_field"></div>
-                <div id ="edit_comp_time"></div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-danger pull-left" id ="delete_bullet">Delete Bullet</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close Without Saving</button>
-                <button type="button" class="btn btn-primary" id="save_edits">Save Changes</button>
-              </div>
+                    <!-- footer for spacing -->
+                    <div class="modal-footer"></div>
+                </div>
             </div>
-          </div>
         </div>
     </section>
 
-    <!-- The user can create new bullet points with the editor -->
+    <!-- editor modal (for existing bullet points) -->
+    <section id="modal_content_edit">
+        <div class="modal fade" id="edit_modal" tabindex="-1" role="dialog" aria-labelledby="edit_modal_label">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="edit_modal_label">Edit Bullet Point</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <!-- edit bullet contents -->
+                        <textarea name="name" rows="5" id="textarea" spellcheck="true"></textarea>
+                        <input type="date" id="edit_date" name="edit_date">
+                        <select id="edit_labels" class="pull-right">
+                            <option value="">--Label--</option>
+                            <option value="work">Work</option>
+                            <option value="school">School</option>
+                            <option value="fitness">Fitness</option>
+                            <option value="personal">Personal</option>
+                        </select>
+
+                        <!-- not displayed to user, needed for backend -->
+                        <div id="edit_bullet_id"></div>
+                        <div id="edit_task_field"></div>
+                        <div id="edit_comp_time"></div>
+                    </div>
+
+                    <!-- save changes or delete -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger pull-left" id="delete_bullet">Delete Bullet</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close Without Saving</button>
+                        <button type="button" class="btn btn-primary" id="save_edits">Save Changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- editor (for new bullet points) -->
     <div id="hidden" class="hidden">
         <section id="editor">
-            <!-- User can enter specific bullet point contents -->
+            <!-- edit text -->
             <section class="grid2_item1">
-                <div id="editor_text" contenteditable=true>Type up a new entry here! Hit enter while the cursor is inside
-                    this box to create your new bullet point.</div>
-                <!--<button id="get_text">Submit</button>   // need to remove the submit button-->
+                <div id="editor_text" contenteditable=true>
+                    Type up a new entry here! Hit enter while the cursor is inside this box to create your new bullet point.
+                </div>
             </section>
 
             <section class="grid2_item2">
+                <!-- exit -->
                 <img id="close" src="./images/close.svg" alt="Edit button">
-                <!-- user can assign a date -->
+
+                <!-- edit date (defaults to current day) -->
                 <div id="assign_date">
                     <div>Assign a date:</div>
                     <input type="date" id="entry_date" name="entry_date">
                 </div>
 
-                <!-- user can assign a label-->
+                <!-- edit label -->
                 <div>Assign a label:</div>
                 <div class="labels">
                     <select id="select2">
@@ -284,12 +317,5 @@
             </section>
         </section>
     </div>
-    <template>
-        <article class="entry">
-            <p contenteditable="true"></p>
-            <span class="date"></span>
-            <span class="entry_label"></span>
-        </article>
-    </template>
 </body>
 </html>

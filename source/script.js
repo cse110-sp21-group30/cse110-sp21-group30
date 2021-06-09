@@ -1,4 +1,4 @@
-import { router } from './router.js';
+import { router } from './router.js'; 
 const setState = router.setState;
 
 var high_priority_array = [];
@@ -466,7 +466,7 @@ document.getElementById("search_on").addEventListener("click", function(){
     toggle_filter(null, null, null);
 });
 
-document.getElementById("closeModal").addEventListener("click", clear_search_modal);
+document.getElementById("close_modal").addEventListener("click", clear_search_modal);
 
 function clear_search_modal() {
     document.getElementById('start_day').value = "";
