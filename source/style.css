@@ -35,71 +35,11 @@ header {
     z-index: 999;
 }
 
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-#color1 {
-    background-color: #B53A27;
-    color: #F0F0F0;
-}
-
-#color2 {
-    background-color: #FFFFFF;
-}
-
-#color3 {
-    background-color: #C69214;
-}
-
-#color4 {
-    background-color: #1A1D21;
-    color: #F0F0F0;
-}
-
-#color5 {
-    background-color: #46B1C9;
-}
-
-#color6 {
-    background-color: #745db3;
-    color: #F0F0F0;
-}
-
-#color7 {
-    background-color: rgb(238, 223, 203);
-}
-
-.dropdown_content a:hover {
-    filter: brightness(0.9);
-}
-
-.dropdown_content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-
-.dropdown_content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-.dropdown:hover .dropdown_content {
-    display: block;
-}
-
 #textarea{
     width:100%;
 }
 
-.grid_item1 {
+.logo_grid_item1 {
     max-height: 50px;
     grid-column-start: 1;
     grid-column-end: 1;
@@ -107,7 +47,7 @@ header {
     align-content: top;
 }
 
-.grid_item2 {
+.dates_grid_item2 {
     padding-left: 10px;
     max-height: 50px;
     grid-column-start: 2;
@@ -119,17 +59,7 @@ header {
     margin-top: 3px;
 }
 
-.grid_item3 {
-    padding-right: 3px;
-    padding-left: 4px;
-    max-height: 50px;
-    grid-column-start: 3;
-    grid-column-end: 3;
-    justify-content: right;
-    margin-top: 2.6%;
-}
-
-.grid_item4 {
+.buttons_grid_item3 {
     padding-right: 2px;
     padding-left: 2px;
     max-height: 50px;
@@ -164,7 +94,6 @@ header {
     height: 85%;
     margin: 0px 0px 0px 0px;
 }
-
 
 #archive {
     cursor: pointer;
@@ -367,6 +296,69 @@ header {
     text-align: center;
 }
 /* Dates Overview CSS Ends Here */
+
+/* Theme CSS Starts Here */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+#color1 {
+    background-color: #B53A27;
+    color: #F0F0F0;
+}
+
+#color2 {
+    background-color: #FFFFFF;
+}
+
+#color3 {
+    background-color: #C69214;
+}
+
+#color4 {
+    background-color: #1A1D21;
+    color: #F0F0F0;
+}
+
+#color5 {
+    background-color: #46B1C9;
+}
+
+#color6 {
+    background-color: #745db3;
+    color: #F0F0F0;
+}
+
+#color7 {
+    background-color: rgb(238, 223, 203);
+}
+
+.dropdown_content a:hover {
+    filter: brightness(0.9);
+}
+
+.dropdown_content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown_content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown:hover .dropdown_content {
+    display: block;
+}
+/* Theme CSS Ends Here */
+
 /* Header CSS Ends Here */
 
 /* Body CSS Begins Here */
@@ -447,7 +439,7 @@ h1 {
     border-radius: 15px;
 }
 
-#clear_archive{
+#clear_archive {
     cursor: pointer;
     margin: 0px 0px 0px 0px;
     width: 23px;
@@ -455,7 +447,7 @@ h1 {
     margin-bottom: 5px;
 }
 
-#clear_archive:hover{
+#clear_archive:hover {
     transform: scale(1.1);
 }
 
@@ -519,7 +511,7 @@ h1 {
     background-color:lightgreen;
 }
 
-/* Editor CSS Begins Here*/
+/* Editor CSS Begins Here */
 .hidden {
 	display: none;
 }
@@ -558,7 +550,7 @@ h1 {
     overflow-x: auto;
 }
 
-.grid2_item1 {
+.editor_grid2_item1 {
     grid-column-start: 1;
     grid-column-end: 1;
     padding-left: 15px;
@@ -567,13 +559,24 @@ h1 {
     min-width: 50px;
 }
 
-.grid2_item2 {
+.editor_grid2_item2 {
     grid-column-start: 2;
     grid-column-end: 2;
     padding: 8px 5px 5px 5px;
 }
 
-/* Editing modal content and labels coloring */
+.label_list {
+    margin-top: 5%;
+}
+
+.label {
+    color: white;
+    padding: 8px;
+    font-family: Arial;
+}
+/* Editor CSS Ends Here */
+
+/* Edit Modal CSS Starts Here */
 #assign_date {
     margin-top: -25px;
 }
@@ -590,6 +593,12 @@ h1 {
     display: none;
 }
 
+#edit_modal textarea {
+    resize: none;
+}
+/* Edit Modal CSS Ends Here */
+
+/* FAQ CSS Starts Here */
 #header_faq {
     padding: 10px;
 }
@@ -618,17 +627,9 @@ h1 {
 #close_faq {
     margin-top: 6px;
 }
+/* FAQ CSS Ends Here */
 
-.label_list {
-    margin-top: 5%;
-}
-
-.label {
-    color: white;
-    padding: 8px;
-    font-family: Arial;
-}
-
+/* Modal CSS Starts Here */
 .modal-content {
     width: 99.9%;
 }
@@ -640,11 +641,7 @@ h1 {
 .modal-footer {
     border-radius: 0px 0px 4.2px 4.2px;
 }
-/* Editor CSS Ends Here */
 
-/* Edit Modal CSS */
-#edit_modal textarea {
-    resize: none;
-}
-/* Edit Modal CSS Ends Here*/
+/* Modal CSS Ends Here */
+
 /* Body CSS Ends Here */
