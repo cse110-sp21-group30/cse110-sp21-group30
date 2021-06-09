@@ -461,9 +461,4 @@ document.addEventListener('DOMContentLoaded', function () {
             theme_button.dispatchEvent(event);
         }
     }
-
-    document.getElementById('clear').addEventListener('click', function() {
-        let theme_button = document.getElementById('color1');
-        theme_button.dispatchEvent(event);
-    });
 });

@@ -624,6 +624,8 @@ document.querySelector('#archive').addEventListener('click', function () {
 
 document.querySelector('#clear').addEventListener('click', function () {
     if (window.confirm('Do you really want to delete all bullets?')) {
+        let theme_button = document.getElementById('color1');
+        theme_button.click();
         localStorage.clear();
         populate_global_arrays();
         update_view('C');
