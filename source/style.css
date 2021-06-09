@@ -407,6 +407,7 @@ body {
     height: 85vh;
     max-Height: 100vh;
     margin-bottom: 0px;
+    display: none;
 }
 
 #archive_header {
@@ -532,8 +533,7 @@ h1 {
     grid-template-rows: auto;
     grid-gap: 0px;
     width: 98%;
-    height: 15%;
-    min-height: 95px;
+    height: 98px;
     border-radius: 1px;
     border-style: solid;
     margin-top: 5px;
@@ -611,7 +611,7 @@ h1 {
     margin-top: 5px;
 }
 
-#myModalLabel_FAQ {
+#FAQ_modal_label {
     width: 30px;
 }
 
