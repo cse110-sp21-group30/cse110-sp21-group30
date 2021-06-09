@@ -1,11 +1,14 @@
 export const router = {};
 import { remove_filter } from './script.js';
-
 /**
  * Changes the "page" (state) that your SPA app is currently set to
  */
  router.setState = function(state, newState) {
-    //change state to archive
+    var body = document.querySelector('body');
+    var header = document.querySelector('header');
+    var columns = document.getElementById("column_view");
+
+    //change state to settings
     if (state == "archive") {
       remove_filter();
       document.getElementById("edit").style.display = "none";
@@ -21,8 +24,7 @@ import { remove_filter } from './script.js';
       if (newState){
         window.history.pushState({page: "archive"}, "archive", "#archive"); //push state and change URL
       }
-    } 
-    else if (state == "home") {
+    } else if (state == "home") {
       remove_filter();
       document.getElementById("edit").style.display = "inline-block";
       document.getElementById("search_off").style.display = "inline-block";
