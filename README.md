@@ -5,6 +5,8 @@ You can find our team page [here](admin/team.md).
 
 Our application can be used [here](https://cse110-sp21-group30.github.io/cse110-sp21-group30/source/#) (a GitHub Page published using the main branch).
 
+Interested in contributing? Check out our [onboarding doc](https://github.com/cse110-sp21-group30/cse110-sp21-group30/blob/main/admin/onboard.md)!
+
 # Requirements
 - A stable internet connection.
 - The bullet journal performs best when accessed using a desktop computer and Google Chrome browser.
