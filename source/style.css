@@ -35,7 +35,7 @@ header {
     z-index: 999;
 }
 
-#textarea{
+#textarea {
     width:100%;
 }
 
@@ -601,13 +601,6 @@ h1 {
 /* FAQ CSS Starts Here */
 #header_faq {
     padding: 10px;
-}
-
-#clear_message {
-    color: red;
-    font-size: smaller;
-    margin-bottom: 10px;
-    text-align: center;
 }
 
 .faq_image {

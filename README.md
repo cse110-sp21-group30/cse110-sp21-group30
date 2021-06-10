@@ -1,10 +1,12 @@
 # [Cool Beans](admin/team.md)
 CSE 110 Bullet Journal Project, Spring 2021, Group 30
 
-[Github Page](https://nbuhr9.github.io/test-server/) published through the [test server](https://github.com/nbuhr9/test-server).
+You can find our team page [here](admin/team.md).
+
+Our application can be used [here](https://cse110-sp21-group30.github.io/cse110-sp21-group30/source/#) (a GitHub Page published using the main branch).
 
 # Requirements
-- A stable internet connection
+- A stable internet connection.
 - The bullet journal performs best when accessed using a desktop computer and Google Chrome browser.
 # Functionalities
 Users can click on the cool beans logo in the top left of the header to pick their favorite color theme. This theme will stick even if the user refreshes the page!

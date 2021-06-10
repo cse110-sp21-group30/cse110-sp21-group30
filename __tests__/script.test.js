@@ -1,6 +1,6 @@
 describe('Basic user flow for SPA ', () => {
   beforeAll(async () => {
-    await page.goto("https://nbuhr9.github.io/test-server/");
+    await page.goto("https://cse110-sp21-group30.github.io/cse110-sp21-group30/source/");
   });
 
   test('Test for current date', async () => {
@@ -223,7 +223,7 @@ describe('Basic user flow for SPA ', () => {
   });
 
   test('Test for home url', async() => {
-    expect(page.url()).toMatch("https://nbuhr9.github.io/test-server/");
+    expect(page.url()).toMatch("https://cse110-sp21-group30.github.io/cse110-sp21-group30/source/");
   });
 
   test('Test for archive url', async() => {
@@ -234,7 +234,7 @@ describe('Basic user flow for SPA ', () => {
 
   test('Test back arrow button', async() => {
       await page.goBack();
-      expect(page.url()).toBe("https://nbuhr9.github.io/test-server/#");
+      expect(page.url()).toBe("https://cse110-sp21-group30.github.io/cse110-sp21-group30/source/#");
   });
 
   test('Test for archiving a bullet', async() => {
