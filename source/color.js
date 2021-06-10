@@ -387,8 +387,6 @@ function update_faq_modal_colors(background_shade, header_shade) {
     document.getElementsByClassName("modal-header")[1].style.background = header.style.background;
     document.getElementsByClassName("modal-body")[1].style.background = body.style.background;
     document.getElementsByClassName("modal-footer")[1].style.background = header.style.background;
-
-    document.getElementById('clear_message').style.color = 'red';
 }
 
 /*
